@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="dialpad_row_height">54dp</dimen>
+    <dimen name="dialpad_icon_height">32dp</dimen>
+    <dimen name="dialpad_icon_width">32dp</dimen>
+    <dimen name="dialpad_margin_right">12dp</dimen>
+    <dimen name="dialpad_margin_left">12dp</dimen>
+
+</resources>

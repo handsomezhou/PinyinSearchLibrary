@@ -1,0 +1,13 @@
+<resources>
+
+    <string name="app_name">PinyinSearch</string>
+    <string name="t9_search">T9 search</string>
+    <string name="qwerty_search">Qwerty search</string>
+    <string name="display_keyboard">显示键盘</string>
+    <string name="hide_keyboard">隐藏键盘</string>
+    <string name="t9_keyboard_input_prompt">输入号码或拼音</string>
+    <string name="qwerty_keyboard_input_prompt">输入号码或拼音</string>
+    <string name="no_match_search_result">无相关搜索结果</string>
+    <string name="loading_contacts">正在加载联系人</string>
+
+</resources>
