@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.handsomezhou.pinyinsearchdemo.R;
 import com.handsomezhou.pinyinsearchdemo.model.Contacts;
+import com.handsomezhou.pinyinsearchdemo.util.ViewUtil;
 
 
 public class ContactsAdapter extends ArrayAdapter<Contacts> {
@@ -46,16 +47,16 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> {
 		
 		switch (contact.getSearchByType()) {
 		case SearchByNull:
-			showTextNormal(viewHolder.mNameTv, contact.getName());
-			showTextNormal(viewHolder.mPhoneNumber, contact.getPhoneNumber());
+			ViewUtil.showTextNormal(viewHolder.mNameTv, contact.getName());
+			ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contact.getPhoneNumber());
 			break;
 		case SearchByPhoneNumber:
-			showTextNormal(viewHolder.mNameTv, contact.getName());
-			showTextHighlight(viewHolder.mPhoneNumber, contact.getPhoneNumber(), contact.getMatchKeywords().toString());
+			ViewUtil.showTextNormal(viewHolder.mNameTv, contact.getName());
+			ViewUtil.showTextHighlight(viewHolder.mPhoneNumber, contact.getPhoneNumber(), contact.getMatchKeywords().toString());
 			break;
 		case SearchByName:
-			showTextHighlight(viewHolder.mNameTv, contact.getName(), contact.getMatchKeywords().toString());
-			showTextNormal(viewHolder.mPhoneNumber, contact.getPhoneNumber());
+			ViewUtil.showTextHighlight(viewHolder.mNameTv, contact.getName(), contact.getMatchKeywords().toString());
+			ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contact.getPhoneNumber());
 			break;
 		default:
 			break;
@@ -67,27 +68,4 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> {
 		TextView mNameTv;
 		TextView mPhoneNumber;
 	}
-	
-	private final void showTextNormal(TextView tv,String text){
-		tv.setText(text);
-	}
-	
-	private void showTextHighlight(TextView tv,String baseText,String highlightText){
-		if((null==tv)||(null==baseText)||(null==highlightText)){
-			return;
-		}
-		
-		int index=baseText.indexOf(highlightText);
-		int len=highlightText.length();
-		/**
-		 *  "<u><font color=#FF0000 >"+str+"</font></u>"; 	//with underline
-		 *  "<font color=#FF0000 >"+str+"</font>";			//without underline
-		 */
-		Spanned spanned=Html.fromHtml(baseText.substring(0, index)+"<font color=#FF0000 >" 
-                + baseText.substring(index, index + len) + "</font>" 
-                + baseText.substring(index + len, baseText.length()));
-		
-		tv.setText(spanned);
-	}
-	
 }
