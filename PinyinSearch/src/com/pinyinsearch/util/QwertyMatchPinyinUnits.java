@@ -28,15 +28,17 @@ public class QwertyMatchPinyinUnits {
 		StringBuffer matchSearch = new StringBuffer();
 		matchSearch.delete(0, matchSearch.length());
 		chineseKeyWord.delete(0, chineseKeyWord.length());
-		// PinyinUnit pyUnit=null;
 
-		int pinyinUnitsLength = 0;
-		pinyinUnitsLength = pinyinUnits.size();
+		//search by  original string
+		if(baseData.contains(search)){
+			chineseKeyWord.append(search);
+			return true;
+		}
+		
+		//search by pinyin characters
+		int pinyinUnitsLength = pinyinUnits.size();
 		StringBuffer searchBuffer = new StringBuffer();
 		for (int i = 0; i < pinyinUnitsLength; i++) {
-			// pyUnit=pinyinUnits.get(i);
-			// for(int j=0; j<pyUnit.getQwertyPinyinUnitIndex().size(); j++){
-
 			int j = 0;
 			chineseKeyWord.delete(0, chineseKeyWord.length());
 			searchBuffer.delete(0, searchBuffer.length());
@@ -46,7 +48,6 @@ public class QwertyMatchPinyinUnits {
 			if (true == found) {
 				return true;
 			}
-			// }
 		}
 
 		return false;

@@ -269,8 +269,8 @@ public class ContactsHelper {
 		/**
 		 * search process:
 		 * 1:Search by name
-		 *  (1)Search by name pinyin characters(org name->name pinyin characters)	
-		 *  (2)Search by org name		
+		 *  (1)Search by original name	
+		 *  (2)Search by name pinyin characters(original name->name pinyin characters)	
 		 * 2:Search by phone number		
 		 */
 		for(int i=0; i<contactsCount; i++){
