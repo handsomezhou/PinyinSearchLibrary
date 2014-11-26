@@ -1,10 +1,11 @@
 package com.pinyinsearch.util;
 
 import java.util.List;
-
+import android.annotation.SuppressLint;
 import com.pinyinsearch.model.PinyinBaseUnit;
 import com.pinyinsearch.model.PinyinUnit;
 
+@SuppressLint("DefaultLocale")
 public class QwertyMatchPinyinUnits {
 	// private static final String TAG="QwertyMatchPinyinUnits";
 	/**
@@ -18,6 +19,7 @@ public class QwertyMatchPinyinUnits {
 	 *            the sub string of base data
 	 * @return true if match success,false otherwise.
 	 */
+	@SuppressLint("DefaultLocale")
 	public static boolean matchPinyinUnits(final List<PinyinUnit> pinyinUnits,
 			final String baseData, String search, StringBuffer chineseKeyWord) {
 		if ((null == pinyinUnits) || (null == search)
@@ -30,8 +32,13 @@ public class QwertyMatchPinyinUnits {
 		chineseKeyWord.delete(0, chineseKeyWord.length());
 
 		//search by  original string
-		if(baseData.contains(search)){
-			chineseKeyWord.append(search);
+//		if(baseData.contains(search)){
+//			chineseKeyWord.append(search);
+//			return true;
+//		}
+		int index=baseData.toLowerCase().indexOf(search.toLowerCase());
+		if(index>-1){
+			chineseKeyWord.append(baseData.substring(index, index+search.length()));
 			return true;
 		}
 		
@@ -42,7 +49,7 @@ public class QwertyMatchPinyinUnits {
 			int j = 0;
 			chineseKeyWord.delete(0, chineseKeyWord.length());
 			searchBuffer.delete(0, searchBuffer.length());
-			searchBuffer.append(search);
+			searchBuffer.append(search.toLowerCase());
 			boolean found = findPinyinUnits(pinyinUnits, i, j, baseData,
 					searchBuffer, chineseKeyWord);
 			if (true == found) {
