@@ -32,13 +32,10 @@ public class QwertyMatchPinyinUnits {
 		chineseKeyWord.delete(0, chineseKeyWord.length());
 
 		//search by  original string
-//		if(baseData.contains(search)){
-//			chineseKeyWord.append(search);
-//			return true;
-//		}
-		int index=baseData.toLowerCase().indexOf(search.toLowerCase());
+		String searchLowerCase=search.toLowerCase();
+		int index=baseData.toLowerCase().indexOf(searchLowerCase);
 		if(index>-1){
-			chineseKeyWord.append(baseData.substring(index, index+search.length()));
+			chineseKeyWord.append(baseData.substring(index, index+searchLowerCase.length()));
 			return true;
 		}
 		
@@ -49,7 +46,7 @@ public class QwertyMatchPinyinUnits {
 			int j = 0;
 			chineseKeyWord.delete(0, chineseKeyWord.length());
 			searchBuffer.delete(0, searchBuffer.length());
-			searchBuffer.append(search.toLowerCase());
+			searchBuffer.append(searchLowerCase);
 			boolean found = findPinyinUnits(pinyinUnits, i, j, baseData,
 					searchBuffer, chineseKeyWord);
 			if (true == found) {

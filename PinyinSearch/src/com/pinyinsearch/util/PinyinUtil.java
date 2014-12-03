@@ -1,15 +1,15 @@
 package com.pinyinsearch.util;
 
 import java.util.List;
-
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
-
+import android.annotation.SuppressLint;
 import com.pinyinsearch.model.PinyinUnit;
 import com.pinyinsearch.model.PinyinBaseUnit;
 
+@SuppressLint("DefaultLocale")
 public class PinyinUtil {
 	// init Pinyin Output Format
 	private static HanyuPinyinOutputFormat format = new HanyuPinyinOutputFormat();
@@ -26,13 +26,16 @@ public class PinyinUtil {
 			return;
 		}
 		
+		
+		String chineseStr=chineseString.toLowerCase();
+		
 		if(null==format){
 			format = new HanyuPinyinOutputFormat();
 		}
 		
 		format.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
 
-		int chineseStringLength = chineseString.length();
+		int chineseStringLength = chineseStr.length();
 		StringBuffer nonPinyinString = new StringBuffer();
 		PinyinUnit pyUnit = null;
 		String[] pinyinStr = null;
@@ -40,7 +43,7 @@ public class PinyinUtil {
 		int startPosition=-1;
 
 		for (int i = 0; i < chineseStringLength; i++) {
-			char ch = chineseString.charAt(i);
+			char ch = chineseStr.charAt(i);
 			try {
 				pinyinStr = PinyinHelper.toHanyuPinyinStringArray(ch,format);
 			} catch (BadHanyuPinyinOutputFormatCombination e) {
