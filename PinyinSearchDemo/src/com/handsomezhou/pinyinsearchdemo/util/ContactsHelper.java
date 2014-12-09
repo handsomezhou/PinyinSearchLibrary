@@ -311,8 +311,8 @@ public class ContactsHelper {
 		int contactsCount=ContactsHelper.getInstance().getBaseContacts().size();
 		for(int i=0; i<contactsCount; i++){
 			String name=ContactsHelper.getInstance().getBaseContacts().get(i).getName();
-			Log.i(TAG,"++++++++++++++++++++++++++++++:["+name+"]"+"++++++++++++++++++++++++++++++");
 			List<PinyinUnit> pinyinUnit=ContactsHelper.getInstance().getBaseContacts().get(i).getNamePinyinUnits();
+			Log.i(TAG,"++++++++++++++++++++++++++++++:name=["+name+"]"+"firstCharacter=["+PinyinUtil.getFirstCharacter(pinyinUnit)+"]"+"firstLetter=["+PinyinUtil.getFirstLetter(pinyinUnit)+"]"+"+++++++++++++++++++++++++++++");
 			int pinyinUnitCount=pinyinUnit.size();
 			for(int j=0; j<pinyinUnitCount; j++){
 				PinyinUnit pyUnit=pinyinUnit.get(j);
@@ -320,7 +320,7 @@ public class ContactsHelper {
 				List<PinyinBaseUnit> stringIndex=pyUnit.getPinyinBaseUnitIndex();
 				int stringIndexLength=stringIndex.size();
 				for(int k=0; k<stringIndexLength; k++){
-					Log.i(TAG,"k="+k+"["+stringIndex.get(k).getPinyin()+"]+["+stringIndex.get(k).getNumber()+"]" );
+					Log.i(TAG,"k="+k+"["+stringIndex.get(k).getOriginalString()+"]"+"["+stringIndex.get(k).getPinyin()+"]+["+stringIndex.get(k).getNumber()+"]" );
 				}
 			}
 		}

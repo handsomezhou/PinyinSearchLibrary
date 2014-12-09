@@ -16,11 +16,15 @@ PinyinUnit as a base data structure to save the string that Chinese characters  
 Function:
 public static void chineseStringToPinyinUnit(String chineseString,List<PinyinUnit> pinyinUnit);
 public static boolean matchPinyinUnits(final List<PinyinUnit> pinyinUnits,final String baseData, String search,StringBuffer chineseKeyWord);
+public static String getFirstLetter(List<PinyinUnit> pinyinUnit);
+public static String getFirstCharacter(List<PinyinUnit> pinyinUnit);
 
 Function call methods:
 T9MatchPinyinUnits.matchPinyinUnits(...);
 QwertyMatchPinyinUnits.matchPinyinUnits(...);
 PinyinUtil.chineseStringToPinyinUnit(...);
+PinyinUtil.getFirstCharacter(...);
+PinyinUtil.getFirstLetter();
 
 Function call methods in detail:
 Reference PinyinSearchDemo Project.
