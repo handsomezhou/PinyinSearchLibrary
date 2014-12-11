@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -21,7 +22,10 @@ import com.handsomezhou.pinyinsearchdemo.R;
  * @date 2014.11.09
  */
 public class T9TelephoneDialpadView extends LinearLayout implements
-		OnClickListener {
+		OnClickListener ,OnLongClickListener{
+	private static final char DIAL_X_SECOND_MEANING=',';
+	private static final char DIAL_0_SECOND_MEANING='+';
+	private static final char DIAL_J_SECOND_MEANING=';';
 	/**
 	 * Interface definition for a callback to be invoked when a
 	 * T9TelephoneDialpadView is operated.
@@ -89,12 +93,24 @@ public class T9TelephoneDialpadView extends LinearLayout implements
 		});
 
 		/**
-		 * 涓�0-9",'*','#' 璁剧疆鐩戝惉
+		 * set click listener for button("0-9",'*','#')
 		 */
 		for (int i = 0; i < 12; i++) {
 			View v = mDialpadView.findViewById(R.id.dialNum1 + i);
 			v.setOnClickListener(this);
 		}
+		
+		/**
+		 * set long click listener for button('*','0','#')
+		 * */
+		View viewX=mDialpadView.findViewById(R.id.dialx);
+		viewX.setOnLongClickListener(this);
+		
+		View viewO=mDialpadView.findViewById(R.id.dialNum0);
+		viewO.setOnLongClickListener(this);
+		
+		View viewJ=mDialpadView.findViewById(R.id.dialj);
+		viewJ.setOnLongClickListener(this);
 
 		mT9InputEt.addTextChangedListener(new TextWatcher() {
 
@@ -173,6 +189,24 @@ public class T9TelephoneDialpadView extends LinearLayout implements
 
 	}
 
+	@Override
+	public boolean onLongClick(View v) {
+		switch (v.getId()) {
+		case R.id.dialx:
+			addSingleDialCharacter(String.valueOf(DIAL_X_SECOND_MEANING));
+			break;
+		case R.id.dialNum0:
+			addSingleDialCharacter(String.valueOf(DIAL_0_SECOND_MEANING));
+			break;
+		case R.id.dialj:
+			addSingleDialCharacter(String.valueOf(DIAL_J_SECOND_MEANING));
+			break;
+		default:
+			break;
+		}
+		return true;
+	}
+	
 	public OnT9TelephoneDialpadView getOnT9TelephoneDialpadView() {
 		return mOnT9TelephoneDialpadView;
 	}
@@ -256,4 +290,6 @@ public class T9TelephoneDialpadView extends LinearLayout implements
 	public void  clearT9Input(){
 		mT9InputEt.setText("");
 	}
+
+	
 }
