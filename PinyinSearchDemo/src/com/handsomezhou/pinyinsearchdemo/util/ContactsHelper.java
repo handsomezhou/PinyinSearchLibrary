@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.database.ContentObserver;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
-import android.os.Handler;
 import android.provider.ContactsContract;
 import android.util.Log;
 
@@ -36,10 +34,10 @@ public class ContactsHelper {
 	private StringBuffer  mFirstNoSearchResultInput=null;
 	private AsyncTask<Object, Object, List<Contacts>> mLoadTask = null;
 	private OnContactsLoad mOnContactsLoad = null;
-	private OnContactsChanged mOnContactsChanged=null;
-	private ContentObserver mContentObserver;
+	/*private OnContactsChanged mOnContactsChanged=null;
+	private ContentObserver mContentObserver;*/
 	private boolean mContactsChanged = true;
-	private Handler mContactsHandler=new Handler();
+	/*private Handler mContactsHandler=new Handler();*/
 
 	public interface OnContactsLoad {
 		void onContactsLoadSuccess();
@@ -348,13 +346,12 @@ public class ContactsHelper {
 		}
 	}
 	
-	private void registerContentObserver(){
+/*	private void registerContentObserver(){
 		if(null==mContentObserver){
 			mContentObserver=new ContentObserver(mContactsHandler) {
 
 				@Override
 				public void onChange(boolean selfChange) {
-					// TODO Auto-generated method stub
 					setContactsChanged(true);
 					if(null!=mOnContactsChanged){
 						Log.i("ActivityTest","mOnContactsChanged mContactsChanged="+mContactsChanged);
@@ -371,14 +368,14 @@ public class ContactsHelper {
 					mContentObserver);
 		}
 	}
-	
-	private void unregisterContentObserver(){
+	*/
+	/*private void unregisterContentObserver(){
 		if(null!=mContentObserver){
 			if(null!=mContext){
 				mContext.getContentResolver().unregisterContentObserver(mContentObserver);
 			}
 		}
-	}
+	}*/
 	
 	private boolean isSearching() {
 		return (mLoadTask != null && mLoadTask.getStatus() == Status.RUNNING);
@@ -394,20 +391,34 @@ public class ContactsHelper {
 			cursor = context.getContentResolver().query(
 					ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
 					null, null, "sort_key");
-
+			String sortkey =null;
 			while (cursor.moveToNext()) {
+				
 				String displayName = cursor
 						.getString(cursor
 								.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
 				String phoneNumber = cursor
 						.getString(cursor
 								.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+//				String nameSortKey=cursor
+//						.getString(cursor
+//								.getColumnIndex(ContactsContract.CommonDataKinds.Phone.);
+//				sortkey = cursor.getString(cursor
+//						.getColumnIndex("sort_key"));
+//				
+//				Log.i(TAG, "sortkey=["+sortkey+"]");
 				
 				cs = new Contacts(displayName, phoneNumber);
+				
 				PinyinUtil.chineseStringToPinyinUnit(cs.getName(), cs.getNamePinyinUnits());
+				sortkey=PinyinUtil.getSortKey(cs.getNamePinyinUnits());
+				cs.setSortKey(sortkey);
+				Log.i(TAG, "sortkey=["+cs.getSortKey()+"]");
 				
 				contacts.add(cs);
 			}
+			
+			//Collections.sort(contacts, Contacts.mAscComparator);
 		} catch (Exception e) {
 
 		} finally {
