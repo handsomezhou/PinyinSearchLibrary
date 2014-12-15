@@ -11,20 +11,26 @@ import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AbsListView;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class ContactsOperationView extends FrameLayout {
 
 	private Context mContext;
 	private ListView mContactsLv;
+	private QuickAlphabeticBar mQuickAlphabeticBar;
 	private View mLoadContactsView;
+	private TextView mSelectCharTv;
 	private TextView mSearchResultPromptTv;
 	private ContactsAdapter mContactsAdapter;
+	
 	
 	private View mContactsOperationView;
 	
@@ -57,7 +63,9 @@ public class ContactsOperationView extends FrameLayout {
 				this);
 		
 		mContactsLv = (ListView) mContactsOperationView.findViewById(R.id.contacts_list_view);
+		mQuickAlphabeticBar=(QuickAlphabeticBar)mContactsOperationView.findViewById(R.id.quick_alphabetic_bar);
 		mLoadContactsView = mContactsOperationView.findViewById(R.id.load_contacts);
+		mSelectCharTv=(TextView)mContactsOperationView.findViewById(R.id.select_char_text_view);
 		mSearchResultPromptTv = (TextView) mContactsOperationView.findViewById(R.id.search_result_prompt_text_view);
 		
 		showView(mContactsLv);
@@ -86,6 +94,31 @@ public class ContactsOperationView extends FrameLayout {
 				
 			}
 		});
+		
+		mContactsLv.setOnScrollListener(new OnScrollListener(){
+
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem,
+					int visibleItemCount, int totalItemCount) {
+				Adapter adapter=mContactsLv.getAdapter();
+				if((null!=adapter)&&adapter.getCount()>0){
+					Contacts contacts=(Contacts)adapter.getItem(firstVisibleItem);
+					char firstChar=contacts.getSortKey().charAt(0);
+					mQuickAlphabeticBar.setCurrentSelectChar(firstChar);
+				}
+				
+			}
+		} );
+		
+		mQuickAlphabeticBar.setSectionIndexer(mContactsAdapter);
+		mQuickAlphabeticBar.setQuickAlphabeticLv(mContactsLv);
+		mQuickAlphabeticBar.setSelectCharTv(mSelectCharTv);
 	}
 	
 	private void hideView(View view) {

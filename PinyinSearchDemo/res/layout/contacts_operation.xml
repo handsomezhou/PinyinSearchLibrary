@@ -9,6 +9,24 @@
         android:layout_height="match_parent" >
     </ListView>
 
+    <com.handsomezhou.pinyinsearchdemo.view.QuickAlphabeticBar
+        android:id="@+id/quick_alphabetic_bar"
+        android:layout_width="32dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center_vertical" />
+
+    <TextView
+        android:id="@+id/select_char_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginRight="80dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:background="@drawable/sort_icon_bg_click"
+        android:textColor="@android:color/white"
+        android:textSize="50sp"
+        android:visibility="gone" />
+
     <LinearLayout
         android:id="@+id/load_contacts"
         android:layout_width="match_parent"

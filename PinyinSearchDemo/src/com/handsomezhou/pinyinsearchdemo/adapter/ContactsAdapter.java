@@ -7,14 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.handsomezhou.pinyinsearchdemo.R;
 import com.handsomezhou.pinyinsearchdemo.model.Contacts;
 import com.handsomezhou.pinyinsearchdemo.util.ViewUtil;
+import com.handsomezhou.pinyinsearchdemo.view.QuickAlphabeticBar;
 
 
-public class ContactsAdapter extends ArrayAdapter<Contacts> {
+public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIndexer{
 	public static final String PINYIN_FIRST_LETTER_DEFAULT_VALUE="#";
 	private Context mContext;
 	private int mTextViewResourceId;
@@ -110,5 +112,36 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> {
 			alphabet = PINYIN_FIRST_LETTER_DEFAULT_VALUE;
 		}
 		return alphabet;
+	}
+
+	@Override
+	public Object[] getSections() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getPositionForSection(int section) {
+		Contacts contacts=null;
+		if(QuickAlphabeticBar.DEFAULT_INDEX_CHARACTER==section){
+			return 0;
+		}else{
+			int count=getCount();
+			for(int i=0; i<count; i++){
+				contacts=getItem(i);
+				char firstChar=contacts.getSortKey().charAt(0);
+				if(firstChar==section){
+					return i;
+				}
+			}
+		}
+		
+		return -1;
+	}
+
+	@Override
+	public int getSectionForPosition(int position) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

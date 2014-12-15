@@ -1,8 +1,10 @@
 package com.handsomezhou.pinyinsearchdemo.util;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
@@ -13,6 +15,7 @@ import android.util.Log;
 import com.handsomezhou.pinyinsearchdemo.main.T9SearchApplication;
 import com.handsomezhou.pinyinsearchdemo.model.Contacts;
 import com.handsomezhou.pinyinsearchdemo.model.Contacts.SearchByType;
+import com.handsomezhou.pinyinsearchdemo.view.QuickAlphabeticBar;
 import com.pinyinsearch.model.PinyinBaseUnit;
 import com.pinyinsearch.model.PinyinUnit;
 import com.pinyinsearch.util.PinyinUtil;
@@ -381,6 +384,7 @@ public class ContactsHelper {
 		return (mLoadTask != null && mLoadTask.getStatus() == Status.RUNNING);
 	}
 
+	@SuppressLint("DefaultLocale")
 	private List<Contacts> loadContacts(Context context) {
 
 		List<Contacts> contacts = new ArrayList<Contacts>();
@@ -411,14 +415,14 @@ public class ContactsHelper {
 				cs = new Contacts(displayName, phoneNumber);
 				
 				PinyinUtil.chineseStringToPinyinUnit(cs.getName(), cs.getNamePinyinUnits());
-				sortkey=PinyinUtil.getSortKey(cs.getNamePinyinUnits());
-				cs.setSortKey(sortkey);
+				sortkey=PinyinUtil.getSortKey(cs.getNamePinyinUnits()).toUpperCase();
+				cs.setSortKey(praseSortKey(sortkey));
 				Log.i(TAG, "sortkey=["+cs.getSortKey()+"]");
 				
 				contacts.add(cs);
 			}
 			
-			//Collections.sort(contacts, Contacts.mAscComparator);
+			Collections.sort(contacts, Contacts.mAscComparator);
 		} catch (Exception e) {
 
 		} finally {
@@ -453,5 +457,16 @@ public class ContactsHelper {
 		return;
 	}
 	
-	
+	private String praseSortKey(String sortKey){
+		if(null==sortKey||sortKey.length()<=0){
+			return null;
+		}
+		
+		if((sortKey.charAt(0)>='a'&&sortKey.charAt(0)<='z')||(sortKey.charAt(0)>='A'&&sortKey.charAt(0)<='Z')){
+			return sortKey;
+		}
+		
+		
+		return String.valueOf(QuickAlphabeticBar.DEFAULT_INDEX_CHARACTER)+sortKey;
+	}
 }
