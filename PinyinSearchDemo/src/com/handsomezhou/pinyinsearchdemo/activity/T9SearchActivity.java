@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import com.handsomezhou.pinyinsearchdemo.R;
 import com.handsomezhou.pinyinsearchdemo.util.ContactsHelper;
+import com.handsomezhou.pinyinsearchdemo.util.ContactsIndexHelper;
 import com.handsomezhou.pinyinsearchdemo.util.ContactsHelper.OnContactsLoad;
 import com.handsomezhou.pinyinsearchdemo.view.ContactsOperationView;
 import com.handsomezhou.pinyinsearchdemo.view.T9TelephoneDialpadView;
@@ -129,7 +130,10 @@ public class T9SearchActivity extends Activity implements OnT9TelephoneDialpadVi
 		mContactsOperationView.contactsLoadSuccess();
 		
 		//just background printing contacts information
-		ContactsHelper.getInstance().showContactsInfo();
+		//ContactsHelper.getInstance().showContactsInfo();
+		ContactsIndexHelper.getInstance().praseContacts(ContactsHelper.getInstance().getBaseContacts());
+		//ContactsIndexHelper.getInstance().showContactsInfo();
+		
 	}
 
 	@Override

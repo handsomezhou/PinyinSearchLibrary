@@ -1,22 +1,18 @@
 package com.handsomezhou.pinyinsearchdemo.activity;
 
-import java.util.List;
-
-import com.handsomezhou.pinyinsearchdemo.R;
-import com.handsomezhou.pinyinsearchdemo.util.ContactsHelper;
-import com.handsomezhou.pinyinsearchdemo.util.ContactsHelper.OnContactsLoad;
-import com.handsomezhou.pinyinsearchdemo.view.ContactsOperationView;
-import com.pinyinsearch.model.PinyinBaseUnit;
-import com.pinyinsearch.model.PinyinUnit;
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.widget.EditText;
+
+import com.handsomezhou.pinyinsearchdemo.R;
+import com.handsomezhou.pinyinsearchdemo.util.ContactsHelper;
+import com.handsomezhou.pinyinsearchdemo.util.ContactsIndexHelper;
+import com.handsomezhou.pinyinsearchdemo.util.ContactsHelper.OnContactsLoad;
+import com.handsomezhou.pinyinsearchdemo.view.ContactsOperationView;
 
 public class QwertySearchActivity extends Activity implements OnContactsLoad{
 	private static final String TAG="QwertySearchActivity";
@@ -92,7 +88,9 @@ public class QwertySearchActivity extends Activity implements OnContactsLoad{
 		mContactsOperationView.contactsLoadSuccess();
 		
 		//just background printing contacts information
-		ContactsHelper.getInstance().showContactsInfo();
+		//ContactsHelper.getInstance().showContactsInfo();
+		ContactsIndexHelper.getInstance().praseContacts(ContactsHelper.getInstance().getBaseContacts());
+		//ContactsIndexHelper.getInstance().showContactsInfo();
 	}
 
 	@Override

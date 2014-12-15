@@ -34,6 +34,14 @@ public class QuickAlphabeticBar extends View {
 		super(context, attrs);
 	}
 
+	public static char[] getSelectCharacters() {
+		return mSelectCharacters;
+	}
+
+	/*public static void setSelectCharacters(char[] mSelectCharacters) {
+		QuickAlphabeticBar.mSelectCharacters = mSelectCharacters;
+	}*/
+	
 	public SectionIndexer getSectionIndexer() {
 		return mSectionIndexer;
 	}

@@ -417,12 +417,12 @@ public class ContactsHelper {
 				PinyinUtil.chineseStringToPinyinUnit(cs.getName(), cs.getNamePinyinUnits());
 				sortkey=PinyinUtil.getSortKey(cs.getNamePinyinUnits()).toUpperCase();
 				cs.setSortKey(praseSortKey(sortkey));
-				Log.i(TAG, "sortkey=["+cs.getSortKey()+"]");
+				//Log.i(TAG, "sortkey=["+cs.getSortKey()+"]");
 				
 				contacts.add(cs);
 			}
 			
-			Collections.sort(contacts, Contacts.mAscComparator);
+			//Collections.sort(contacts, Contacts.mAscComparator);
 		} catch (Exception e) {
 
 		} finally {

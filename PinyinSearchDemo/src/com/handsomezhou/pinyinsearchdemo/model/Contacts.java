@@ -6,9 +6,12 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
+import android.util.Log;
+
 import com.pinyinsearch.model.PinyinUnit;
 
 public class Contacts {
+	private static final String TAG="ContactsContacts";
 	public enum SearchByType {
 		SearchByNull, SearchByName, SearchByPhoneNumber,
 	}
@@ -120,5 +123,9 @@ public class Contacts {
 
 	public void clearMatchKeywords() {
 		mMatchKeywords.delete(0, mMatchKeywords.length());
+	}
+	
+	public void showContacts(){
+		Log.i(TAG, "sortKey["+mSortKey+"]name=["+mName+"] phoneNumber=["+mPhoneNumber+"]");
 	}
 }
