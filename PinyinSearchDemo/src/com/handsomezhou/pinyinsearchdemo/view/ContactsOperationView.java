@@ -189,5 +189,12 @@ public class ContactsOperationView extends FrameLayout implements OnContactsInde
 	public void onContactsSelected(Contacts contacts) {
 		Toast.makeText(mContext,PinyinUtil.getFirstCharacter(contacts.getNamePinyinUnits()),
 				Toast.LENGTH_SHORT).show();
+		int contactsIndex=ContactsHelper.getInstance().getSearchContactsIndex(contacts);
+		if(contactsIndex<0){
+			return;
+		}
+		
+		mContactsLv.setSelection(contactsIndex);
+		//mQuickAlphabeticLv.setSelection(position);
 	}
 }
