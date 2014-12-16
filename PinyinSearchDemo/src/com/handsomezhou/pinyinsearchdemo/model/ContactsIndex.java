@@ -11,11 +11,17 @@ import java.util.List;
  * @date 2014-12-15
  */
 public class ContactsIndex {
+	private static final String INDEX_KEY_DEFAULT_VALUE="#";
 	String mIndexKey;//'#','A'~'Z'
 	List<Contacts> mContacts;
 	
+	public ContactsIndex(){
+		mIndexKey=INDEX_KEY_DEFAULT_VALUE;
+		mContacts = new ArrayList<Contacts>();
+	}
+	
 	public ContactsIndex(String indexKey) {
-		super();
+	
 		mIndexKey = indexKey;
 		mContacts = new ArrayList<Contacts>();
 	}

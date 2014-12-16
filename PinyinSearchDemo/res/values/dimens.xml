@@ -16,5 +16,5 @@
     <dimen name="margin_right">8dp</dimen>
     <dimen name="margin_top">8dp</dimen>
     <dimen name="margin_bottom">8dp</dimen>
-
+    <dimen name="text_size_24sp">24sp</dimen>
 </resources>

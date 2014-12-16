@@ -15,6 +15,16 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right|center_vertical" />
 
+    <com.handsomezhou.pinyinsearchdemo.view.ContactsIndexView
+        android:id="@+id/contacts_index_view"
+        android:layout_width="32dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginRight="50dp"
+        android:background="@color/white"
+        android:visibility="visible" >
+    </com.handsomezhou.pinyinsearchdemo.view.ContactsIndexView>
+
     <TextView
         android:id="@+id/select_char_text_view"
         android:layout_width="wrap_content"

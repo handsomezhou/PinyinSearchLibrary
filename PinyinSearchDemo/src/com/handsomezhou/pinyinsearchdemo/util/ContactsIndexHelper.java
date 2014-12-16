@@ -78,7 +78,7 @@ public class ContactsIndexHelper{
 		mContactsIndexs = contactsIndexs;
 	}*/
 	
-	public void showContactsInfo(){
+	public void showContactsInfo2(){
 		if(null==mContactsIndexs){
 			return;
 		}

@@ -4,6 +4,8 @@ import com.handsomezhou.pinyinsearchdemo.R;
 import com.handsomezhou.pinyinsearchdemo.adapter.ContactsAdapter;
 import com.handsomezhou.pinyinsearchdemo.model.Contacts;
 import com.handsomezhou.pinyinsearchdemo.util.ContactsHelper;
+import com.handsomezhou.pinyinsearchdemo.view.ContactsIndexView.OnContactsIndexView;
+import com.pinyinsearch.util.PinyinUtil;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,15 +21,17 @@ import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class ContactsOperationView extends FrameLayout {
+public class ContactsOperationView extends FrameLayout implements OnContactsIndexView{
 	private static final String TAG="ContactsOperationView";
 
 	private Context mContext;
 	private ListView mContactsLv;
 	private QuickAlphabeticBar mQuickAlphabeticBar;
+	private ContactsIndexView mContactsIndexView;
 	private View mLoadContactsView;
 	private TextView mSelectCharTv;
 	private TextView mSearchResultPromptTv;
@@ -66,11 +70,14 @@ public class ContactsOperationView extends FrameLayout {
 		
 		mContactsLv = (ListView) mContactsOperationView.findViewById(R.id.contacts_list_view);
 		mQuickAlphabeticBar=(QuickAlphabeticBar)mContactsOperationView.findViewById(R.id.quick_alphabetic_bar);
+		mContactsIndexView=(ContactsIndexView)mContactsOperationView.findViewById(R.id.contacts_index_view);
+		mContactsIndexView.setOnContactsIndexView(this);
 		mLoadContactsView = mContactsOperationView.findViewById(R.id.load_contacts);
 		mSelectCharTv=(TextView)mContactsOperationView.findViewById(R.id.select_char_text_view);
 		mSearchResultPromptTv = (TextView) mContactsOperationView.findViewById(R.id.search_result_prompt_text_view);
 		
 		showView(mContactsLv);
+		hideView(mContactsIndexView);
 		hideView(mLoadContactsView);
 		hideView(mSearchResultPromptTv);
 	}
@@ -116,6 +123,7 @@ public class ContactsOperationView extends FrameLayout {
 					Contacts contacts=(Contacts)adapter.getItem(currentIndex);
 					char currentSelectChar=contacts.getSortKey().charAt(0);
 					mQuickAlphabeticBar.setCurrentSelectChar(currentSelectChar);
+					mContactsIndexView.setCurrentSelectChar(currentSelectChar);
 				}
 				
 			}
@@ -173,6 +181,13 @@ public class ContactsOperationView extends FrameLayout {
 				showView(mSearchResultPromptTv);
 				
 			}
+			showView(mContactsIndexView);//just for test
 		}
+	}
+
+	@Override
+	public void onContactsSelected(Contacts contacts) {
+		Toast.makeText(mContext,PinyinUtil.getFirstCharacter(contacts.getNamePinyinUnits()),
+				Toast.LENGTH_SHORT).show();
 	}
 }
