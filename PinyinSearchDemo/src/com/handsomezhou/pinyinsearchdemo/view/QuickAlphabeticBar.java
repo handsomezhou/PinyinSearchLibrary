@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ListView;
@@ -18,7 +19,7 @@ import android.widget.TextView;
  * @date 2014-12-15
  */
 public class QuickAlphabeticBar extends View {
-	// private static final String TAG="QuickAlphabeticBar";
+	private static final String TAG="QuickAlphabeticBar";
 	public static final char DEFAULT_INDEX_CHARACTER = '#';
 	private static char[] mSelectCharacters = { DEFAULT_INDEX_CHARACTER, 'A',
 			'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
@@ -78,6 +79,7 @@ public class QuickAlphabeticBar extends View {
 	public boolean onTouchEvent(MotionEvent event) {
 		super.onTouchEvent(event);
 		int index = getCurrentIndex(event);
+		//Log.i(TAG,"index="+index);
 		if((event.getAction()==MotionEvent.ACTION_DOWN)||(event.getAction()==MotionEvent.ACTION_MOVE)){
 			if(null!=mSelectCharTv){	//show select char
 				mSelectCharTv.setVisibility(View.VISIBLE);
@@ -87,6 +89,7 @@ public class QuickAlphabeticBar extends View {
 			//reference: http://blog.csdn.net/jack_l1/article/details/14165291
 			if(null!=mSectionIndexer){
 				int position=mSectionIndexer.getPositionForSection(mSelectCharacters[index]);
+				//Log.i(TAG,"position="+position);
 				if(position<0){
 					return true;
 				}

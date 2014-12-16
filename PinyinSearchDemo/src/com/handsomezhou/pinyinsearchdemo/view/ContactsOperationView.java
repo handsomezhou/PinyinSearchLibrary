@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsListView;
@@ -22,6 +23,7 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class ContactsOperationView extends FrameLayout {
+	private static final String TAG="ContactsOperationView";
 
 	private Context mContext;
 	private ListView mContactsLv;
@@ -106,11 +108,14 @@ public class ContactsOperationView extends FrameLayout {
 			@Override
 			public void onScroll(AbsListView view, int firstVisibleItem,
 					int visibleItemCount, int totalItemCount) {
+			//	Log.i(TAG, "firstVisibleItem=["+firstVisibleItem+"]visibleItemCount=["+visibleItemCount+"totalItemCount=["+totalItemCount+"]");
 				Adapter adapter=mContactsLv.getAdapter();
+				int currentIndex=0;
 				if((null!=adapter)&&adapter.getCount()>0){
-					Contacts contacts=(Contacts)adapter.getItem(firstVisibleItem);
-					char firstChar=contacts.getSortKey().charAt(0);
-					mQuickAlphabeticBar.setCurrentSelectChar(firstChar);
+					currentIndex=((firstVisibleItem+visibleItemCount)<totalItemCount)?(firstVisibleItem):(totalItemCount-1);
+					Contacts contacts=(Contacts)adapter.getItem(currentIndex);
+					char currentSelectChar=contacts.getSortKey().charAt(0);
+					mQuickAlphabeticBar.setCurrentSelectChar(currentSelectChar);
 				}
 				
 			}

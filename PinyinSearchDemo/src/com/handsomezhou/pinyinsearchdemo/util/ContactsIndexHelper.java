@@ -85,7 +85,7 @@ public class ContactsIndexHelper{
 		
 		int contactsIndexsSize=mContactsIndexs.size();
 		for(int i=0; i<contactsIndexsSize; i++){
-			Log.i("ContactsContacts", "indexKey=["+mContactsIndexs.get(i).getIndexKey()+"]");
+			//Log.i("ContactsContacts", "indexKey=["+mContactsIndexs.get(i).getIndexKey()+"]");
 			int contactsCount=mContactsIndexs.get(i).getContacts().size();
 			for(int j=0; j<contactsCount; j++){
 				mContactsIndexs.get(i).getContacts().get(j).showContacts();

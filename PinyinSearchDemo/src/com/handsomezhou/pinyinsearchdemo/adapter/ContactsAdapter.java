@@ -17,7 +17,7 @@ import com.handsomezhou.pinyinsearchdemo.view.QuickAlphabeticBar;
 
 
 public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIndexer{
-	public static final String PINYIN_FIRST_LETTER_DEFAULT_VALUE="#";
+	//public static final String PINYIN_FIRST_LETTER_DEFAULT_VALUE="#";
 	private Context mContext;
 	private int mTextViewResourceId;
 	private List<Contacts> mContacts;
@@ -100,7 +100,7 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 	
 	private String getAlphabet(String str){
 		if((null==str)||(str.length()<=0)){
-			return PINYIN_FIRST_LETTER_DEFAULT_VALUE;
+			return String.valueOf(QuickAlphabeticBar.DEFAULT_INDEX_CHARACTER);
 		}
 		String alphabet=null;
 		char chr=str.charAt(0);
@@ -109,7 +109,7 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 		} else if (chr >= 'a' && chr <= 'z') {
 			alphabet = String.valueOf((char) ('A' + chr - 'a'));
 		} else {
-			alphabet = PINYIN_FIRST_LETTER_DEFAULT_VALUE;
+			alphabet = String.valueOf(QuickAlphabeticBar.DEFAULT_INDEX_CHARACTER);
 		}
 		return alphabet;
 	}

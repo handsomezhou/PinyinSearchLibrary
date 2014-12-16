@@ -90,7 +90,7 @@ public class QwertySearchActivity extends Activity implements OnContactsLoad{
 		//just background printing contacts information
 		//ContactsHelper.getInstance().showContactsInfo();
 		ContactsIndexHelper.getInstance().praseContacts(ContactsHelper.getInstance().getBaseContacts());
-		//ContactsIndexHelper.getInstance().showContactsInfo();
+		ContactsIndexHelper.getInstance().showContactsInfo();
 	}
 
 	@Override
