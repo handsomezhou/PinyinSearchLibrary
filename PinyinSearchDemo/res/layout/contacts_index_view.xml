@@ -5,19 +5,21 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/index_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin"
+        android:id="@+id/index_key_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
         android:background="@color/cadet_blue1"
-        android:padding="@dimen/padding"
-        android:textSize="@dimen/text_size_24sp" />
+        android:gravity="center"
+        android:textSize="@dimen/index_key_text_size"
+        android:textStyle="bold" />
 
     <ListView
         android:id="@+id/index_list_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/cyan3" >
+        android:background="@color/cyan3"
+        android:scrollbars="none" >
     </ListView>
 
 </LinearLayout>

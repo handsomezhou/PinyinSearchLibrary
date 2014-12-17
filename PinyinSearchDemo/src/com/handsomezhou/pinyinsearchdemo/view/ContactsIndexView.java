@@ -1,5 +1,7 @@
 package com.handsomezhou.pinyinsearchdemo.view;
 
+import java.util.List;
+
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -29,8 +31,8 @@ public class ContactsIndexView extends LinearLayout implements OnContactsIndexAd
 
 	private Context mContext;
 	private View mContactsIndexView;
-	private TextView mIndexTv;
-	private ListView mIndexLv; // listview
+	private TextView mIndexKeyTv;
+	private ListView mIndexValueLv; // listview
 	private ContactsIndex mContactsIndex;// data
 	private ContactsIndexAdapter mContactsIndexAdapter;// adapter
 	private OnContactsIndexView mOnContactsIndexView;
@@ -55,9 +57,9 @@ public class ContactsIndexView extends LinearLayout implements OnContactsIndexAd
 				this);
 
 		// mContactsIndexView.setBackgroundColor(getResources().getColor(R.color.cyan3));
-		mIndexTv = (TextView) mContactsIndexView
-				.findViewById(R.id.index_text_view);
-		mIndexLv = (ListView) mContactsIndexView
+		mIndexKeyTv = (TextView) mContactsIndexView
+				.findViewById(R.id.index_key_text_view);
+		mIndexValueLv = (ListView) mContactsIndexView
 				.findViewById(R.id.index_list_view);
 
 		return;
@@ -69,8 +71,8 @@ public class ContactsIndexView extends LinearLayout implements OnContactsIndexAd
 		mContactsIndexAdapter = new ContactsIndexAdapter(mContext,
 				R.layout.contacts_index_list_item, mContactsIndex.getContacts());
 		mContactsIndexAdapter.setOnContactsIndexAdapter(this);
-		mIndexLv.setAdapter(mContactsIndexAdapter);
-		mIndexTv.setText("好");
+		mIndexValueLv.setAdapter(mContactsIndexAdapter);
+		mIndexKeyTv.setText("好");
 
 		return;
 	}
@@ -101,16 +103,30 @@ public class ContactsIndexView extends LinearLayout implements OnContactsIndexAd
 		if (TextUtils.isEmpty(currentSelectString)) {
 			return;
 		}
-
+		
+		//set current index key
+		mIndexKeyTv.setText(String.valueOf(mCurrentSelectChar));
+		
+		//set current index value
 		int contactsIndexsCount = ContactsIndexHelper.getInstance()
 				.getContactsIndexs().size();
 		for (int i = 0; i < contactsIndexsCount; i++) {
 			if (currentSelectString.equals(ContactsIndexHelper.getInstance()
 					.getContactsIndexs().get(i).getIndexKey())) {
 				mContactsIndex.getContacts().clear();
-				mContactsIndex.getContacts().addAll(
-						ContactsIndexHelper.getInstance().getContactsIndexs()
-								.get(i).getContacts());
+				
+				 List<Contacts> contacts=ContactsIndexHelper.getInstance().getContactsIndexs().get(i).getContacts();
+				 
+				 if((null==contacts)||(contacts.size()<=0)){
+					 break;
+				 }
+				 
+				mContactsIndex.getContacts().add(contacts.get(0));
+				for(int j=1; j<contacts.size(); j++){
+					if(contacts.get(j-1).getName().charAt(0)!=contacts.get(j).getName().charAt(0)){
+						mContactsIndex.getContacts().add(contacts.get(j));
+					}
+				}
 
 				break;
 			}
@@ -125,11 +141,11 @@ public class ContactsIndexView extends LinearLayout implements OnContactsIndexAd
 	}
 
 	public void updateContactsList() {
-		if (null == mIndexLv) {
+		if (null == mIndexValueLv) {
 			return;
 		}
 
-		BaseAdapter contactsAdapter = (BaseAdapter) mIndexLv.getAdapter();
+		BaseAdapter contactsAdapter = (BaseAdapter) mIndexValueLv.getAdapter();
 		if (null != contactsAdapter) {
 			contactsAdapter.notifyDataSetChanged();
 			if (contactsAdapter.getCount() > 0) {

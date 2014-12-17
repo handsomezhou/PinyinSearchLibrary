@@ -52,14 +52,14 @@ public class ContactsIndexAdapter extends ArrayAdapter<Contacts> {
 					null);
 			viewHolder = new ViewHolder();
 			viewHolder.mIndexKeyTv = (TextView) view
-					.findViewById(R.id.index_key_text_view);
+					.findViewById(R.id.index_value_text_view);
 			view.setTag(viewHolder);
 		} else {
 			view = convertView;
 			viewHolder = (ViewHolder) view.getTag();
 		}
 
-		viewHolder.mIndexKeyTv.setText(PinyinUtil.getFirstCharacter(contacts.getNamePinyinUnits()));
+		viewHolder.mIndexKeyTv.setText(String.valueOf(contacts.getName().charAt(0)));
 		viewHolder.mIndexKeyTv.setTextColor(mContext.getResources().getColor(
 				R.color.black));
 		viewHolder.mIndexKeyTv.setTag(position);

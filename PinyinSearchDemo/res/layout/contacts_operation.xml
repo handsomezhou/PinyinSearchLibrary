@@ -17,10 +17,11 @@
 
     <com.handsomezhou.pinyinsearchdemo.view.ContactsIndexView
         android:id="@+id/contacts_index_view"
-        android:layout_width="32dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="right|center_vertical"
+        android:layout_width="@dimen/index_view_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|top"
         android:layout_marginRight="50dp"
+        android:gravity="center_horizontal"
         android:background="@color/white"
         android:visibility="visible" >
     </com.handsomezhou.pinyinsearchdemo.view.ContactsIndexView>

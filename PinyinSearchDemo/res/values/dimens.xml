@@ -16,5 +16,13 @@
     <dimen name="margin_right">8dp</dimen>
     <dimen name="margin_top">8dp</dimen>
     <dimen name="margin_bottom">8dp</dimen>
-    <dimen name="text_size_24sp">24sp</dimen>
+    <dimen name="index_view_width">48dp</dimen>
+    <dimen name="index_view_height">192dp</dimen>
+    <dimen name="index_key_width">36dp</dimen>
+    <dimen name="index_key_height">36dp</dimen>
+    <dimen name="index_value_width">36dp</dimen>
+    <dimen name="index_value_height">36dp</dimen>
+    <dimen name="index_key_text_size">24sp</dimen>
+    <dimen name="index_value_text_size">24sp</dimen>
+
 </resources>

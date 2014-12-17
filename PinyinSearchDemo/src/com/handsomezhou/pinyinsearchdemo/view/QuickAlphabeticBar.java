@@ -30,7 +30,13 @@ public class QuickAlphabeticBar extends View {
 	private TextView mSelectCharTv;
 
 	private char mCurrentSelectChar;
-
+	private OnQuickAlphabeticBar mOnQuickAlphabeticBar;
+	
+	public interface OnQuickAlphabeticBar{
+		public void onQuickAlphabeticBarDown();
+		public void onQuickAlphabeticBarUp();
+	}
+	
 	public QuickAlphabeticBar(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
@@ -97,9 +103,17 @@ public class QuickAlphabeticBar extends View {
 					mQuickAlphabeticLv.setSelection(position);
 				}
 			}
+			if(null!=mOnQuickAlphabeticBar){
+				mOnQuickAlphabeticBar.onQuickAlphabeticBarDown();
+			}
+			
 		}else if(event.getAction()==MotionEvent.ACTION_UP){
 			if(null!=mSelectCharTv){	//hide select char
 				mSelectCharTv.setVisibility(View.GONE);
+			}
+			
+			if(null!=mOnQuickAlphabeticBar){
+				mOnQuickAlphabeticBar.onQuickAlphabeticBarUp();
 			}
 		}
 		return true;
