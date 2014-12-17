@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 /**
  * 
- * @author lake&tony
+ * @author lake&handsomezhou
  * @date 2014-12-15
  */
 public class QuickAlphabeticBar extends View {

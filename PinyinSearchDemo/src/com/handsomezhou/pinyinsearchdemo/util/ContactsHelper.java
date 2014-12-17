@@ -523,7 +523,7 @@ public class ContactsHelper {
 				contacts.add(cs);
 			}
 
-			// Collections.sort(contacts, Contacts.mAscComparator);
+			Collections.sort(contacts, Contacts.mAscComparator);
 		} catch (Exception e) {
 
 		} finally {

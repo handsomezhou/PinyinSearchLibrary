@@ -220,9 +220,9 @@ public class ContactsOperationView extends FrameLayout implements
 
 	@Override
 	public void onContactsSelected(Contacts contacts) {
-		Toast.makeText(mContext,
-				PinyinUtil.getFirstCharacter(contacts.getNamePinyinUnits()),
-				Toast.LENGTH_SHORT).show();
+//		Toast.makeText(mContext,
+//				PinyinUtil.getFirstCharacter(contacts.getNamePinyinUnits()),
+//				Toast.LENGTH_SHORT).show();
 		int contactsIndex = ContactsHelper.getInstance()
 				.getSearchContactsIndex(contacts);
 		if (contactsIndex < 0) {
