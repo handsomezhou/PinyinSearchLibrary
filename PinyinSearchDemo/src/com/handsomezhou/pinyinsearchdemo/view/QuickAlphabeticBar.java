@@ -80,6 +80,14 @@ public class QuickAlphabeticBar extends View {
 	public void setCurrentSelectChar(char currentSelectChar) {
 		mCurrentSelectChar = currentSelectChar;
 	}
+	
+	public OnQuickAlphabeticBar getOnQuickAlphabeticBar() {
+		return mOnQuickAlphabeticBar;
+	}
+
+	public void setOnQuickAlphabeticBar(OnQuickAlphabeticBar onQuickAlphabeticBar) {
+		mOnQuickAlphabeticBar = onQuickAlphabeticBar;
+	}
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
