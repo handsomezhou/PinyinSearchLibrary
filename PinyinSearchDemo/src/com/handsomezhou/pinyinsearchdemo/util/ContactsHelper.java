@@ -484,7 +484,7 @@ public class ContactsHelper {
 	}
 
 	@SuppressLint("DefaultLocale")
-	private List<Contacts> loadContacts(Context context) {
+	private List<Contacts> loadContacts0(Context context) {
 
 		List<Contacts> contacts = new ArrayList<Contacts>();
 		Contacts cs = null;
@@ -536,6 +536,74 @@ public class ContactsHelper {
 		return contacts;
 	}
 
+	@SuppressLint("DefaultLocale")
+	private List<Contacts> loadContacts(Context context) {
+
+		List<Contacts> contacts = new ArrayList<Contacts>();
+		Contacts cs = null;
+		Cursor cursor = null;
+		try {
+
+			cursor = context.getContentResolver().query(
+					 ContactsContract.Contacts.CONTENT_URI, null,
+					null, null, "sort_key");
+			String sortkey = null;
+			
+			if(cursor.moveToFirst()){
+				int idColumn=cursor.getColumnIndex(ContactsContract.Contacts._ID);
+				int displayNameColumn=cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME);
+				
+				do{
+					String contactId=cursor.getString(idColumn);
+					String displayName=cursor.getString(displayNameColumn);
+					
+					int phoneCount=cursor.getInt(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+					if(phoneCount>0){
+						Cursor phoneCursor=mContext.getContentResolver().query( ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,    ContactsContract.CommonDataKinds.Phone.CONTACT_ID
+                                + "=" + contactId, null, null);
+						if(phoneCursor.moveToFirst()){
+							do{
+								
+							}while(phoneCursor.moveToNext());
+						}
+					}
+					
+				}while(cursor.moveToNext());
+			}
+			
+		/*	while (cursor.moveToNext()) {
+
+				String displayName = cursor
+						.getString(cursor
+								.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+				String phoneNumber = cursor
+						.getString(cursor
+								.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+
+				cs = new Contacts(displayName, phoneNumber);
+
+				PinyinUtil.chineseStringToPinyinUnit(cs.getName(),
+						cs.getNamePinyinUnits());
+				sortkey = PinyinUtil.getSortKey(cs.getNamePinyinUnits())
+						.toUpperCase();
+				cs.setSortKey(praseSortKey(sortkey));
+				// Log.i(TAG, "sortkey=["+cs.getSortKey()+"]");
+
+				contacts.add(cs);
+			}
+*/
+			Collections.sort(contacts, Contacts.mAscComparator);
+		} catch (Exception e) {
+
+		} finally {
+			if (null != cursor) {
+				cursor.close();
+				cursor = null;
+			}
+		}
+
+		return contacts;
+	}
 	private void parseContacts(List<Contacts> contacts) {
 		if (null == contacts || contacts.size() < 1) {
 			if (null != mOnContactsLoad) {

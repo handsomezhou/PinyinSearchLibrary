@@ -18,6 +18,7 @@ public class Contacts {
 
 	private String mName;
 	private String mPhoneNumber;
+	private List<String> mPhoneNumberList;
 
 	private String mSortKey; // as the sort key word
 
@@ -90,6 +91,15 @@ public class Contacts {
 
 	public void setPhoneNumber(String phoneNumber) {
 		mPhoneNumber = phoneNumber;
+	}
+
+	
+	public List<String> getPhoneNumberList() {
+		return mPhoneNumberList;
+	}
+
+	public void setPhoneNumberList(List<String> phoneNumberList) {
+		mPhoneNumberList = phoneNumberList;
 	}
 
 	public String getSortKey() {
