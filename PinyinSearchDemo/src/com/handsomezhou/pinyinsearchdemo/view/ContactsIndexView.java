@@ -137,7 +137,8 @@ public class ContactsIndexView extends LinearLayout implements OnContactsIndexAd
 				 
 				mContactsIndex.getContacts().add(contacts.get(0));
 				for(int j=1; j<contacts.size(); j++){
-					if(contacts.get(j-1).getName().charAt(0)!=contacts.get(j).getName().charAt(0)){
+//				if(contacts.get(j-1).getName().charAt(0)!=contacts.get(j).getName().charAt(0)){
+					if(!String.valueOf(contacts.get(j-1).getName().charAt(0)).equalsIgnoreCase(String.valueOf(contacts.get(j).getName().charAt(0)))){
 						mContactsIndex.getContacts().add(contacts.get(j));
 					}
 				}

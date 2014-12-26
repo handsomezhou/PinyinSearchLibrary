@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import android.util.Log;
 
@@ -16,8 +17,9 @@ public class Contacts {
 		SearchByNull, SearchByName, SearchByPhoneNumber,
 	}
 
+	private String mId;
 	private String mName;
-	private String mPhoneNumber;
+//	private String mPhoneNumber;
 	private List<String> mPhoneNumberList;
 
 	private String mSortKey; // as the sort key word
@@ -26,28 +28,42 @@ public class Contacts {
 												// Pinyin characters.
 
 	private SearchByType mSearchByType; // Used to save the type of search
-	private StringBuffer mMatchKeywords; // Used to save the type of Match
-											// Keywords.(name or phoneNumber)
+	private StringBuffer mMatchKeywords; // Used to save the type of Match Keywords.(name or phoneNumber)
+	
+	private List<Contacts> mMultipleNumbersContacts; //save the contacts information who has multiple numbers. 
 
-	public Contacts(String name, String phoneNumber) {
+	public Contacts(String id ,String name, String phoneNumber) {
 		// super();
+		mId=id;
 		mName = name;
-		mPhoneNumber = phoneNumber;
+		
+//		mPhoneNumber = phoneNumber;
+		setPhoneNumberList(new ArrayList<String>());
+		getPhoneNumberList().add(phoneNumber);
+		
 		setNamePinyinUnits(new ArrayList<PinyinUnit>());
 		setSearchByType(SearchByType.SearchByNull);
 		mMatchKeywords = new StringBuffer();
 		mMatchKeywords.delete(0, mMatchKeywords.length());
+		
+		setMultipleNumbersContacts(new ArrayList<Contacts>());
 	}
 	
-	public Contacts(String name, String phoneNumber, String sortKey) {
+	public Contacts(String id, String name, String phoneNumber, String sortKey) {
 		// super();
+		mId=id;
 		mName = name;
-		mPhoneNumber = phoneNumber;
+		/*mPhoneNumber = phoneNumber;*/
+		setPhoneNumberList(new ArrayList<String>());
+		getPhoneNumberList().add(phoneNumber);
+		
 		mSortKey = sortKey;
 		setNamePinyinUnits(new ArrayList<PinyinUnit>());
 		setSearchByType(SearchByType.SearchByNull);
 		mMatchKeywords = new StringBuffer();
 		mMatchKeywords.delete(0, mMatchKeywords.length());
+		
+		setMultipleNumbersContacts(new ArrayList<Contacts>());
 	}
 	
 	private static Comparator<Object> mChineseComparator = Collator.getInstance(Locale.CHINA);
@@ -69,6 +85,14 @@ public class Contacts {
 		}
 	};
 
+	public String getId(){
+		return mId;
+	}
+	
+	public void setId(String id){
+		mId=id;
+	}
+	
 	public String getName() {
 		return mName;
 	}
@@ -85,14 +109,14 @@ public class Contacts {
 		mNamePinyinUnits = namePinyinUnits;
 	}
 
-	public String getPhoneNumber() {
+	/*public String getPhoneNumber() {
 		return mPhoneNumber;
 	}
 
 	public void setPhoneNumber(String phoneNumber) {
 		mPhoneNumber = phoneNumber;
 	}
-
+*/
 	
 	public List<String> getPhoneNumberList() {
 		return mPhoneNumberList;
@@ -100,6 +124,30 @@ public class Contacts {
 
 	public void setPhoneNumberList(List<String> phoneNumberList) {
 		mPhoneNumberList = phoneNumberList;
+	}
+	
+	public void addPhoneNumber(String phoneNumber){
+		if(null==mPhoneNumberList){
+			mPhoneNumberList=new ArrayList<String>();
+		}
+		
+		int i=0;
+		for (i = 0; i < mPhoneNumberList.size(); i++) {
+			if (mPhoneNumberList.get(i).equals(phoneNumber)) {
+				break;
+			}
+		}
+		
+		if (i >= mPhoneNumberList.size()) {
+			mPhoneNumberList.add(phoneNumber);
+			Contacts cs=new Contacts(mId, mName, phoneNumber);
+			cs.setSortKey(mSortKey);
+			cs.setNamePinyinUnits(mNamePinyinUnits);// not deep copy
+			
+			mMultipleNumbersContacts.add(cs);
+		}
+		
+		return;
 	}
 
 	public String getSortKey() {
@@ -135,7 +183,18 @@ public class Contacts {
 		mMatchKeywords.delete(0, mMatchKeywords.length());
 	}
 	
+	public List<Contacts> getMultipleNumbersContacts() {
+		return mMultipleNumbersContacts;
+	}
+
+	public void setMultipleNumbersContacts(List<Contacts> multipleNumbersContacts) {
+		mMultipleNumbersContacts = multipleNumbersContacts;
+	}
+	
 	public void showContacts(){
-		Log.i(TAG, "sortKey["+mSortKey+"]name=["+mName+"] phoneNumber=["+mPhoneNumber+"]");
+		Log.i(TAG,"mId=["+mId+"]mSortKey=["+mSortKey+"]"+"mName=["+mName+"] phoneNumberCount=["+mPhoneNumberList.size()+"]");
+		for(String number:mPhoneNumberList){
+			Log.i(TAG, "phone=["+number+"]");
+		}
 	}
 }

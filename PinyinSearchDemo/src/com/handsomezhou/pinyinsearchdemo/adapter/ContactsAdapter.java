@@ -53,15 +53,19 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 		switch (contacts.getSearchByType()) {
 		case SearchByNull:
 			ViewUtil.showTextNormal(viewHolder.mNameTv, contacts.getName());
-			ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumber());
+			if(contacts.getPhoneNumberList().size()<=1){
+				ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumberList().get(0));
+			}else{
+				ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumberList().get(0)+mContext.getString(R.string.phone_number_count, contacts.getPhoneNumberList().size()));
+			}
 			break;
 		case SearchByPhoneNumber:
 			ViewUtil.showTextNormal(viewHolder.mNameTv, contacts.getName());
-			ViewUtil.showTextHighlight(viewHolder.mPhoneNumber, contacts.getPhoneNumber(), contacts.getMatchKeywords().toString());
+			ViewUtil.showTextHighlight(viewHolder.mPhoneNumber, contacts.getPhoneNumberList().get(0), contacts.getMatchKeywords().toString());
 			break;
 		case SearchByName:
 			ViewUtil.showTextHighlight(viewHolder.mNameTv, contacts.getName(), contacts.getMatchKeywords().toString());
-			ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumber());
+			ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumberList().get(0));
 			break;
 		default:
 			break;

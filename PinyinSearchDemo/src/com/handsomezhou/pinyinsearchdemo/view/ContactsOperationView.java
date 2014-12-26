@@ -1,6 +1,7 @@
 package com.handsomezhou.pinyinsearchdemo.view;
 
 import com.handsomezhou.pinyinsearchdemo.R;
+import com.handsomezhou.pinyinsearchdemo.activity.ContactDetailActivity;
 import com.handsomezhou.pinyinsearchdemo.adapter.ContactsAdapter;
 import com.handsomezhou.pinyinsearchdemo.model.Contacts;
 import com.handsomezhou.pinyinsearchdemo.util.ContactsHelper;
@@ -11,6 +12,7 @@ import com.pinyinsearch.util.PinyinUtil;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
@@ -30,6 +32,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class ContactsOperationView extends FrameLayout implements
 		OnContactsIndexView, OnQuickAlphabeticBar {
+	public static final String CONTACTS_INDEX="CONTACTS_INDEX";
 	private static final String TAG = "ContactsOperationView";
 	private static final int VIEW_SHOW_TIME_MILLIS = 4000;// ms
 	private static final int HANDLER_MSG_VIEW_DISPLAY = 0x01;
@@ -127,9 +130,14 @@ public class ContactsOperationView extends FrameLayout implements
 					int position, long id) {
 				Contacts contacts = ContactsHelper.getInstance()
 						.getSearchContacts().get(position);
-				String uri = "tel:" + contacts.getPhoneNumber();
+				/*String uri = "tel:" + contacts.getPhoneNumber();
 				Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse(uri));
 				// intent.setData(Uri.parse(uri));
+				mContext.startActivity(intent);*/
+				Intent intent=new Intent(mContext, ContactDetailActivity.class);
+				Bundle bundle=new Bundle();
+				bundle.putInt(CONTACTS_INDEX, position);
+				intent.putExtras(bundle);
 				mContext.startActivity(intent);
 
 			}

@@ -39,6 +39,13 @@
             android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
+        
+        <activity
+            android:name="com.handsomezhou.pinyinsearchdemo.activity.ContactDetailActivity"
+            android:label="@string/contacts_detail"
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
     </application>
 
 </manifest>

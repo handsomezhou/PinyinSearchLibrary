@@ -181,6 +181,22 @@ public class PinyinUtil {
 		return null;
 	}
 
+	/**
+	 * judge chr is kanji
+	 * @param chr
+	 * @return Is kanji return true,otherwise return false.
+	 */
+	public static boolean isKanji(char chr){
+		String[] pinyinStr = null;
+		try {
+			pinyinStr = PinyinHelper.toHanyuPinyinStringArray(chr, format);
+		} catch (BadHanyuPinyinOutputFormatCombination e) {
+			e.printStackTrace();
+		}
+		
+		return (null==pinyinStr)?(false):(true);
+	}
+	
 	private static void addPinyinUnit(List<PinyinUnit> pinyinUnit,
 			PinyinUnit pyUnit, boolean pinyin, String originalString,
 			String[] string, int startPosition) {
