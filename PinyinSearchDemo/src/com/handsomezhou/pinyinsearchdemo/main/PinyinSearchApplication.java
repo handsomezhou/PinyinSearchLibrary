@@ -3,7 +3,7 @@ package com.handsomezhou.pinyinsearchdemo.main;
 import android.app.Application;
 import android.content.Context;
 
-public class T9SearchApplication extends Application {
+public class PinyinSearchApplication extends Application {
 	private static Context mContext;
 	
 	@Override

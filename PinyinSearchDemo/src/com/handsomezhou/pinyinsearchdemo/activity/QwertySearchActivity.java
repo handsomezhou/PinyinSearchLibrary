@@ -85,6 +85,7 @@ public class QwertySearchActivity extends Activity implements OnContactsLoad{
 
 	@Override
 	public void onContactsLoadSuccess() {
+		ContactsHelper.getInstance().parseQwertyInputSearchContacts(null);
 		mContactsOperationView.contactsLoadSuccess();
 		
 		//just background printing contacts information

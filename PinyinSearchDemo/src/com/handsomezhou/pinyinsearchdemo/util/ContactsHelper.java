@@ -13,7 +13,7 @@ import android.os.AsyncTask.Status;
 import android.provider.ContactsContract;
 import android.util.Log;
 
-import com.handsomezhou.pinyinsearchdemo.main.T9SearchApplication;
+import com.handsomezhou.pinyinsearchdemo.main.PinyinSearchApplication;
 import com.handsomezhou.pinyinsearchdemo.model.Contacts;
 import com.handsomezhou.pinyinsearchdemo.model.Contacts.SearchByType;
 import com.handsomezhou.pinyinsearchdemo.view.QuickAlphabeticBar;
@@ -476,7 +476,7 @@ public class ContactsHelper {
 	}
 
 	private void initContactsHelper() {
-		mContext = T9SearchApplication.getContextObject();
+		mContext = PinyinSearchApplication.getContextObject();
 		setContactsChanged(true);
 		if (null == mBaseContacts) {
 			mBaseContacts = new ArrayList<Contacts>();
@@ -710,7 +710,6 @@ public class ContactsHelper {
 		}
 
 		if (null != mOnContactsLoad) {
-			parseT9InputSearchContacts(null);
 			mOnContactsLoad.onContactsLoadSuccess();
 		}
 

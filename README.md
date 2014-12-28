@@ -19,14 +19,16 @@ public static boolean matchPinyinUnits(final List<PinyinUnit> pinyinUnits,final 
 public static String getSortKey(List<PinyinUnit> pinyinUnit)
 public static String getFirstLetter(List<PinyinUnit> pinyinUnit);
 public static String getFirstCharacter(List<PinyinUnit> pinyinUnit);
+public static boolean isKanji(char chr)
 
 Function call methods:
 T9MatchPinyinUnits.matchPinyinUnits(...);
 QwertyMatchPinyinUnits.matchPinyinUnits(...);
 PinyinUtil.chineseStringToPinyinUnit(...);
-PinyinUtil.getSortKey();
+PinyinUtil.getSortKey(...);
 PinyinUtil.getFirstCharacter(...);
 PinyinUtil.getFirstLetter();
+PinyinUtil.isKanji(...);
 
 
 Function call methods in detail:

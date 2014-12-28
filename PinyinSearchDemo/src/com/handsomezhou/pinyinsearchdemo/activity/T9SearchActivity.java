@@ -1,24 +1,19 @@
 package com.handsomezhou.pinyinsearchdemo.activity;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.handsomezhou.pinyinsearchdemo.R;
 import com.handsomezhou.pinyinsearchdemo.util.ContactsHelper;
-import com.handsomezhou.pinyinsearchdemo.util.ContactsIndexHelper;
 import com.handsomezhou.pinyinsearchdemo.util.ContactsHelper.OnContactsLoad;
+import com.handsomezhou.pinyinsearchdemo.util.ContactsIndexHelper;
 import com.handsomezhou.pinyinsearchdemo.view.ContactsOperationView;
 import com.handsomezhou.pinyinsearchdemo.view.T9TelephoneDialpadView;
 import com.handsomezhou.pinyinsearchdemo.view.T9TelephoneDialpadView.OnT9TelephoneDialpadView;
-import com.pinyinsearch.model.PinyinBaseUnit;
-import com.pinyinsearch.model.PinyinUnit;
 
 public class T9SearchActivity extends Activity implements OnT9TelephoneDialpadView,OnContactsLoad{
 	private static final String TAG="T9SearchActivity";
@@ -127,6 +122,7 @@ public class T9SearchActivity extends Activity implements OnT9TelephoneDialpadVi
 	
 	@Override
 	public void onContactsLoadSuccess() {
+		ContactsHelper.getInstance().parseT9InputSearchContacts(null);
 		mContactsOperationView.contactsLoadSuccess();
 		
 		//just background printing contacts information
