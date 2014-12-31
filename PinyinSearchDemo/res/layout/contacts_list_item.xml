@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:focusable="false" >
 
     <TextView
         android:id="@+id/alphabet_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/grey11"
+        android:background="@android:color/darker_gray"
         android:gravity="left"
         android:paddingLeft="@dimen/padding_left"
         android:textColor="@color/white"
@@ -16,23 +18,36 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/black"
         android:layout_below="@id/alphabet_text_view" >
 
-        <TextView
-            android:id="@+id/name_text_view"
-            android:layout_width="match_parent"
+        <CheckBox
+            android:id="@+id/select_contacts_check_box"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="left"
-            android:textColor="@color/white" />
+            android:layout_centerVertical="true" />
 
-        <TextView
-            android:id="@+id/phone_number_text_view"
+        <RelativeLayout
+            android:id="@+id/contacts_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/name_text_view"
-            android:gravity="left"
-            android:textColor="@color/white" />
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left"
+            android:layout_marginRight="@dimen/margin_right"
+            android:layout_toRightOf="@id/select_contacts_check_box" >
+
+            <TextView
+                android:id="@+id/name_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left" />
+
+            <TextView
+                android:id="@+id/phone_number_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/name_text_view"
+                android:gravity="left" />
+        </RelativeLayout>
     </RelativeLayout>
 
 </RelativeLayout>
