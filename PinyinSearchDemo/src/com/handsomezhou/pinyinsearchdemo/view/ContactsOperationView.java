@@ -1,17 +1,9 @@
 package com.handsomezhou.pinyinsearchdemo.view;
 
-import com.handsomezhou.pinyinsearchdemo.R;
-import com.handsomezhou.pinyinsearchdemo.activity.ContactDetailActivity;
-import com.handsomezhou.pinyinsearchdemo.adapter.ContactsAdapter;
-import com.handsomezhou.pinyinsearchdemo.model.Contacts;
-import com.handsomezhou.pinyinsearchdemo.util.ContactsHelper;
-import com.handsomezhou.pinyinsearchdemo.view.ContactsIndexView.OnContactsIndexView;
-import com.handsomezhou.pinyinsearchdemo.view.QuickAlphabeticBar.OnQuickAlphabeticBar;
-import com.pinyinsearch.util.PinyinUtil;
+import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,18 +12,26 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView.OnItemClickListener;
+
+import com.handsomezhou.pinyinsearchdemo.R;
+import com.handsomezhou.pinyinsearchdemo.activity.ContactDetailActivity;
+import com.handsomezhou.pinyinsearchdemo.adapter.ContactsAdapter;
+import com.handsomezhou.pinyinsearchdemo.adapter.ContactsAdapter.OnContactsAdapter;
+import com.handsomezhou.pinyinsearchdemo.model.Contacts;
+import com.handsomezhou.pinyinsearchdemo.util.ContactsHelper;
+import com.handsomezhou.pinyinsearchdemo.view.ContactsIndexView.OnContactsIndexView;
+import com.handsomezhou.pinyinsearchdemo.view.QuickAlphabeticBar.OnQuickAlphabeticBar;
 
 public class ContactsOperationView extends FrameLayout implements
-		OnContactsIndexView, OnQuickAlphabeticBar {
+		OnContactsIndexView, OnQuickAlphabeticBar ,OnContactsAdapter{
 	public static final String CONTACTS_INDEX="CONTACTS_INDEX";
 	private static final String TAG = "ContactsOperationView";
 	private static final int VIEW_SHOW_TIME_MILLIS = 4000;// ms
@@ -45,8 +45,17 @@ public class ContactsOperationView extends FrameLayout implements
 	private TextView mSelectCharTv;
 	private TextView mSearchResultPromptTv;
 	private ContactsAdapter mContactsAdapter;
-
 	private View mContactsOperationView;
+	private OnContactsOperationView mOnContactsOperationView;
+
+	public interface OnContactsOperationView{
+		void onListItemClick(Contacts contacts,int position);
+		void onContactsSelectedChanged(List<Contacts> contacts);
+		void onAddContactsSelected(Contacts contacts);
+		void onRemoveContactsSelected(Contacts contacts);
+		
+	}
+	
 	final Handler handler = new Handler() {
 
 		@Override
@@ -74,6 +83,14 @@ public class ContactsOperationView extends FrameLayout implements
 		initListener();
 	}
 
+	public OnContactsOperationView getOnContactsOperationView() {
+		return mOnContactsOperationView;
+	}
+
+	public void setOnContactsOperationView(OnContactsOperationView onContactsOperationView) {
+		mOnContactsOperationView = onContactsOperationView;
+	}
+	
 	public void contactsLoading() {
 		showView(mLoadContactsView);
 	}
@@ -119,6 +136,7 @@ public class ContactsOperationView extends FrameLayout implements
 		mContactsAdapter = new ContactsAdapter(mContext,
 				R.layout.contacts_list_item, ContactsHelper.getInstance()
 						.getSearchContacts());
+		mContactsAdapter.setOnContactsAdapter(this);
 		mContactsLv.setAdapter(mContactsAdapter);
 	}
 
@@ -130,15 +148,21 @@ public class ContactsOperationView extends FrameLayout implements
 					int position, long id) {
 				Contacts contacts = ContactsHelper.getInstance()
 						.getSearchContacts().get(position);
+				if(null!=mOnContactsOperationView){
+					mOnContactsOperationView.onListItemClick(contacts,position);
+				}
 				/*String uri = "tel:" + contacts.getPhoneNumber();
 				Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse(uri));
 				// intent.setData(Uri.parse(uri));
 				mContext.startActivity(intent);*/
+				/*
 				Intent intent=new Intent(mContext, ContactDetailActivity.class);
 				Bundle bundle=new Bundle();
 				bundle.putInt(CONTACTS_INDEX, position);
 				intent.putExtras(bundle);
 				mContext.startActivity(intent);
+				*/
+				
 
 			}
 		});
@@ -272,5 +296,26 @@ public class ContactsOperationView extends FrameLayout implements
 		}
 
 		return;
+	}
+
+	@Override
+	public void onContactsSelectedChanged(List<Contacts> contacts) {
+		if(null!=contacts){
+			mOnContactsOperationView.onContactsSelectedChanged(contacts);
+		}
+	}
+
+	@Override
+	public void onAddContactsSelected(Contacts contacts) {
+		if(null!=contacts){
+			mOnContactsOperationView.onAddContactsSelected(contacts);
+		}
+	}
+
+	@Override
+	public void onRemoveContactsSelected(Contacts contacts) {
+		if(null!=contacts){
+			mOnContactsOperationView.onRemoveContactsSelected(contacts);
+		}
 	}
 }

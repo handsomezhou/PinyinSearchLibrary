@@ -1,21 +1,28 @@
 package com.handsomezhou.pinyinsearchdemo.activity;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.handsomezhou.pinyinsearchdemo.R;
+import com.handsomezhou.pinyinsearchdemo.model.Contacts;
 import com.handsomezhou.pinyinsearchdemo.util.ContactsHelper;
 import com.handsomezhou.pinyinsearchdemo.util.ContactsHelper.OnContactsLoad;
 import com.handsomezhou.pinyinsearchdemo.util.ContactsIndexHelper;
 import com.handsomezhou.pinyinsearchdemo.view.ContactsOperationView;
+import com.handsomezhou.pinyinsearchdemo.view.ContactsOperationView.OnContactsOperationView;
 import com.handsomezhou.pinyinsearchdemo.view.T9TelephoneDialpadView;
 import com.handsomezhou.pinyinsearchdemo.view.T9TelephoneDialpadView.OnT9TelephoneDialpadView;
 
-public class T9SearchActivity extends Activity implements OnT9TelephoneDialpadView,OnContactsLoad{
+public class T9SearchActivity extends Activity implements OnT9TelephoneDialpadView,OnContactsLoad,OnContactsOperationView{
 	private static final String TAG="T9SearchActivity";
 
 	private Context mContext;
@@ -56,6 +63,7 @@ public class T9SearchActivity extends Activity implements OnT9TelephoneDialpadVi
 		mT9TelephoneDialpadView.setOnT9TelephoneDialpadView(this);
 
 		mContactsOperationView = (ContactsOperationView)findViewById(R.id.contacts_operation_layout);
+		mContactsOperationView.setOnContactsOperationView(this);
 		
 		mDialpadOperationBtn = (Button) findViewById(R.id.dialpad_operation_btn);
 		mDialpadOperationBtn.setText(R.string.hide_keyboard);
@@ -137,7 +145,44 @@ public class T9SearchActivity extends Activity implements OnT9TelephoneDialpadVi
 		mContactsOperationView.contactsLoadFailed();
 	}
 
+	@Override
+	public void onListItemClick(Contacts contacts,int position){
+		if(null!=contacts){
+			Intent intent=new Intent(mContext, ContactDetailActivity.class);
+			Bundle bundle=new Bundle();
+			bundle.putInt(ContactsOperationView.CONTACTS_INDEX, position);
+			intent.putExtras(bundle);
+			mContext.startActivity(intent);
+		}
+	}
 	
-	
-	
+	@Override
+	public void onContactsSelectedChanged(List<Contacts> contacts) {
+		if(null!=contacts){
+			for(Contacts cs:contacts){
+				Log.i(TAG, "onContactsSelectedChanged name=["+cs.getName()+"] phoneNumber=["+cs.getPhoneNumber()+"]");
+			}
+			
+			Toast.makeText(mContext,"contacts count["+contacts.size()+"]", Toast.LENGTH_SHORT).show();
+		}
+		
+	}
+
+	@Override
+	public void onAddContactsSelected(Contacts contacts) {
+		if(null!=contacts){
+			Log.i(TAG, "onAddContactsSelected name=["+contacts.getName()+"] phoneNumber=["+contacts.getPhoneNumber()+"]");
+			Toast.makeText(mContext,"Add ["+contacts.getName()+":"+contacts.getPhoneNumber()+"]", Toast.LENGTH_SHORT).show();
+		}
+	}
+
+
+	@Override
+	public void onRemoveContactsSelected(Contacts contacts) {
+		if(null!=contacts){
+			Log.i(TAG, "onRemoveContactsSelected name=["+contacts.getName()+"] phoneNumber=["+contacts.getPhoneNumber()+"]");
+			Toast.makeText(mContext,"Remove ["+contacts.getName()+":"+contacts.getPhoneNumber()+"]", Toast.LENGTH_SHORT).show();
+		}
+	}
+
 }

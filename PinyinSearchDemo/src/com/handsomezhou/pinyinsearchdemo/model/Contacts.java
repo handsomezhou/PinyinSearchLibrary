@@ -31,6 +31,7 @@ public class Contacts {
 	private StringBuffer mMatchKeywords; // Used to save the type of Match Keywords.(name or phoneNumber)
 	
 	private List<Contacts> mMultipleNumbersContacts; //save the contacts information who has multiple numbers. 
+	private boolean mSelected;	//weather select contact
 
 	public Contacts(String id ,String name, String phoneNumber) {
 		// super();
@@ -118,6 +119,14 @@ public class Contacts {
 	}
 */
 	
+	public String getPhoneNumber(){
+		if((null==mPhoneNumberList)||mPhoneNumberList.size()<1){
+			return null;
+		}
+		
+		return mPhoneNumberList.get(0);
+	}
+	
 	public List<String> getPhoneNumberList() {
 		return mPhoneNumberList;
 	}
@@ -189,6 +198,14 @@ public class Contacts {
 
 	public void setMultipleNumbersContacts(List<Contacts> multipleNumbersContacts) {
 		mMultipleNumbersContacts = multipleNumbersContacts;
+	}
+	
+	public boolean isSelected() {
+		return mSelected;
+	}
+
+	public void setSelected(boolean selected) {
+		mSelected = selected;
 	}
 	
 	public void showContacts(){

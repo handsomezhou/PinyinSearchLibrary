@@ -1,5 +1,7 @@
 package com.handsomezhou.pinyinsearchdemo.adapter;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
@@ -7,6 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
@@ -21,6 +26,15 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 	private Context mContext;
 	private int mTextViewResourceId;
 	private List<Contacts> mContacts;
+	private HashMap<String, Contacts> mSelectedContactsHashMap; //(id+phoneNumber)as key
+	private List<Contacts> mSelectedContactsList; 
+	private OnContactsAdapter mOnContactsAdapter;
+	
+	public interface OnContactsAdapter{
+		void onContactsSelectedChanged(List<Contacts> sortContacts);
+		void onAddContactsSelected(Contacts sortContact);
+		void onRemoveContactsSelected(Contacts sortContact);
+	}
 	
 	public ContactsAdapter(Context context, int textViewResourceId,
 			List<Contacts> contacts) {
@@ -28,8 +42,36 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 		mContext=context;
 		mTextViewResourceId=textViewResourceId;
 		mContacts=contacts;
+		
+		setSelectedContacts(new HashMap<String, Contacts>());
+		setSelectedContactsList(new ArrayList<Contacts>());
+		getSelectedContacts().clear();
 	}
 
+	public HashMap<String, Contacts> getSelectedContacts() {
+		return mSelectedContactsHashMap;
+	}
+
+	public void setSelectedContacts(HashMap<String, Contacts> selectedContacts) {
+		mSelectedContactsHashMap = selectedContacts;
+	}
+
+	public List<Contacts> getSelectedContactsList() {
+		return mSelectedContactsList;
+	}
+
+	public void setSelectedContactsList(List<Contacts> selectedContactsList) {
+		mSelectedContactsList = selectedContactsList;
+	}
+	
+	public OnContactsAdapter getOnContactsAdapter() {
+		return mOnContactsAdapter;
+	}
+
+	public void setOnContactsAdapter(OnContactsAdapter onContactsAdapter) {
+		mOnContactsAdapter = onContactsAdapter;
+	}
+	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View view=null;
@@ -39,6 +81,7 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 			view=LayoutInflater.from(mContext).inflate(mTextViewResourceId, null);
 			viewHolder=new ViewHolder();
 			viewHolder.mAlphabetTv=(TextView)view.findViewById(R.id.alphabet_text_view);
+			viewHolder.mSelectContactsCB=(CheckBox) view.findViewById(R.id.select_contacts_check_box);
 			viewHolder.mNameTv=(TextView) view.findViewById(R.id.name_text_view);
 			viewHolder.mPhoneNumber=(TextView) view.findViewById(R.id.phone_number_text_view);
 			view.setTag(viewHolder);
@@ -70,11 +113,41 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 		default:
 			break;
 		}	
+		
+		viewHolder.mSelectContactsCB.setTag(position);
+		viewHolder.mSelectContactsCB.setChecked(contacts.isSelected());
+		viewHolder.mSelectContactsCB.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				int position = (Integer) buttonView.getTag();
+				Contacts contacts = getItem(position);
+				contacts.setSelected(isChecked);
+				if(true==isChecked){
+					addSelectedContacts(contacts);
+					
+				}else{
+					removeSelectedContacts(contacts);
+				}
+				
+				if(null!=mOnContactsAdapter){
+					if(null==mSelectedContactsList){
+						mSelectedContactsList=new ArrayList<Contacts>();
+					}else{
+						mSelectedContactsList.clear();
+					}
+					mSelectedContactsList.addAll(mSelectedContactsHashMap.values());
+					mOnContactsAdapter.onContactsSelectedChanged(mSelectedContactsList);
+					
+				}
+			}
+		});
 		return view;
 	}
 	
 	private class ViewHolder{
 		TextView mAlphabetTv;
+		CheckBox mSelectContactsCB;
 		TextView mNameTv;
 		TextView mPhoneNumber;
 	}
@@ -148,4 +221,68 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	public void clearSelectedContacts(){
+		//clear data
+		for(Contacts sortContact:mSelectedContactsList){
+			sortContact.setSelected(false);
+		}
+		
+		mSelectedContactsList.clear();
+		mSelectedContactsHashMap.clear();
+		
+		//refresh view
+		notifyDataSetChanged();
+	}
+
+	private boolean addSelectedContacts(Contacts contacts){
+		
+		
+		do{
+			if(null==contacts){
+				break;
+			}
+			
+			if(null==mSelectedContactsHashMap){
+				mSelectedContactsHashMap=new HashMap<String, Contacts>();
+			}
+			
+			mSelectedContactsHashMap.put(getSelectedContactsKey(contacts), contacts);
+			if(null!=mOnContactsAdapter){
+				mOnContactsAdapter.onAddContactsSelected(contacts);
+			}
+			
+			return true;
+		}while(false);
+		
+		return false;
+	
+	}
+	
+	private void removeSelectedContacts(Contacts contacts){
+		if(null==contacts){
+			return;
+		}
+		
+		if(null==mSelectedContactsHashMap){
+			return;
+		}
+		
+		mSelectedContactsHashMap.remove(getSelectedContactsKey(contacts));
+		if(null!=mOnContactsAdapter){
+			mOnContactsAdapter.onRemoveContactsSelected(contacts);
+		}
+	}
+	
+	/**
+	 * key=id+phoneNumber
+	 * */
+	private String getSelectedContactsKey(Contacts contacts){
+		if(null==contacts){
+			return null;
+		}
+		
+		return contacts.getId()+contacts.getPhoneNumber();
+	}
+	
 }
