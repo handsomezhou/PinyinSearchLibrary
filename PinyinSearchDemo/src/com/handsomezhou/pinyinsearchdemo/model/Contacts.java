@@ -48,6 +48,7 @@ public class Contacts {
 		mMatchKeywords.delete(0, mMatchKeywords.length());
 		
 		setMultipleNumbersContacts(new ArrayList<Contacts>());
+		setSelected(false);
 	}
 	
 	public Contacts(String id, String name, String phoneNumber, String sortKey) {
@@ -65,6 +66,7 @@ public class Contacts {
 		mMatchKeywords.delete(0, mMatchKeywords.length());
 		
 		setMultipleNumbersContacts(new ArrayList<Contacts>());
+		setSelected(false);
 	}
 	
 	private static Comparator<Object> mChineseComparator = Collator.getInstance(Locale.CHINA);

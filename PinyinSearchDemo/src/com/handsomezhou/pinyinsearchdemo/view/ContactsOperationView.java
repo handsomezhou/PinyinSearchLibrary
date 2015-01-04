@@ -250,6 +250,13 @@ public class ContactsOperationView extends FrameLayout implements
 		}
 	}
 
+	public static Contacts getContacts(int position){
+		if((position<0)||(position>=ContactsHelper.getInstance().getSearchContacts().size())){
+			return null;
+		}
+		return ContactsHelper.getInstance().getSearchContacts().get(position);
+	}
+	
 	@Override
 	public void onContactsSelected(Contacts contacts) {
 //		Toast.makeText(mContext,

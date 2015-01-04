@@ -122,12 +122,15 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				int position = (Integer) buttonView.getTag();
 				Contacts contacts = getItem(position);
-				contacts.setSelected(isChecked);
-				if(true==isChecked){
+				if((true==isChecked)&&(false==contacts.isSelected())){
+					contacts.setSelected(isChecked);
 					addSelectedContacts(contacts);
 					
-				}else{
+				}else if((false==isChecked)&&(true==contacts.isSelected())){
+					contacts.setSelected(isChecked);
 					removeSelectedContacts(contacts);
+				}else{
+					return;
 				}
 				
 				if(null!=mOnContactsAdapter){

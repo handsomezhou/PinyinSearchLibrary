@@ -4,11 +4,9 @@ package com.handsomezhou.pinyinsearchdemo.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.handsomezhou.pinyinsearchdemo.R;
 import com.handsomezhou.pinyinsearchdemo.model.Contacts;
-import com.handsomezhou.pinyinsearchdemo.util.ContactsHelper;
 import com.handsomezhou.pinyinsearchdemo.view.ContactsOperationView;
 
 public class ContactDetailActivity extends Activity {
@@ -24,7 +22,7 @@ public class ContactDetailActivity extends Activity {
 		Bundle bundle = this.getIntent().getExtras();
 		if(null!=bundle){
 			int position=bundle.getInt(ContactsOperationView.CONTACTS_INDEX);
-			mContacts=ContactsHelper.getInstance().getSearchContacts().get(position);
+			mContacts=ContactsOperationView.getContacts(position);
 		}
 		initData();
 		initView();
