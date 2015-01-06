@@ -38,11 +38,22 @@ public class QwertySearchActivity extends Activity implements OnContactsLoad,OnC
 	
 	
 	@Override
+	protected void onRestart() {
+		super.onRestart();
+		
+		mContactsOperationView.updateContactsList();
+	}
+
+
+	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		
 		mSearchEt.setText("");
 		ContactsHelper.getInstance().parseQwertyInputSearchContacts(null);
+		
+		mContactsOperationView.clearSelectedContacts();
+		ContactsHelper.getInstance().clearSelectedContacts();
 	}
 
 
@@ -90,7 +101,8 @@ public class QwertySearchActivity extends Activity implements OnContactsLoad,OnC
 			}
 		});
 	}
-
+	
+	/*start:OnContactsLoad*/
 	@Override
 	public void onContactsLoadSuccess() {
 		ContactsHelper.getInstance().parseQwertyInputSearchContacts(null);
@@ -106,8 +118,9 @@ public class QwertySearchActivity extends Activity implements OnContactsLoad,OnC
 	public void onContactsLoadFailed() {
 		mContactsOperationView.contactsLoadFailed();
 	}
+	/*end:OnContactsLoad*/
 
-
+	/*start:OnContactsOperationView*/
 	@Override
 	public void onListItemClick(Contacts contacts,int position){
 		if(null!=contacts){
@@ -137,6 +150,7 @@ public class QwertySearchActivity extends Activity implements OnContactsLoad,OnC
 		if(null!=contacts){
 			Log.i(TAG, "onAddContactsSelected name=["+contacts.getName()+"] phoneNumber=["+contacts.getPhoneNumber()+"]");
 			Toast.makeText(mContext,"Add ["+contacts.getName()+":"+contacts.getPhoneNumber()+"]", Toast.LENGTH_SHORT).show();
+			ContactsHelper.getInstance().addSelectedContacts(contacts);
 		}
 	}
 
@@ -146,9 +160,8 @@ public class QwertySearchActivity extends Activity implements OnContactsLoad,OnC
 		if(null!=contacts){
 			Log.i(TAG, "onRemoveContactsSelected name=["+contacts.getName()+"] phoneNumber=["+contacts.getPhoneNumber()+"]");
 			Toast.makeText(mContext,"Remove ["+contacts.getName()+":"+contacts.getPhoneNumber()+"]", Toast.LENGTH_SHORT).show();
+			ContactsHelper.getInstance().removeSelectedContacts(contacts);
 		}
 	}
-
-
-	
+	/*end:OnContactsOperationView*/
 }

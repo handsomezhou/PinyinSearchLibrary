@@ -44,11 +44,22 @@ public class T9SearchActivity extends Activity implements OnT9TelephoneDialpadVi
 	}
 
 	@Override
+	protected void onRestart() {
+		super.onRestart();
+		
+		mContactsOperationView.updateContactsList();
+	}
+
+	
+	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		
 		mT9TelephoneDialpadView.clearT9Input();
 		ContactsHelper.getInstance().parseT9InputSearchContacts(null);
+		
+		mContactsOperationView.clearSelectedContacts();
+		ContactsHelper.getInstance().clearSelectedContacts();
 	}
 
 	@Override
@@ -57,8 +68,102 @@ public class T9SearchActivity extends Activity implements OnT9TelephoneDialpadVi
 		//moveTaskToBack(true);
 	}
 	
-	private void initView() {
+	/*start:OnT9TelephoneDialpadView*/
+	@Override
+	public void onAddDialCharacter(String addCharacter) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void onDeleteDialCharacter(String deleteCharacter) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void onDialInputTextChanged(String curCharacter) {
+		
+		if(TextUtils.isEmpty(curCharacter)){
+			ContactsHelper.getInstance().parseT9InputSearchContacts(null);
+		}else{
+			ContactsHelper.getInstance().parseT9InputSearchContacts(curCharacter);
+		}
+		mContactsOperationView.updateContactsList();
+	}
+
+	@Override
+	public void onHideT9TelephoneDialpadView() {
+		// TODO Auto-generated method stub
+		
+	}
+	/*end:OnT9TelephoneDialpadView*/
 	
+	/*start:OnContactsLoad*/
+	@Override
+	public void onContactsLoadSuccess() {
+		ContactsHelper.getInstance().parseT9InputSearchContacts(null);
+		mContactsOperationView.contactsLoadSuccess();
+		
+		//just background printing contacts information
+		//ContactsHelper.getInstance().showContactsInfo();
+		ContactsIndexHelper.getInstance().praseContacts(ContactsHelper.getInstance().getBaseContacts());
+		//ContactsIndexHelper.getInstance().showContactsInfo();
+		
+	}
+
+	@Override
+	public void onContactsLoadFailed() {
+		mContactsOperationView.contactsLoadFailed();
+	}
+	/*end:OnContactsLoad*/
+	
+	
+	/*start:OnContactsOperationView*/
+	@Override
+	public void onListItemClick(Contacts contacts,int position){
+		if(null!=contacts){
+			Intent intent=new Intent(mContext, ContactDetailActivity.class);
+			Bundle bundle=new Bundle();
+			bundle.putInt(ContactsOperationView.CONTACTS_INDEX, position);
+			intent.putExtras(bundle);
+			mContext.startActivity(intent);
+		}
+	}
+	
+	
+	@Override
+	public void onContactsSelectedChanged(List<Contacts> contacts) {
+		if(null!=contacts){
+			for(Contacts cs:contacts){
+				Log.i(TAG, "onContactsSelectedChanged name=["+cs.getName()+"] phoneNumber=["+cs.getPhoneNumber()+"]");
+			}
+			
+			Toast.makeText(mContext,"contacts count["+contacts.size()+"]", Toast.LENGTH_SHORT).show();
+		}
+		
+	}
+
+	@Override
+	public void onAddContactsSelected(Contacts contacts) {
+		if(null!=contacts){
+			Log.i(TAG, "onAddContactsSelected name=["+contacts.getName()+"] phoneNumber=["+contacts.getPhoneNumber()+"]");
+			Toast.makeText(mContext,"Add ["+contacts.getName()+":"+contacts.getPhoneNumber()+"]", Toast.LENGTH_SHORT).show();
+			ContactsHelper.getInstance().addSelectedContacts(contacts);
+		}
+	}
+
+
+	@Override
+	public void onRemoveContactsSelected(Contacts contacts) {
+		if(null!=contacts){
+			Log.i(TAG, "onRemoveContactsSelected name=["+contacts.getName()+"] phoneNumber=["+contacts.getPhoneNumber()+"]");
+			Toast.makeText(mContext,"Remove ["+contacts.getName()+":"+contacts.getPhoneNumber()+"]", Toast.LENGTH_SHORT).show();
+			ContactsHelper.getInstance().removeSelectedContacts(contacts);
+		}
+	}
+	/*end:OnContactsOperationView*/
+	
+	private void initView() {
+		
 		mT9TelephoneDialpadView = (T9TelephoneDialpadView) findViewById(R.id.t9_telephone_dialpad_layout);
 		mT9TelephoneDialpadView.setOnT9TelephoneDialpadView(this);
 
@@ -100,89 +205,4 @@ public class T9SearchActivity extends Activity implements OnT9TelephoneDialpadVi
 			mDialpadOperationBtn.setText(R.string.hide_keyboard);
 		}
 	}
-
-	@Override
-	public void onAddDialCharacter(String addCharacter) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void onDeleteDialCharacter(String deleteCharacter) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void onDialInputTextChanged(String curCharacter) {
-		
-		if(TextUtils.isEmpty(curCharacter)){
-			ContactsHelper.getInstance().parseT9InputSearchContacts(null);
-		}else{
-			ContactsHelper.getInstance().parseT9InputSearchContacts(curCharacter);
-		}
-		mContactsOperationView.updateContactsList();
-	}
-
-	@Override
-	public void onHideT9TelephoneDialpadView() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void onContactsLoadSuccess() {
-		ContactsHelper.getInstance().parseT9InputSearchContacts(null);
-		mContactsOperationView.contactsLoadSuccess();
-		
-		//just background printing contacts information
-		//ContactsHelper.getInstance().showContactsInfo();
-		ContactsIndexHelper.getInstance().praseContacts(ContactsHelper.getInstance().getBaseContacts());
-		//ContactsIndexHelper.getInstance().showContactsInfo();
-		
-	}
-
-	@Override
-	public void onContactsLoadFailed() {
-		mContactsOperationView.contactsLoadFailed();
-	}
-
-	@Override
-	public void onListItemClick(Contacts contacts,int position){
-		if(null!=contacts){
-			Intent intent=new Intent(mContext, ContactDetailActivity.class);
-			Bundle bundle=new Bundle();
-			bundle.putInt(ContactsOperationView.CONTACTS_INDEX, position);
-			intent.putExtras(bundle);
-			mContext.startActivity(intent);
-		}
-	}
-	
-	@Override
-	public void onContactsSelectedChanged(List<Contacts> contacts) {
-		if(null!=contacts){
-			for(Contacts cs:contacts){
-				Log.i(TAG, "onContactsSelectedChanged name=["+cs.getName()+"] phoneNumber=["+cs.getPhoneNumber()+"]");
-			}
-			
-			Toast.makeText(mContext,"contacts count["+contacts.size()+"]", Toast.LENGTH_SHORT).show();
-		}
-		
-	}
-
-	@Override
-	public void onAddContactsSelected(Contacts contacts) {
-		if(null!=contacts){
-			Log.i(TAG, "onAddContactsSelected name=["+contacts.getName()+"] phoneNumber=["+contacts.getPhoneNumber()+"]");
-			Toast.makeText(mContext,"Add ["+contacts.getName()+":"+contacts.getPhoneNumber()+"]", Toast.LENGTH_SHORT).show();
-		}
-	}
-
-
-	@Override
-	public void onRemoveContactsSelected(Contacts contacts) {
-		if(null!=contacts){
-			Log.i(TAG, "onRemoveContactsSelected name=["+contacts.getName()+"] phoneNumber=["+contacts.getPhoneNumber()+"]");
-			Toast.makeText(mContext,"Remove ["+contacts.getName()+":"+contacts.getPhoneNumber()+"]", Toast.LENGTH_SHORT).show();
-		}
-	}
-
 }

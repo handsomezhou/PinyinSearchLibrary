@@ -47,7 +47,8 @@ public class ContactsHelper {
 	 * ContentObserver mContentObserver;
 	 */
 	private boolean mContactsChanged = true;
-
+	private HashMap<String, Contacts> mSelectedContactsHashMap=null; //(id+phoneNumber)as key
+	
 	/* private Handler mContactsHandler=new Handler(); */
 
 	public interface OnContactsLoad {
@@ -128,7 +129,16 @@ public class ContactsHelper {
 	private void setContactsChanged(boolean contactsChanged) {
 		mContactsChanged = contactsChanged;
 	}
+	
+	
+	public HashMap<String, Contacts> getSelectedContacts() {
+		return mSelectedContactsHashMap;
+	}
 
+	public void setSelectedContacts(HashMap<String, Contacts> selectedContacts) {
+		mSelectedContactsHashMap = selectedContacts;
+	}
+	
 	/**
 	 * Provides an function to start load contacts
 	 * 
@@ -441,6 +451,46 @@ public class ContactsHelper {
 
 	}
 
+	public void clearSelectedContacts(){
+		if(null==mSelectedContactsHashMap){
+			mSelectedContactsHashMap=new HashMap<String, Contacts>();
+			return;
+		}
+		
+		mSelectedContactsHashMap.clear();
+	}
+	
+	public boolean addSelectedContacts(Contacts contacts){
+		do{
+			if(null==contacts){
+				break;
+			}
+			
+			if(null==mSelectedContactsHashMap){
+				mSelectedContactsHashMap=new HashMap<String, Contacts>();
+			}
+			
+			mSelectedContactsHashMap.put(getSelectedContactsKey(contacts), contacts);
+			
+			return true;
+		}while(false);
+		
+		return false;
+	
+	}
+	
+	public void removeSelectedContacts(Contacts contacts){
+		if(null==contacts){
+			return;
+		}
+		
+		if(null==mSelectedContactsHashMap){
+			return;
+		}
+		
+		mSelectedContactsHashMap.remove(getSelectedContactsKey(contacts));
+	}
+	
 	// just for debug
 	public void showContactsInfo() {
 		int contactsCount = ContactsHelper.getInstance().getBaseContacts()
@@ -495,6 +545,12 @@ public class ContactsHelper {
 		} else {
 			mFirstNoSearchResultInput.delete(0,
 					mFirstNoSearchResultInput.length());
+		}
+		
+		if(null==mSelectedContactsHashMap){
+			mSelectedContactsHashMap=new HashMap<String, Contacts>();
+		}else{
+			mSelectedContactsHashMap.clear();
 		}
 	}
 
@@ -731,44 +787,13 @@ public class ContactsHelper {
 	}
 	
 	/**
-	 * @param contactsList
-	 * @param id
-	 * @param name
-	 * @param phoneNumber
-	 * @return contacts Exist return true and add this phone number when this phone number is not exist,otherwise return false.
-	 */
-	private boolean isContactsExist(List<Contacts> contactsList,String id,String name,String phoneNumber){
-	
-		if ((null == contactsList) || (null == id) || (null == name)
-				|| (null == phoneNumber)) {
-			return false;
-		}
-
-		if(contactsList.size()<=0){
-			return false;
+	 * key=id+phoneNumber
+	 * */
+	private String getSelectedContactsKey(Contacts contacts){
+		if(null==contacts){
+			return null;
 		}
 		
-		for (Contacts contacts : contactsList) {
-			if (contacts.getId().equals(id)) {
-				if (contacts.getName().equals(name)) {
-					// add phone number
-					int i = 0;
-					List<String> phoneNumberList = contacts
-							.getPhoneNumberList();
-					for (i = 0; i < phoneNumberList.size(); i++) {
-						if (phoneNumberList.get(i).equals(phoneNumber)) {
-							break;
-						}
-					}
-					if (i >= phoneNumberList.size()) {
-						phoneNumberList.add(phoneNumber);
-					}
-				}
-				return true;
-			}
-		}
-
-		return false;
-	}
-	
+		return contacts.getId()+contacts.getPhoneNumber();
+	}	
 }

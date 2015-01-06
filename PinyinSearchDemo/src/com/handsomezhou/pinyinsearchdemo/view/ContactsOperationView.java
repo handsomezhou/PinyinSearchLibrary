@@ -1,10 +1,9 @@
 package com.handsomezhou.pinyinsearchdemo.view;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
@@ -22,7 +21,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.handsomezhou.pinyinsearchdemo.R;
-import com.handsomezhou.pinyinsearchdemo.activity.ContactDetailActivity;
 import com.handsomezhou.pinyinsearchdemo.adapter.ContactsAdapter;
 import com.handsomezhou.pinyinsearchdemo.adapter.ContactsAdapter.OnContactsAdapter;
 import com.handsomezhou.pinyinsearchdemo.model.Contacts;
@@ -53,7 +51,6 @@ public class ContactsOperationView extends FrameLayout implements
 		void onContactsSelectedChanged(List<Contacts> contacts);
 		void onAddContactsSelected(Contacts contacts);
 		void onRemoveContactsSelected(Contacts contacts);
-		
 	}
 	
 	final Handler handler = new Handler() {
@@ -105,6 +102,113 @@ public class ContactsOperationView extends FrameLayout implements
 		showView(mContactsLv);
 	}
 
+	public void clearSelectedContacts(){
+		mContactsAdapter.clearSelectedContacts();
+	}
+	
+	public static Contacts getContacts(int position){
+		if((position<0)||(position>=ContactsHelper.getInstance().getSearchContacts().size())){
+			return null;
+		}
+		return ContactsHelper.getInstance().getSearchContacts().get(position);
+	}
+	
+	/**
+	 * parse one or multiple numbers from the contacts
+	 * @param contacts
+	 * @return
+	 */
+	public static List<Contacts> parseContacts(Contacts contacts){
+		if((null==contacts)){
+			return null;
+		}
+		
+		List<Contacts> contactsList=new ArrayList<Contacts>();
+		contactsList.add(contacts);
+		List<Contacts> multipleNumbersContacts=contacts.getMultipleNumbersContacts();
+		for(Contacts cs:multipleNumbersContacts){
+			contactsList.add(cs);
+		}
+		
+		return contactsList;
+	}
+	
+	public void updateContactsList() {
+		if (null == mContactsLv) {
+			return;
+		}
+
+		BaseAdapter contactsAdapter = (BaseAdapter) mContactsLv.getAdapter();
+		if (null != contactsAdapter) {
+			contactsAdapter.notifyDataSetChanged();
+			if (contactsAdapter.getCount() > 0) {
+				showView(mContactsLv);
+				hideView(mSearchResultPromptTv);
+
+			} else {
+				hideView(mContactsLv);
+				showView(mSearchResultPromptTv);
+
+			}
+			// showView(mContactsIndexView);//just for test
+		}
+	}
+	
+	@Override
+	public void onContactsSelected(Contacts contacts) {
+//		Toast.makeText(mContext,
+//				PinyinUtil.getFirstCharacter(contacts.getNamePinyinUnits()),
+//				Toast.LENGTH_SHORT).show();
+		int contactsIndex = ContactsHelper.getInstance()
+				.getSearchContactsIndex(contacts);
+		if (contactsIndex < 0) {
+			return;
+		}
+
+		mContactsLv.setSelection(contactsIndex);
+		
+		clearViewDisappearMsg();
+		sendViewDisappearMsg();
+		// mQuickAlphabeticLv.setSelection(position);
+	}
+
+	@Override
+	public void onQuickAlphabeticBarDown() {
+		clearViewDisappearMsg();
+		showView(mContactsIndexView);
+		Log.i(TAG, "onQuickAlphabeticBarDown");
+	}
+
+	@Override
+	public void onQuickAlphabeticBarUp() {
+		// hideView(mContactsIndexView);
+		sendViewDisappearMsg();
+		Log.i(TAG, "onQuickAlphabeticBarUp");
+	}
+
+	/*start:OnContactsAdapter*/
+	@Override
+	public void onContactsSelectedChanged(List<Contacts> contacts) {
+		if(null!=contacts){
+			mOnContactsOperationView.onContactsSelectedChanged(contacts);
+		}
+	}
+
+	@Override
+	public void onAddContactsSelected(Contacts contacts) {
+		if(null!=contacts){
+			mOnContactsOperationView.onAddContactsSelected(contacts);
+		}
+	}
+
+	@Override
+	public void onRemoveContactsSelected(Contacts contacts) {
+		if(null!=contacts){
+			mOnContactsOperationView.onRemoveContactsSelected(contacts);
+		}
+	}
+	/*end:OnContactsAdapter*/
+	
 	private void initView() {
 		LayoutInflater inflater = (LayoutInflater) mContext
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -229,66 +333,6 @@ public class ContactsOperationView extends FrameLayout implements
 		}
 	}
 
-	public void updateContactsList() {
-		if (null == mContactsLv) {
-			return;
-		}
-
-		BaseAdapter contactsAdapter = (BaseAdapter) mContactsLv.getAdapter();
-		if (null != contactsAdapter) {
-			contactsAdapter.notifyDataSetChanged();
-			if (contactsAdapter.getCount() > 0) {
-				showView(mContactsLv);
-				hideView(mSearchResultPromptTv);
-
-			} else {
-				hideView(mContactsLv);
-				showView(mSearchResultPromptTv);
-
-			}
-			// showView(mContactsIndexView);//just for test
-		}
-	}
-
-	public static Contacts getContacts(int position){
-		if((position<0)||(position>=ContactsHelper.getInstance().getSearchContacts().size())){
-			return null;
-		}
-		return ContactsHelper.getInstance().getSearchContacts().get(position);
-	}
-	
-	@Override
-	public void onContactsSelected(Contacts contacts) {
-//		Toast.makeText(mContext,
-//				PinyinUtil.getFirstCharacter(contacts.getNamePinyinUnits()),
-//				Toast.LENGTH_SHORT).show();
-		int contactsIndex = ContactsHelper.getInstance()
-				.getSearchContactsIndex(contacts);
-		if (contactsIndex < 0) {
-			return;
-		}
-
-		mContactsLv.setSelection(contactsIndex);
-		
-		clearViewDisappearMsg();
-		sendViewDisappearMsg();
-		// mQuickAlphabeticLv.setSelection(position);
-	}
-
-	@Override
-	public void onQuickAlphabeticBarDown() {
-		clearViewDisappearMsg();
-		showView(mContactsIndexView);
-		Log.i(TAG, "onQuickAlphabeticBarDown");
-	}
-
-	@Override
-	public void onQuickAlphabeticBarUp() {
-		// hideView(mContactsIndexView);
-		sendViewDisappearMsg();
-		Log.i(TAG, "onQuickAlphabeticBarUp");
-	}
-
 	private void sendViewDisappearMsg() {
 		clearViewDisappearMsg();
 		handler.sendEmptyMessageDelayed(HANDLER_MSG_VIEW_DISAPPEAR,
@@ -303,26 +347,5 @@ public class ContactsOperationView extends FrameLayout implements
 		}
 
 		return;
-	}
-
-	@Override
-	public void onContactsSelectedChanged(List<Contacts> contacts) {
-		if(null!=contacts){
-			mOnContactsOperationView.onContactsSelectedChanged(contacts);
-		}
-	}
-
-	@Override
-	public void onAddContactsSelected(Contacts contacts) {
-		if(null!=contacts){
-			mOnContactsOperationView.onAddContactsSelected(contacts);
-		}
-	}
-
-	@Override
-	public void onRemoveContactsSelected(Contacts contacts) {
-		if(null!=contacts){
-			mOnContactsOperationView.onRemoveContactsSelected(contacts);
-		}
 	}
 }
