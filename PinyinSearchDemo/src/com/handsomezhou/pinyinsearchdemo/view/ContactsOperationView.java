@@ -48,7 +48,6 @@ public class ContactsOperationView extends FrameLayout implements
 
 	public interface OnContactsOperationView{
 		void onListItemClick(Contacts contacts,int position);
-		void onContactsSelectedChanged(List<Contacts> contacts);
 		void onAddContactsSelected(Contacts contacts);
 		void onRemoveContactsSelected(Contacts contacts);
 	}
@@ -187,12 +186,6 @@ public class ContactsOperationView extends FrameLayout implements
 	}
 
 	/*start:OnContactsAdapter*/
-	@Override
-	public void onContactsSelectedChanged(List<Contacts> contacts) {
-		if(null!=contacts){
-			mOnContactsOperationView.onContactsSelectedChanged(contacts);
-		}
-	}
 
 	@Override
 	public void onAddContactsSelected(Contacts contacts) {

@@ -1,5 +1,6 @@
 package com.handsomezhou.pinyinsearchdemo.activity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -57,6 +58,13 @@ public class T9SearchActivity extends Activity implements OnT9TelephoneDialpadVi
 		
 		mT9TelephoneDialpadView.clearT9Input();
 		ContactsHelper.getInstance().parseT9InputSearchContacts(null);
+		
+		List<Contacts> selectedContactsList=new ArrayList<Contacts>();
+		selectedContactsList.addAll(ContactsHelper.getInstance().getSelectedContacts().values());
+		Log.i(TAG, "onDestroy() selectedContactsList.size()="+selectedContactsList.size());
+		for(Contacts cs:selectedContactsList){
+			Log.i(TAG, "onDestroy() name=["+cs.getName()+"]");
+		}
 		
 		mContactsOperationView.clearSelectedContacts();
 		ContactsHelper.getInstance().clearSelectedContacts();
@@ -127,19 +135,6 @@ public class T9SearchActivity extends Activity implements OnT9TelephoneDialpadVi
 			intent.putExtras(bundle);
 			mContext.startActivity(intent);
 		}
-	}
-	
-	
-	@Override
-	public void onContactsSelectedChanged(List<Contacts> contacts) {
-		if(null!=contacts){
-			for(Contacts cs:contacts){
-				Log.i(TAG, "onContactsSelectedChanged name=["+cs.getName()+"] phoneNumber=["+cs.getPhoneNumber()+"]");
-			}
-			
-			Toast.makeText(mContext,"contacts count["+contacts.size()+"]", Toast.LENGTH_SHORT).show();
-		}
-		
 	}
 
 	@Override

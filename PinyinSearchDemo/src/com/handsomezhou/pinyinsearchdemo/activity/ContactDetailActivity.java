@@ -16,6 +16,7 @@ import com.handsomezhou.pinyinsearchdemo.R;
 import com.handsomezhou.pinyinsearchdemo.adapter.ContactsDetailAdapter;
 import com.handsomezhou.pinyinsearchdemo.adapter.ContactsDetailAdapter.OnContactsAdapter;
 import com.handsomezhou.pinyinsearchdemo.model.Contacts;
+import com.handsomezhou.pinyinsearchdemo.util.ContactsHelper;
 import com.handsomezhou.pinyinsearchdemo.view.ContactsOperationView;
 
 public class ContactDetailActivity extends Activity  implements OnContactsAdapter{
@@ -45,21 +46,11 @@ public class ContactDetailActivity extends Activity  implements OnContactsAdapte
 	
 	/*start:OnContactsAdapter*/
 	@Override
-	public void onContactsSelectedChanged(List<Contacts> contactsList) {
-		if(null!=contactsList){
-			for(Contacts cs:contactsList){
-				Log.i(TAG, "onContactsSelectedChanged name=["+cs.getName()+"] phoneNumber=["+cs.getPhoneNumber()+"]");
-			}
-			
-			Toast.makeText(mContext,"contacts count["+contactsList.size()+"]", Toast.LENGTH_SHORT).show();
-		}
-	}
-
-	@Override
 	public void onAddContactsSelected(Contacts contacts) {
 		if(null!=contacts){
 			Log.i(TAG, "onAddContactsSelected name=["+contacts.getName()+"] phoneNumber=["+contacts.getPhoneNumber()+"]");
 			Toast.makeText(mContext,"Add ["+contacts.getName()+":"+contacts.getPhoneNumber()+"]", Toast.LENGTH_SHORT).show();
+			ContactsHelper.getInstance().addSelectedContacts(contacts);
 		}
 	}
 
@@ -68,6 +59,7 @@ public class ContactDetailActivity extends Activity  implements OnContactsAdapte
 		if(null!=contacts){
 			Log.i(TAG, "onRemoveContactsSelected name=["+contacts.getName()+"] phoneNumber=["+contacts.getPhoneNumber()+"]");
 			Toast.makeText(mContext,"Remove ["+contacts.getName()+":"+contacts.getPhoneNumber()+"]", Toast.LENGTH_SHORT).show();
+			ContactsHelper.getInstance().removeSelectedContacts(contacts);
 		}
 	}
 	/*end:OnContactsAdapter*/

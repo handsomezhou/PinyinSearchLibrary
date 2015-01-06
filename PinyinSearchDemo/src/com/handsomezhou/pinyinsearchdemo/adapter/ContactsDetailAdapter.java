@@ -27,12 +27,10 @@ public class ContactsDetailAdapter extends ArrayAdapter<Contacts>{
 	private Context mContext;
 	private int mTextViewResourceId;
 	private List<Contacts> mContacts;
-	private HashMap<String, Contacts> mSelectedContactsHashMap; //(id+phoneNumber)as key
-	private List<Contacts> mSelectedContactsList; 
 	private OnContactsAdapter mOnContactsAdapter;
 	
 	public interface OnContactsAdapter{
-		void onContactsSelectedChanged(List<Contacts> contactsList);
+	//	void onContactsSelectedChanged(List<Contacts> contactsList);
 		void onAddContactsSelected(Contacts contacts);
 		void onRemoveContactsSelected(Contacts contacts);
 	}
@@ -43,26 +41,6 @@ public class ContactsDetailAdapter extends ArrayAdapter<Contacts>{
 		mContext=context;
 		mTextViewResourceId=textViewResourceId;
 		mContacts=contacts;
-		
-		setSelectedContacts(new HashMap<String, Contacts>());
-		setSelectedContactsList(new ArrayList<Contacts>());
-		getSelectedContacts().clear();
-	}
-	
-	public HashMap<String, Contacts> getSelectedContacts() {
-		return mSelectedContactsHashMap;
-	}
-
-	public void setSelectedContacts(HashMap<String, Contacts> selectedContacts) {
-		mSelectedContactsHashMap = selectedContacts;
-	}
-
-	public List<Contacts> getSelectedContactsList() {
-		return mSelectedContactsList;
-	}
-
-	public void setSelectedContactsList(List<Contacts> selectedContactsList) {
-		mSelectedContactsList = selectedContactsList;
 	}
 	
 	public OnContactsAdapter getOnContactsAdapter() {
@@ -75,12 +53,17 @@ public class ContactsDetailAdapter extends ArrayAdapter<Contacts>{
 	
 	public void clearSelectedContacts(){
 		//clear data
-		for(Contacts contacts:mSelectedContactsList){
+		for(Contacts contacts:mContacts){
 			contacts.setSelected(false);
+			
+			//other phoneNumber 
+			if(contacts.getMultipleNumbersContacts().size()>0){
+				List<Contacts> multipleNumbersContacts=contacts.getMultipleNumbersContacts();
+				for(Contacts cs:multipleNumbersContacts){
+					cs.setSelected(false);
+				}
+			}
 		}
-		
-		mSelectedContactsList.clear();
-		mSelectedContactsHashMap.clear();
 		
 		//refresh view
 		notifyDataSetChanged();
@@ -125,17 +108,6 @@ public class ContactsDetailAdapter extends ArrayAdapter<Contacts>{
 				}else{
 					return;
 				}
-				
-				if(null!=mOnContactsAdapter){
-					if(null==mSelectedContactsList){
-						mSelectedContactsList=new ArrayList<Contacts>();
-					}else{
-						mSelectedContactsList.clear();
-					}
-					mSelectedContactsList.addAll(mSelectedContactsHashMap.values());
-					mOnContactsAdapter.onContactsSelectedChanged(mSelectedContactsList);
-					
-				}
 			}
 		});
 		return view;
@@ -154,11 +126,6 @@ public class ContactsDetailAdapter extends ArrayAdapter<Contacts>{
 				break;
 			}
 			
-			if(null==mSelectedContactsHashMap){
-				mSelectedContactsHashMap=new HashMap<String, Contacts>();
-			}
-			
-			mSelectedContactsHashMap.put(getSelectedContactsKey(contacts), contacts);
 			if(null!=mOnContactsAdapter){
 				mOnContactsAdapter.onAddContactsSelected(contacts);
 			}
@@ -175,11 +142,6 @@ public class ContactsDetailAdapter extends ArrayAdapter<Contacts>{
 			return;
 		}
 		
-		if(null==mSelectedContactsHashMap){
-			return;
-		}
-		
-		mSelectedContactsHashMap.remove(getSelectedContactsKey(contacts));
 		if(null!=mOnContactsAdapter){
 			mOnContactsAdapter.onRemoveContactsSelected(contacts);
 		}

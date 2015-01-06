@@ -26,12 +26,10 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 	private Context mContext;
 	private int mTextViewResourceId;
 	private List<Contacts> mContacts;
-	private HashMap<String, Contacts> mSelectedContactsHashMap; //(id+phoneNumber)as key
-	private List<Contacts> mSelectedContactsList; 
 	private OnContactsAdapter mOnContactsAdapter;
 	
 	public interface OnContactsAdapter{
-		void onContactsSelectedChanged(List<Contacts> contacts);
+		//void onContactsSelectedChanged(List<Contacts> contacts);
 		void onAddContactsSelected(Contacts contacts);
 		void onRemoveContactsSelected(Contacts contacts);
 	}
@@ -42,26 +40,7 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 		mContext=context;
 		mTextViewResourceId=textViewResourceId;
 		mContacts=contacts;
-		
-		setSelectedContacts(new HashMap<String, Contacts>());
-		setSelectedContactsList(new ArrayList<Contacts>());
-		getSelectedContacts().clear();
-	}
-
-	public HashMap<String, Contacts> getSelectedContacts() {
-		return mSelectedContactsHashMap;
-	}
-
-	public void setSelectedContacts(HashMap<String, Contacts> selectedContacts) {
-		mSelectedContactsHashMap = selectedContacts;
-	}
-
-	public List<Contacts> getSelectedContactsList() {
-		return mSelectedContactsList;
-	}
-
-	public void setSelectedContactsList(List<Contacts> selectedContactsList) {
-		mSelectedContactsList = selectedContactsList;
+	
 	}
 	
 	public OnContactsAdapter getOnContactsAdapter() {
@@ -74,12 +53,17 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 	
 	public void clearSelectedContacts(){
 		//clear data
-		for(Contacts contacts:mSelectedContactsList){
+		for(Contacts contacts:mContacts){
 			contacts.setSelected(false);
+			
+			//other phoneNumber 
+			if(contacts.getMultipleNumbersContacts().size()>0){
+				List<Contacts> multipleNumbersContacts=contacts.getMultipleNumbersContacts();
+				for(Contacts cs:multipleNumbersContacts){
+					cs.setSelected(false);
+				}
+			}
 		}
-		
-		mSelectedContactsList.clear();
-		mSelectedContactsHashMap.clear();
 		
 		//refresh view
 		notifyDataSetChanged();
@@ -144,17 +128,6 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 					removeSelectedContacts(contacts);
 				}else{
 					return;
-				}
-				
-				if(null!=mOnContactsAdapter){
-					if(null==mSelectedContactsList){
-						mSelectedContactsList=new ArrayList<Contacts>();
-					}else{
-						mSelectedContactsList.clear();
-					}
-					mSelectedContactsList.addAll(mSelectedContactsHashMap.values());
-					mOnContactsAdapter.onContactsSelectedChanged(mSelectedContactsList);
-					
 				}
 			}
 		});
@@ -248,11 +221,6 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 				break;
 			}
 			
-			if(null==mSelectedContactsHashMap){
-				mSelectedContactsHashMap=new HashMap<String, Contacts>();
-			}
-			
-			mSelectedContactsHashMap.put(getSelectedContactsKey(contacts), contacts);
 			if(null!=mOnContactsAdapter){
 				mOnContactsAdapter.onAddContactsSelected(contacts);
 			}
@@ -269,11 +237,6 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 			return;
 		}
 		
-		if(null==mSelectedContactsHashMap){
-			return;
-		}
-		
-		mSelectedContactsHashMap.remove(getSelectedContactsKey(contacts));
 		if(null!=mOnContactsAdapter){
 			mOnContactsAdapter.onRemoveContactsSelected(contacts);
 		}
@@ -282,12 +245,12 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 	/**
 	 * key=id+phoneNumber
 	 * */
-	private String getSelectedContactsKey(Contacts contacts){
+	/*private String getSelectedContactsKey(Contacts contacts){
 		if(null==contacts){
 			return null;
 		}
 		
 		return contacts.getId()+contacts.getPhoneNumber();
-	}
+	}*/
 	
 }
