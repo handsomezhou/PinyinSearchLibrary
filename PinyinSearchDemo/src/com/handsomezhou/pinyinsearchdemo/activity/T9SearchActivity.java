@@ -63,7 +63,7 @@ public class T9SearchActivity extends Activity implements OnT9TelephoneDialpadVi
 		selectedContactsList.addAll(ContactsHelper.getInstance().getSelectedContacts().values());
 		Log.i(TAG, "onDestroy() selectedContactsList.size()="+selectedContactsList.size());
 		for(Contacts cs:selectedContactsList){
-			Log.i(TAG, "onDestroy() name=["+cs.getName()+"]");
+			Log.i(TAG, "onDestroy() name=["+cs.getName()+"] phoneNumber=["+cs.getPhoneNumber()+"]");
 		}
 		
 		mContactsOperationView.clearSelectedContacts();

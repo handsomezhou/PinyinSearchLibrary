@@ -8,11 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.handsomezhou.pinyinsearchdemo.R;
 import com.handsomezhou.pinyinsearchdemo.model.Contacts;
-import com.pinyinsearch.util.PinyinUtil;
 
 public class ContactsIndexAdapter extends ArrayAdapter<Contacts> {
 	private Context mContext;

@@ -3,8 +3,6 @@ package com.handsomezhou.pinyinsearchdemo.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.util.Log;
-
 import com.handsomezhou.pinyinsearchdemo.model.Contacts;
 import com.handsomezhou.pinyinsearchdemo.model.ContactsIndex;
 import com.handsomezhou.pinyinsearchdemo.view.QuickAlphabeticBar;

@@ -57,7 +57,7 @@ public class QwertySearchActivity extends Activity implements OnContactsLoad,OnC
 		selectedContactsList.addAll(ContactsHelper.getInstance().getSelectedContacts().values());
 		Log.i(TAG, "onDestroy() selectedContactsList.size()="+selectedContactsList.size());
 		for(Contacts cs:selectedContactsList){
-			Log.i(TAG, "onDestroy() name=["+cs.getName()+"]");
+			Log.i(TAG, "onDestroy() name=["+cs.getName()+"] phoneNumber=["+cs.getPhoneNumber()+"]");
 		}
 		
 		mContactsOperationView.clearSelectedContacts();

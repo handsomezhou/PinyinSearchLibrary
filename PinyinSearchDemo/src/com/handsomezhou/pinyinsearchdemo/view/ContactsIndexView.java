@@ -5,17 +5,12 @@ import java.util.List;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.handsomezhou.pinyinsearchdemo.R;
 import com.handsomezhou.pinyinsearchdemo.adapter.ContactsIndexAdapter;
@@ -23,7 +18,6 @@ import com.handsomezhou.pinyinsearchdemo.adapter.ContactsIndexAdapter.OnContacts
 import com.handsomezhou.pinyinsearchdemo.model.Contacts;
 import com.handsomezhou.pinyinsearchdemo.model.ContactsIndex;
 import com.handsomezhou.pinyinsearchdemo.util.ContactsIndexHelper;
-import com.pinyinsearch.util.PinyinUtil;
 
 /**
  * 
