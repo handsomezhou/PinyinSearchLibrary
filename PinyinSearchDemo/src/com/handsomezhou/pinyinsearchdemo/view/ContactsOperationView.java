@@ -25,6 +25,7 @@ import com.handsomezhou.pinyinsearchdemo.adapter.ContactsAdapter;
 import com.handsomezhou.pinyinsearchdemo.adapter.ContactsAdapter.OnContactsAdapter;
 import com.handsomezhou.pinyinsearchdemo.model.Contacts;
 import com.handsomezhou.pinyinsearchdemo.util.ContactsHelper;
+import com.handsomezhou.pinyinsearchdemo.util.ViewUtil;
 import com.handsomezhou.pinyinsearchdemo.view.ContactsIndexView.OnContactsIndexView;
 import com.handsomezhou.pinyinsearchdemo.view.QuickAlphabeticBar.OnQuickAlphabeticBar;
 
@@ -61,7 +62,7 @@ public class ContactsOperationView extends FrameLayout implements
 			case HANDLER_MSG_VIEW_DISPLAY:
 				break;
 			case HANDLER_MSG_VIEW_DISAPPEAR:
-				hideView(mContactsIndexView);
+				ViewUtil.hideView(mContactsIndexView);
 				break;
 			default:
 				break;
@@ -88,17 +89,17 @@ public class ContactsOperationView extends FrameLayout implements
 	}
 	
 	public void contactsLoading() {
-		showView(mLoadContactsView);
+		ViewUtil.showView(mLoadContactsView);
 	}
 
 	public void contactsLoadSuccess() {
-		hideView(mLoadContactsView);
+		ViewUtil.hideView(mLoadContactsView);
 		updateContactsList();
 	}
 
 	public void contactsLoadFailed() {
-		hideView(mLoadContactsView);
-		showView(mContactsLv);
+		ViewUtil.hideView(mLoadContactsView);
+		ViewUtil.showView(mContactsLv);
 	}
 
 	public void clearSelectedContacts(){
@@ -141,12 +142,12 @@ public class ContactsOperationView extends FrameLayout implements
 		if (null != contactsAdapter) {
 			contactsAdapter.notifyDataSetChanged();
 			if (contactsAdapter.getCount() > 0) {
-				showView(mContactsLv);
-				hideView(mSearchResultPromptTv);
+				ViewUtil.showView(mContactsLv);
+				ViewUtil.hideView(mSearchResultPromptTv);
 
 			} else {
-				hideView(mContactsLv);
-				showView(mSearchResultPromptTv);
+				ViewUtil.hideView(mContactsLv);
+				ViewUtil.showView(mSearchResultPromptTv);
 
 			}
 			// showView(mContactsIndexView);//just for test
@@ -174,7 +175,7 @@ public class ContactsOperationView extends FrameLayout implements
 	@Override
 	public void onQuickAlphabeticBarDown() {
 		clearViewDisappearMsg();
-		showView(mContactsIndexView);
+		ViewUtil.showView(mContactsIndexView);
 		Log.i(TAG, "onQuickAlphabeticBarDown");
 	}
 
@@ -223,10 +224,10 @@ public class ContactsOperationView extends FrameLayout implements
 		mSearchResultPromptTv = (TextView) mContactsOperationView
 				.findViewById(R.id.search_result_prompt_text_view);
 
-		showView(mContactsLv);
-		hideView(mContactsIndexView);
-		hideView(mLoadContactsView);
-		hideView(mSearchResultPromptTv);
+		ViewUtil.showView(mContactsLv);
+		ViewUtil.hideView(mContactsIndexView);
+		ViewUtil.hideView(mLoadContactsView);
+		ViewUtil.hideView(mSearchResultPromptTv);
 	}
 
 	private void initData() {
@@ -295,35 +296,6 @@ public class ContactsOperationView extends FrameLayout implements
 		mQuickAlphabeticBar.setSectionIndexer(mContactsAdapter);
 		mQuickAlphabeticBar.setQuickAlphabeticLv(mContactsLv);
 		mQuickAlphabeticBar.setSelectCharTv(mSelectCharTv);
-	}
-
-	private void hideView(View view) {
-		if (null == view) {
-			return;
-		}
-		if (View.GONE != view.getVisibility()) {
-			view.setVisibility(View.GONE);
-		}
-
-		return;
-	}
-
-	private int getViewVisibility(View view) {
-		if (null == view) {
-			return View.GONE;
-		}
-
-		return view.getVisibility();
-	}
-
-	private void showView(View view) {
-		if (null == view) {
-			return;
-		}
-
-		if (View.VISIBLE != view.getVisibility()) {
-			view.setVisibility(View.VISIBLE);
-		}
 	}
 
 	private void sendViewDisappearMsg() {

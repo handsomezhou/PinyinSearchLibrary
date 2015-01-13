@@ -2,6 +2,7 @@ package com.handsomezhou.pinyinsearchdemo.util;
 
 import android.text.Html;
 import android.text.Spanned;
+import android.view.View;
 import android.widget.TextView;
 
 public class ViewUtil {
@@ -40,5 +41,34 @@ public class ViewUtil {
                 + baseText.substring(index + len, baseText.length()));
 		
 		tv.setText(spanned);
+	}
+	
+	public static void hideView(View view) {
+		if (null == view) {
+			return;
+		}
+		if (View.GONE != view.getVisibility()) {
+			view.setVisibility(View.GONE);
+		}
+
+		return;
+	}
+
+	public static int getViewVisibility(View view) {
+		if (null == view) {
+			return View.GONE;
+		}
+
+		return view.getVisibility();
+	}
+
+	public static void showView(View view) {
+		if (null == view) {
+			return;
+		}
+
+		if (View.VISIBLE != view.getVisibility()) {
+			view.setVisibility(View.VISIBLE);
+		}
 	}
 }
