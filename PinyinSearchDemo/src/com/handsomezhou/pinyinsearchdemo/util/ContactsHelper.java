@@ -193,9 +193,22 @@ public class ContactsHelper {
 			for (Contacts contacts : mBaseContacts) {
 				contacts.setSearchByType(SearchByType.SearchByNull);
 				contacts.clearMatchKeywords();
+				mSearchContacts.add(contacts);
+				if(contacts.getMultipleNumbersContacts().size()>0){
+					List<Contacts> multipleContacts=contacts.getMultipleNumbersContacts();
+					for(Contacts cs:multipleContacts){
+						cs.setSearchByType(SearchByType.SearchByNull);
+						cs.clearMatchKeywords();
+						if(false==cs.isHide()){
+							mSearchContacts.add(cs);
+						}
+						
+					}
+					
+				}
 			}
 
-			mSearchContacts.addAll(mBaseContacts);
+			//mSearchContacts.addAll(mBaseContacts);
 			mFirstNoSearchResultInput.delete(0,
 					mFirstNoSearchResultInput.length());
 			Log.i(TAG, "null==search,mFirstNoSearchResultInput.length()="
@@ -331,9 +344,21 @@ public class ContactsHelper {
 			for (Contacts contacts : mBaseContacts) {
 				contacts.setSearchByType(SearchByType.SearchByNull);
 				contacts.clearMatchKeywords();
+				mSearchContacts.add(contacts);
+				if(contacts.getMultipleNumbersContacts().size()>0){
+					List<Contacts> multipleContacts=contacts.getMultipleNumbersContacts();
+					for(Contacts cs:multipleContacts){
+						cs.setSearchByType(SearchByType.SearchByNull);
+						cs.clearMatchKeywords();
+						if(false==cs.isHide()){
+							mSearchContacts.add(cs);
+						}
+					}
+					
+				}
 			}
 
-			mSearchContacts.addAll(mBaseContacts);
+			//mSearchContacts.addAll(mBaseContacts);
 			mFirstNoSearchResultInput.delete(0,
 					mFirstNoSearchResultInput.length());
 			Log.i(TAG, "null==search,mFirstNoSearchResultInput.length()="

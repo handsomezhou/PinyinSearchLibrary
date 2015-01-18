@@ -128,13 +128,15 @@ public class T9SearchActivity extends Activity implements OnT9TelephoneDialpadVi
 	/*start:OnContactsOperationView*/
 	@Override
 	public void onListItemClick(Contacts contacts,int position){
-		if(null!=contacts){
+		/*if(null!=contacts){
 			Intent intent=new Intent(mContext, ContactDetailActivity.class);
 			Bundle bundle=new Bundle();
 			bundle.putInt(ContactsOperationView.CONTACTS_INDEX, position);
 			intent.putExtras(bundle);
 			mContext.startActivity(intent);
-		}
+		}*/
+		ContactsHelper.getInstance().parseT9InputSearchContacts(null);
+		mContactsOperationView.updateContactsList();
 	}
 
 	@Override

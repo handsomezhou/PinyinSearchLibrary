@@ -31,6 +31,7 @@ public class Contacts {
 	
 	private List<Contacts> mMultipleNumbersContacts; //save the contacts information who has multiple numbers. 
 	private boolean mSelected;	//weather select contact
+	private boolean mHide;		//weather hide list item of contact 
 
 	public Contacts(String id ,String name, String phoneNumber) {
 		// super();
@@ -48,6 +49,7 @@ public class Contacts {
 		
 		setMultipleNumbersContacts(new ArrayList<Contacts>());
 		setSelected(false);
+		setHide(false);
 	}
 	
 	public Contacts(String id, String name, String phoneNumber, String sortKey) {
@@ -66,6 +68,7 @@ public class Contacts {
 		
 		setMultipleNumbersContacts(new ArrayList<Contacts>());
 		setSelected(false);
+		setHide(false);
 	}
 	
 	private static Comparator<Object> mChineseComparator = Collator.getInstance(Locale.CHINA);
@@ -153,6 +156,7 @@ public class Contacts {
 			Contacts cs=new Contacts(mId, mName, phoneNumber);
 			cs.setSortKey(mSortKey);
 			cs.setNamePinyinUnits(mNamePinyinUnits);// not deep copy
+			cs.setHide(true);
 			
 			mMultipleNumbersContacts.add(cs);
 		}
@@ -209,6 +213,13 @@ public class Contacts {
 		mSelected = selected;
 	}
 	
+	public boolean isHide() {
+		return mHide;
+	}
+
+	public void setHide(boolean hide) {
+		mHide = hide;
+	}
 	public void showContacts(){
 		Log.i(TAG,"mId=["+mId+"]mSortKey=["+mSortKey+"]"+"mName=["+mName+"] phoneNumberCount=["+mPhoneNumberList.size()+"]");
 		for(String number:mPhoneNumberList){

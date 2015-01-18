@@ -11,6 +11,8 @@
     <string name="no_match_search_result">无相关搜索结果</string>
     <string name="loading_contacts">正在加载联系人</string>
     <string name="phone_number_count">(%d个号码)</string>
+    <string name="click_to_unfold">点击可展开</string>
+    <string name="click_to_hide">点击可隐藏</string>
     <string name="phone_number_of_contacts">%s的号码</string>
 
 </resources>

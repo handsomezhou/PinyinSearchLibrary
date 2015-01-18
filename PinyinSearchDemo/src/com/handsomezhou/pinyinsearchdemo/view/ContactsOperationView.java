@@ -19,6 +19,7 @@ import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.handsomezhou.pinyinsearchdemo.R;
 import com.handsomezhou.pinyinsearchdemo.adapter.ContactsAdapter;
@@ -246,22 +247,16 @@ public class ContactsOperationView extends FrameLayout implements
 					int position, long id) {
 				Contacts contacts = ContactsHelper.getInstance()
 						.getSearchContacts().get(position);
+				if(contacts.getMultipleNumbersContacts().size()<=0){
+					return;
+				}
+				
+				hideOrUnfoldMultipleContactsView(contacts);
+				
 				if(null!=mOnContactsOperationView){
 					mOnContactsOperationView.onListItemClick(contacts,position);
 				}
-				/*String uri = "tel:" + contacts.getPhoneNumber();
-				Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse(uri));
-				// intent.setData(Uri.parse(uri));
-				mContext.startActivity(intent);*/
-				/*
-				Intent intent=new Intent(mContext, ContactDetailActivity.class);
-				Bundle bundle=new Bundle();
-				bundle.putInt(CONTACTS_INDEX, position);
-				intent.putExtras(bundle);
-				mContext.startActivity(intent);
-				*/
 				
-
 			}
 		});
 
@@ -312,5 +307,28 @@ public class ContactsOperationView extends FrameLayout implements
 		}
 
 		return;
+	}
+	
+	private void hideOrUnfoldMultipleContactsView(Contacts contacts){
+		if(null==contacts){
+			return;
+		}
+		
+		List<Contacts> mMultipleContacts=contacts.getMultipleNumbersContacts();
+		if((null==mMultipleContacts)||(mMultipleContacts.size()<=0)){
+			return;
+		}
+		
+		boolean hide=!mMultipleContacts.get(0).isHide();
+		for(Contacts cs:mMultipleContacts){
+			cs.setHide(hide);
+		}
+		
+		if(hide){
+			Toast.makeText(mContext, "hideMultipleContactsView", Toast.LENGTH_SHORT).show();
+		}else{
+			Toast.makeText(mContext, "UnfoldMultipleContactsView", Toast.LENGTH_SHORT).show();
+		}
+		
 	}
 }

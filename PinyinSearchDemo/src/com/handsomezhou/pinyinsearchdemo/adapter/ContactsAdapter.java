@@ -91,10 +91,14 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 		switch (contacts.getSearchByType()) {
 		case SearchByNull:
 			ViewUtil.showTextNormal(viewHolder.mNameTv, contacts.getName());
-			if(contacts.getPhoneNumberList().size()<=1){
+			if(contacts.getMultipleNumbersContacts().size()<=0){
 				ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumberList().get(0));
 			}else{
-				ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumberList().get(0)+mContext.getString(R.string.phone_number_count, contacts.getPhoneNumberList().size()));
+				if(true==contacts.getMultipleNumbersContacts().get(0).isHide()){
+					ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumberList().get(0)+mContext.getString(R.string.phone_number_count, contacts.getPhoneNumberList().size()));
+				}else{
+					ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumberList().get(0)+"("+mContext.getString(R.string.click_to_hide)+")");
+				}
 			}
 			break;
 		case SearchByPhoneNumber:
@@ -107,7 +111,8 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 			break;
 		default:
 			break;
-		}	
+		}
+		
 		
 		viewHolder.mSelectContactsCB.setTag(position);
 		viewHolder.mSelectContactsCB.setChecked(contacts.isSelected());
@@ -129,6 +134,7 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 				}
 			}
 		});
+
 		return view;
 	}
 	
