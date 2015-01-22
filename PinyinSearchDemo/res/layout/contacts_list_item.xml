@@ -48,6 +48,16 @@
                 android:layout_below="@id/name_text_view"
                 android:gravity="left" />
         </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/operation_view_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/index_view_width"
+            android:background="@drawable/arrow_down"
+            android:contentDescription="@string/app_name" />
     </RelativeLayout>
 
 </RelativeLayout>

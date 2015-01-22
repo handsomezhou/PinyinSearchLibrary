@@ -319,9 +319,9 @@ public class ContactsOperationView extends FrameLayout implements
 			return;
 		}
 		
-		boolean hide=!mMultipleContacts.get(0).isHide();
+		boolean hide=!mMultipleContacts.get(0).isHideMultipleContacts();
 		for(Contacts cs:mMultipleContacts){
-			cs.setHide(hide);
+			cs.setHideMultipleContacts(hide);
 		}
 		
 		if(hide){

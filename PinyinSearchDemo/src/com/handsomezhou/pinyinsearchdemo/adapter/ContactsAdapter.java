@@ -10,8 +10,10 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.handsomezhou.pinyinsearchdemo.R;
 import com.handsomezhou.pinyinsearchdemo.model.Contacts;
@@ -79,6 +81,7 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 			viewHolder.mSelectContactsCB=(CheckBox) view.findViewById(R.id.select_contacts_check_box);
 			viewHolder.mNameTv=(TextView) view.findViewById(R.id.name_text_view);
 			viewHolder.mPhoneNumber=(TextView) view.findViewById(R.id.phone_number_text_view);
+			viewHolder.mOperationViewIv=(ImageView) view.findViewById(R.id.operation_view_image_view);
 			view.setTag(viewHolder);
 		}else{
 			view=convertView;
@@ -94,7 +97,7 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 			if(contacts.getMultipleNumbersContacts().size()<=0){
 				ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumberList().get(0));
 			}else{
-				if(true==contacts.getMultipleNumbersContacts().get(0).isHide()){
+				if(true==contacts.getMultipleNumbersContacts().get(0).isHideMultipleContacts()){
 					ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumberList().get(0)+mContext.getString(R.string.phone_number_count, contacts.getPhoneNumberList().size()));
 				}else{
 					ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumberList().get(0)+"("+mContext.getString(R.string.click_to_hide)+")");
@@ -132,6 +135,26 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 				}else{
 					return;
 				}
+			}
+		});
+		
+		viewHolder.mOperationViewIv.setTag(position);
+		viewHolder.mOperationViewIv.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				int position = (Integer) v.getTag();
+				Contacts contacts = getItem(position);
+				contacts.setHideOperationView(!contacts.isHideOperationView());
+				if(contacts.isHideOperationView()){
+					v.setBackgroundResource(R.drawable.arrow_down);
+					Toast.makeText(mContext, "hide", Toast.LENGTH_SHORT).show();
+				}else{
+					v.setBackgroundResource(R.drawable.arrow_up);
+					Toast.makeText(mContext, "unfold", Toast.LENGTH_SHORT).show();
+				}
+				
+				
 			}
 		});
 
@@ -176,6 +199,7 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 		CheckBox mSelectContactsCB;
 		TextView mNameTv;
 		TextView mPhoneNumber;
+		ImageView mOperationViewIv;
 	}
 	
 	private void showAlphabetIndex(TextView textView, int position, final Contacts contacts){
@@ -256,5 +280,4 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 		
 		return contacts.getId()+contacts.getPhoneNumber();
 	}*/
-	
 }

@@ -199,7 +199,7 @@ public class ContactsHelper {
 					for(Contacts cs:multipleContacts){
 						cs.setSearchByType(SearchByType.SearchByNull);
 						cs.clearMatchKeywords();
-						if(false==cs.isHide()){
+						if(false==cs.isHideMultipleContacts()){
 							mSearchContacts.add(cs);
 						}
 						
@@ -350,7 +350,7 @@ public class ContactsHelper {
 					for(Contacts cs:multipleContacts){
 						cs.setSearchByType(SearchByType.SearchByNull);
 						cs.clearMatchKeywords();
-						if(false==cs.isHide()){
+						if(false==cs.isHideMultipleContacts()){
 							mSearchContacts.add(cs);
 						}
 					}

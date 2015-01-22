@@ -31,7 +31,8 @@ public class Contacts {
 	
 	private List<Contacts> mMultipleNumbersContacts; //save the contacts information who has multiple numbers. 
 	private boolean mSelected;	//weather select contact
-	private boolean mHide;		//weather hide list item of contact 
+	private boolean mHideMultipleContacts;		//whether hide multiple contacts
+	private boolean mHideOperationView; 		//whether hide operation view
 
 	public Contacts(String id ,String name, String phoneNumber) {
 		// super();
@@ -49,7 +50,8 @@ public class Contacts {
 		
 		setMultipleNumbersContacts(new ArrayList<Contacts>());
 		setSelected(false);
-		setHide(false);
+		setHideMultipleContacts(false);
+		setHideOperationView(true);
 	}
 	
 	public Contacts(String id, String name, String phoneNumber, String sortKey) {
@@ -68,7 +70,8 @@ public class Contacts {
 		
 		setMultipleNumbersContacts(new ArrayList<Contacts>());
 		setSelected(false);
-		setHide(false);
+		setHideMultipleContacts(false);
+		setHideOperationView(true);
 	}
 	
 	private static Comparator<Object> mChineseComparator = Collator.getInstance(Locale.CHINA);
@@ -156,7 +159,7 @@ public class Contacts {
 			Contacts cs=new Contacts(mId, mName, phoneNumber);
 			cs.setSortKey(mSortKey);
 			cs.setNamePinyinUnits(mNamePinyinUnits);// not deep copy
-			cs.setHide(true);
+			cs.setHideMultipleContacts(true);
 			
 			mMultipleNumbersContacts.add(cs);
 		}
@@ -213,13 +216,22 @@ public class Contacts {
 		mSelected = selected;
 	}
 	
-	public boolean isHide() {
-		return mHide;
+	public boolean isHideMultipleContacts() {
+		return mHideMultipleContacts;
 	}
 
-	public void setHide(boolean hide) {
-		mHide = hide;
+	public void setHideMultipleContacts(boolean hideMultipleContacts) {
+		mHideMultipleContacts = hideMultipleContacts;
 	}
+	
+	public boolean isHideOperationView() {
+		return mHideOperationView;
+	}
+
+	public void setHideOperationView(boolean hideOperationView) {
+		mHideOperationView = hideOperationView;
+	}
+	
 	public void showContacts(){
 		Log.i(TAG,"mId=["+mId+"]mSortKey=["+mSortKey+"]"+"mName=["+mName+"] phoneNumberCount=["+mPhoneNumberList.size()+"]");
 		for(String number:mPhoneNumberList){
