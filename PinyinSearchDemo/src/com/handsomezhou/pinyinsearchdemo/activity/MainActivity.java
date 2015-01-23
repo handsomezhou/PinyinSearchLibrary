@@ -16,7 +16,7 @@ import com.handsomezhou.pinyinsearchdemo.R;
  * @date 2014.11.09
  */
 public class MainActivity extends Activity{
-	private static final String TAG = "MainActivity";
+	//private static final String TAG = "MainActivity";
 	private Context mContext;
 	private Button mT9SearchBtn;
 	private Button mQwertySearchBtn;

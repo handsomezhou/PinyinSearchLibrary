@@ -6,6 +6,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -18,6 +19,7 @@ import com.handsomezhou.pinyinsearchdemo.model.Contacts;
 import com.handsomezhou.pinyinsearchdemo.util.ContactsHelper;
 import com.handsomezhou.pinyinsearchdemo.util.ContactsHelper.OnContactsLoad;
 import com.handsomezhou.pinyinsearchdemo.util.ContactsIndexHelper;
+import com.handsomezhou.pinyinsearchdemo.util.ShareUtil;
 import com.handsomezhou.pinyinsearchdemo.view.ContactsOperationView;
 import com.handsomezhou.pinyinsearchdemo.view.ContactsOperationView.OnContactsOperationView;
 import com.handsomezhou.pinyinsearchdemo.view.T9TelephoneDialpadView;
@@ -155,6 +157,24 @@ public class T9SearchActivity extends Activity implements OnT9TelephoneDialpadVi
 			Log.i(TAG, "onRemoveContactsSelected name=["+contacts.getName()+"] phoneNumber=["+contacts.getPhoneNumber()+"]");
 			Toast.makeText(mContext,"Remove ["+contacts.getName()+":"+contacts.getPhoneNumber()+"]", Toast.LENGTH_SHORT).show();
 			ContactsHelper.getInstance().removeSelectedContacts(contacts);
+		}
+	}
+	
+	@Override
+	public void onContactsCall(Contacts contacts) {
+		//Toast.makeText(mContext, "onContactsCall"+contacts.getPhoneNumber(), Toast.LENGTH_SHORT).show();
+		if(null!=contacts){
+			 Intent intent = new Intent(Intent.ACTION_CALL,Uri.parse("tel:"+contacts.getPhoneNumber()));
+			 mContext.startActivity(intent);
+		}
+	}
+
+
+	@Override
+	public void onContactsSms(Contacts contacts) {
+		//Toast.makeText(mContext, "onContactsSms"+contacts.getPhoneNumber(), Toast.LENGTH_SHORT).show();
+		if(null!=contacts){
+			ShareUtil.shareTextBySms(mContext, contacts.getPhoneNumber(), null);
 		}
 	}
 	/*end:OnContactsOperationView*/

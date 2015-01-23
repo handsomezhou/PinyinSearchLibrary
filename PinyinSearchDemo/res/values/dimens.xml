@@ -24,5 +24,8 @@
     <dimen name="index_value_height">36dp</dimen>
     <dimen name="index_key_text_size">24sp</dimen>
     <dimen name="index_value_text_size">24sp</dimen>
+    <dimen name="division_line_height">1dp</dimen>
+    <dimen name="icon_width">36dp</dimen>
+    <dimen name="icon_height">36dp</dimen>
 
 </resources>

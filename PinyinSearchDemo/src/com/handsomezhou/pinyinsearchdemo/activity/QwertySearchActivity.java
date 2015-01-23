@@ -6,6 +6,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -17,8 +18,9 @@ import android.widget.Toast;
 import com.handsomezhou.pinyinsearchdemo.R;
 import com.handsomezhou.pinyinsearchdemo.model.Contacts;
 import com.handsomezhou.pinyinsearchdemo.util.ContactsHelper;
-import com.handsomezhou.pinyinsearchdemo.util.ContactsIndexHelper;
+import com.handsomezhou.pinyinsearchdemo.util.ShareUtil;
 import com.handsomezhou.pinyinsearchdemo.util.ContactsHelper.OnContactsLoad;
+import com.handsomezhou.pinyinsearchdemo.util.ContactsIndexHelper;
 import com.handsomezhou.pinyinsearchdemo.view.ContactsOperationView;
 import com.handsomezhou.pinyinsearchdemo.view.ContactsOperationView.OnContactsOperationView;
 
@@ -160,5 +162,22 @@ public class QwertySearchActivity extends Activity implements OnContactsLoad,OnC
 			ContactsHelper.getInstance().removeSelectedContacts(contacts);
 		}
 	}
+	
+	@Override
+	public void onContactsCall(Contacts contacts) {
+		//Toast.makeText(mContext, "onContactsCall"+contacts.getPhoneNumber(), Toast.LENGTH_SHORT).show();
+		if(null!=contacts){
+			 Intent intent = new Intent(Intent.ACTION_CALL,Uri.parse("tel:"+contacts.getPhoneNumber()));
+			 mContext.startActivity(intent);
+		}
+	}
+
+
+	@Override
+	public void onContactsSms(Contacts contacts) {
+		//Toast.makeText(mContext, "onContactsSms"+contacts.getPhoneNumber(), Toast.LENGTH_SHORT).show();
+		ShareUtil.shareTextBySms(mContext, contacts.getPhoneNumber(), null);
+	}
 	/*end:OnContactsOperationView*/
+
 }

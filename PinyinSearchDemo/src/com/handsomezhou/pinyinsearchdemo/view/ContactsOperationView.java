@@ -52,6 +52,8 @@ public class ContactsOperationView extends FrameLayout implements
 		void onListItemClick(Contacts contacts,int position);
 		void onAddContactsSelected(Contacts contacts);
 		void onRemoveContactsSelected(Contacts contacts);
+		void onContactsCall(Contacts contacts);
+		void onContactsSms(Contacts contacts);
 	}
 	
 	final Handler handler = new Handler() {
@@ -202,6 +204,27 @@ public class ContactsOperationView extends FrameLayout implements
 			mOnContactsOperationView.onRemoveContactsSelected(contacts);
 		}
 	}
+	@Override
+	public void onContactsCall(Contacts contacts) {
+		if(null!=contacts){
+			mOnContactsOperationView.onContactsCall(contacts);
+		}
+	}
+
+	@Override
+	public void onContactsSms(Contacts contacts) {
+		if(null!=contacts){
+			mOnContactsOperationView.onContactsSms(contacts);
+		}
+	}
+
+	@Override
+	public void onContactsRefreshView() {
+		// TODO Auto-generated method stub
+		updateContactsList();
+	}
+	
+	
 	/*end:OnContactsAdapter*/
 	
 	private void initView() {
@@ -331,4 +354,5 @@ public class ContactsOperationView extends FrameLayout implements
 		}
 		
 	}
+
 }

@@ -16,6 +16,7 @@
         android:visibility="gone" />
 
     <RelativeLayout
+        android:id="@+id/contacs_info_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/alphabet_text_view" >
@@ -57,6 +58,39 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/index_view_width"
             android:background="@drawable/arrow_down"
+            android:contentDescription="@string/app_name" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/division_line_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/division_line_height"
+        android:layout_below="@id/contacs_info_layout"
+        android:layout_marginBottom="@dimen/margin_bottom"
+        android:layout_marginTop="@dimen/margin_top"
+        android:background="@color/white" />
+
+    <RelativeLayout
+        android:id="@+id/operation_view_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/division_line_text_view" >
+
+        <ImageView
+            android:id="@+id/call_image_view"
+            android:layout_width="@dimen/icon_width"
+            android:layout_height="@dimen/icon_height"
+            android:layout_marginLeft="@dimen/margin_left"
+            android:background="@drawable/call_icon"
+            android:contentDescription="@string/app_name" />
+
+        <ImageView
+            android:id="@+id/sms_image_view"
+            android:layout_width="@dimen/icon_width"
+            android:layout_height="@dimen/icon_height"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/index_view_width"
+            android:background="@drawable/sms_icon"
             android:contentDescription="@string/app_name" />
     </RelativeLayout>
 

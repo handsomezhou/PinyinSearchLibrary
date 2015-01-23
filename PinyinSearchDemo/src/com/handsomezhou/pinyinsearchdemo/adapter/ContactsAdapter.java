@@ -32,6 +32,9 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 		//void onContactsSelectedChanged(List<Contacts> contacts);
 		void onAddContactsSelected(Contacts contacts);
 		void onRemoveContactsSelected(Contacts contacts);
+		void onContactsCall(Contacts contacts);
+		void onContactsSms(Contacts contacts);
+		void onContactsRefreshView();
 	}
 	
 	public ContactsAdapter(Context context, int textViewResourceId,
@@ -82,6 +85,9 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 			viewHolder.mNameTv=(TextView) view.findViewById(R.id.name_text_view);
 			viewHolder.mPhoneNumber=(TextView) view.findViewById(R.id.phone_number_text_view);
 			viewHolder.mOperationViewIv=(ImageView) view.findViewById(R.id.operation_view_image_view);
+			viewHolder.mOperationViewLayout=(View) view.findViewById(R.id.operation_view_layout);
+			viewHolder.mCallIv=(ImageView) view.findViewById(R.id.call_image_view);
+			viewHolder.mSmsIv=(ImageView) view.findViewById(R.id.sms_image_view);
 			view.setTag(viewHolder);
 		}else{
 			view=convertView;
@@ -139,6 +145,13 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 		});
 		
 		viewHolder.mOperationViewIv.setTag(position);
+		int resid=(true==contacts.isHideOperationView())?(R.drawable.arrow_down):(R.drawable.arrow_up);
+		viewHolder.mOperationViewIv.setBackgroundResource(resid);
+		if(true==contacts.isHideOperationView()){
+			ViewUtil.hideView(viewHolder.mOperationViewLayout);
+		}else{
+			ViewUtil.showView(viewHolder.mOperationViewLayout);
+		}
 		viewHolder.mOperationViewIv.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -146,18 +159,38 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 				int position = (Integer) v.getTag();
 				Contacts contacts = getItem(position);
 				contacts.setHideOperationView(!contacts.isHideOperationView());
-				if(contacts.isHideOperationView()){
-					v.setBackgroundResource(R.drawable.arrow_down);
-					Toast.makeText(mContext, "hide", Toast.LENGTH_SHORT).show();
-				}else{
-					v.setBackgroundResource(R.drawable.arrow_up);
-					Toast.makeText(mContext, "unfold", Toast.LENGTH_SHORT).show();
-				}
-				
-				
+				if(null!=mOnContactsAdapter){
+					mOnContactsAdapter.onContactsRefreshView();
+				}	
 			}
 		});
 
+		viewHolder.mCallIv.setTag(position);
+		viewHolder.mCallIv.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				int position = (Integer) v.getTag();
+				Contacts contacts = getItem(position);
+				if(null!=mOnContactsAdapter){
+					mOnContactsAdapter.onContactsCall(contacts);
+				}
+				
+			}
+		});
+		
+		viewHolder.mSmsIv.setTag(position);
+		viewHolder.mSmsIv.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				int position = (Integer) v.getTag();
+				Contacts contacts = getItem(position);
+				if(null!=mOnContactsAdapter){
+					mOnContactsAdapter.onContactsSms(contacts);
+				}
+			}
+		});
 		return view;
 	}
 	
@@ -200,6 +233,10 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 		TextView mNameTv;
 		TextView mPhoneNumber;
 		ImageView mOperationViewIv;
+		
+		View mOperationViewLayout;
+		ImageView mCallIv;
+		ImageView mSmsIv;
 	}
 	
 	private void showAlphabetIndex(TextView textView, int position, final Contacts contacts){
