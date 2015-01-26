@@ -27,10 +27,8 @@ public class ContactsHelper {
 	private static final String TAG = "ContactsHelper";
 	private Context mContext;
 	private static ContactsHelper mInstance = null;
-	private List<Contacts> mBaseContacts = null; // The basic data used for the
-													// search
-	private List<Contacts> mSearchContacts = null; // The search results from
-													// the basic data
+	private List<Contacts> mBaseContacts = null; // The basic data used for the search
+	private List<Contacts> mSearchContacts = null; // The search results from the basic data
 	/*
 	 * save the first input string which search no result.
 	 * mFirstNoSearchResultInput.size<=0, means that the first input string
@@ -183,6 +181,9 @@ public class ContactsHelper {
 	 * 
 	 */
 	public void parseT9InputSearchContacts(String search) {
+		/*List<Contacts> mSearchByNameContacts=new ArrayList<Contacts>();
+		List<Contacts> mSearchByPhoneNumberContacts=new ArrayList<Contacts>();*/
+
 		if (null == search) {// add all base data to search
 			if (null != mSearchContacts) {
 				mSearchContacts.clear();
@@ -274,6 +275,7 @@ public class ContactsHelper {
 						.setMatchKeywords(chineseKeyWord.toString());
 				chineseKeyWord.delete(0, chineseKeyWord.length());
 				mSearchContacts.add(mBaseContacts.get(i));
+				//mSearchByNameContacts.add(mBaseContacts.get(i));
 				
 				if(mBaseContacts.get(i).getPhoneNumberList().size()>1){
 					int phoneNumberCount=mBaseContacts.get(i).getMultipleNumbersContacts().size();
@@ -283,6 +285,7 @@ public class ContactsHelper {
 						cs.setMatchKeywords(mBaseContacts.get(i)
 								.getMatchKeywords().toString());
 						mSearchContacts.add(cs);
+						//mSearchByNameContacts.add(cs);
 				
 					}
 				}
@@ -293,7 +296,8 @@ public class ContactsHelper {
 							SearchByType.SearchByPhoneNumber);
 					mBaseContacts.get(i).setMatchKeywords(search);
 					mSearchContacts.add(mBaseContacts.get(i));
-					//continue;
+					//mSearchByPhoneNumberContacts.add(mBaseContacts.get(i));
+					
 				}
 				
 				if(mBaseContacts.get(i).getPhoneNumberList().size()>1){
@@ -304,6 +308,7 @@ public class ContactsHelper {
 							cs.setSearchByType(SearchByType.SearchByPhoneNumber);
 							cs.setMatchKeywords(search);
 							mSearchContacts.add(cs);
+							//mSearchByPhoneNumberContacts.add(cs);
 						}
 					}
 				}
@@ -311,7 +316,9 @@ public class ContactsHelper {
 
 			}
 		}
-
+		/*mSearchContacts.clear();
+		mSearchContacts.addAll(mSearchByNameContacts);
+		mSearchContacts.addAll(mSearchByPhoneNumberContacts);*/
 		if (mSearchContacts.size() <= 0) {
 			if (mFirstNoSearchResultInput.length() <= 0) {
 				mFirstNoSearchResultInput.append(search);
