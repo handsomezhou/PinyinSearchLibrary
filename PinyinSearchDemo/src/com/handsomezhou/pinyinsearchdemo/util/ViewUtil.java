@@ -43,17 +43,6 @@ public class ViewUtil {
 		tv.setText(spanned);
 	}
 	
-	public static void hideView(View view) {
-		if (null == view) {
-			return;
-		}
-		if (View.GONE != view.getVisibility()) {
-			view.setVisibility(View.GONE);
-		}
-
-		return;
-	}
-
 	public static int getViewVisibility(View view) {
 		if (null == view) {
 			return View.GONE;
@@ -71,4 +60,27 @@ public class ViewUtil {
 			view.setVisibility(View.VISIBLE);
 		}
 	}
+	
+	public static void invisibleView(View view) {
+		if (null == view) {
+			return;
+		}
+		if (View.INVISIBLE != view.getVisibility()) {
+			view.setVisibility(View.INVISIBLE);
+		}
+
+		return;
+	}
+	
+	public static void hideView(View view) {
+		if (null == view) {
+			return;
+		}
+		if (View.GONE != view.getVisibility()) {
+			view.setVisibility(View.GONE);
+		}
+
+		return;
+	}
+
 }

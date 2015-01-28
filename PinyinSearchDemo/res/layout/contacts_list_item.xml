@@ -21,11 +21,21 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/alphabet_text_view" >
 
+        <ImageView
+            android:id="@+id/contacts_multiple_phone_operation_prompt_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@drawable/multiple_phone_unfold"
+            android:contentDescription="@string/app_name"
+            android:visibility="gone" />
+
         <CheckBox
             android:id="@+id/select_contacts_check_box"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true" />
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/contacts_multiple_phone_operation_prompt_image_view" />
 
         <RelativeLayout
             android:id="@+id/contacts_info"

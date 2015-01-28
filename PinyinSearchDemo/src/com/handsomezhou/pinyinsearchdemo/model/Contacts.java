@@ -33,6 +33,7 @@ public class Contacts {
 	private boolean mSelected;	//weather select contact
 	private boolean mHideMultipleContacts;		//whether hide multiple contacts
 	private boolean mHideOperationView; 		//whether hide operation view
+	private boolean mBelongMultipleContactsPhone; //whether belong multiple contacts phone
 
 	public Contacts(String id ,String name, String phoneNumber) {
 		// super();
@@ -52,6 +53,7 @@ public class Contacts {
 		setSelected(false);
 		setHideMultipleContacts(false);
 		setHideOperationView(true);
+		setBelongMultipleContactsPhone(false);
 	}
 	
 	public Contacts(String id, String name, String phoneNumber, String sortKey) {
@@ -72,6 +74,7 @@ public class Contacts {
 		setSelected(false);
 		setHideMultipleContacts(false);
 		setHideOperationView(true);
+		setBelongMultipleContactsPhone(false);
 	}
 	
 	private static Comparator<Object> mChineseComparator = Collator.getInstance(Locale.CHINA);
@@ -160,8 +163,9 @@ public class Contacts {
 			cs.setSortKey(mSortKey);
 			cs.setNamePinyinUnits(mNamePinyinUnits);// not deep copy
 			cs.setHideMultipleContacts(true);
-			
+			cs.setBelongMultipleContactsPhone(true);
 			mMultipleNumbersContacts.add(cs);
+			setBelongMultipleContactsPhone(true);
 		}
 		
 		return;
@@ -232,6 +236,14 @@ public class Contacts {
 		mHideOperationView = hideOperationView;
 	}
 	
+	public boolean isBelongMultipleContactsPhone() {
+		return mBelongMultipleContactsPhone;
+	}
+
+	public void setBelongMultipleContactsPhone(boolean belongMultipleContactsPhone) {
+		mBelongMultipleContactsPhone = belongMultipleContactsPhone;
+	}
+
 	public void showContacts(){
 		Log.i(TAG,"mId=["+mId+"]mSortKey=["+mSortKey+"]"+"mName=["+mName+"] phoneNumberCount=["+mPhoneNumberList.size()+"]");
 		for(String number:mPhoneNumberList){

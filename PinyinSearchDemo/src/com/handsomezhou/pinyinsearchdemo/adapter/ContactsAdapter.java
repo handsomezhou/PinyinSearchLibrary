@@ -81,6 +81,7 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 			view=LayoutInflater.from(mContext).inflate(mTextViewResourceId, null);
 			viewHolder=new ViewHolder();
 			viewHolder.mAlphabetTv=(TextView)view.findViewById(R.id.alphabet_text_view);
+			viewHolder.mContactsMultiplePhoneOperationPromptIv=(ImageView)view.findViewById(R.id.contacts_multiple_phone_operation_prompt_image_view);
 			viewHolder.mSelectContactsCB=(CheckBox) view.findViewById(R.id.select_contacts_check_box);
 			viewHolder.mNameTv=(TextView) view.findViewById(R.id.name_text_view);
 			viewHolder.mPhoneNumber=(TextView) view.findViewById(R.id.phone_number_text_view);
@@ -101,20 +102,29 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 		case SearchByNull:
 			ViewUtil.showTextNormal(viewHolder.mNameTv, contacts.getName());
 			if(contacts.getMultipleNumbersContacts().size()<=0){
+				if((true==contacts.isBelongMultipleContactsPhone())&&(false==contacts.isHideMultipleContacts())){
+					ViewUtil.invisibleView(viewHolder.mContactsMultiplePhoneOperationPromptIv);
+				}else{
+					ViewUtil.hideView(viewHolder.mContactsMultiplePhoneOperationPromptIv);
+				}
 				ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumberList().get(0));
 			}else{
 				if(true==contacts.getMultipleNumbersContacts().get(0).isHideMultipleContacts()){
+					ViewUtil.hideView(viewHolder.mContactsMultiplePhoneOperationPromptIv);
 					ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumberList().get(0)+mContext.getString(R.string.phone_number_count, contacts.getPhoneNumberList().size()));
 				}else{
+					ViewUtil.showView(viewHolder.mContactsMultiplePhoneOperationPromptIv);
 					ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumberList().get(0)+"("+mContext.getString(R.string.click_to_hide)+")");
 				}
 			}
 			break;
 		case SearchByPhoneNumber:
+			ViewUtil.hideView(viewHolder.mContactsMultiplePhoneOperationPromptIv);
 			ViewUtil.showTextNormal(viewHolder.mNameTv, contacts.getName());
 			ViewUtil.showTextHighlight(viewHolder.mPhoneNumber, contacts.getPhoneNumberList().get(0), contacts.getMatchKeywords().toString());
 			break;
 		case SearchByName:
+			ViewUtil.hideView(viewHolder.mContactsMultiplePhoneOperationPromptIv);
 			ViewUtil.showTextHighlight(viewHolder.mNameTv, contacts.getName(), contacts.getMatchKeywords().toString());
 			ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumberList().get(0));
 			break;
@@ -229,6 +239,7 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 	
 	private class ViewHolder{
 		TextView mAlphabetTv;
+		ImageView mContactsMultiplePhoneOperationPromptIv;
 		CheckBox mSelectContactsCB;
 		TextView mNameTv;
 		TextView mPhoneNumber;
