@@ -621,17 +621,15 @@ public class ContactsHelper {
 		HashMap<String, Contacts> nonKanjiStartContactsHashMap=new HashMap<String, Contacts>();
 		
 		List<Contacts> contacts=new ArrayList<Contacts>();
-		//HashMap<String, Contacts> contactsHashMap=new HashMap<String, Contacts>();
 		
 		Contacts cs = null;
 		Cursor cursor = null;
 		String sortkey = null;
 		long startLoadTime=System.currentTimeMillis();
+		String[] projection=new String[] {ContactsContract.CommonDataKinds.Phone.CONTACT_ID, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,ContactsContract.CommonDataKinds.Phone.NUMBER};
 		try {
 
-			cursor = context.getContentResolver().query(
-					ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
-					null, null, "sort_key");
+			cursor = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection,null, null, "sort_key");
 			
 			int idColumnIndex=cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID);
 			int dispalyNameColumnIndex=cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
