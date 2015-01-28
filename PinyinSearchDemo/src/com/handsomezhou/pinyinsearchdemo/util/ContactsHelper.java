@@ -151,8 +151,6 @@ public class ContactsHelper {
 			return false;
 		}
 
-		initContactsHelper();
-
 		mLoadTask = new AsyncTask<Object, Object, List<Contacts>>() {
 
 			@Override
@@ -627,6 +625,7 @@ public class ContactsHelper {
 		
 		Contacts cs = null;
 		Cursor cursor = null;
+		String sortkey = null;
 		long startLoadTime=System.currentTimeMillis();
 		try {
 
@@ -634,29 +633,27 @@ public class ContactsHelper {
 					ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
 					null, null, "sort_key");
 			
-			String sortkey = null;
+			int idColumnIndex=cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID);
+			int dispalyNameColumnIndex=cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+			int numberColumnIndex=cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
 			while (cursor.moveToNext()) {
 
-				String contactsId=cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID));
-				String displayName = cursor
-						.getString(cursor
-								.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-				String phoneNumber = cursor
-						.getString(cursor
-								.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-			//	Log.i(TAG, "contactsId=["+contactsId+"]name=["+displayName+"]"+"number=["+phoneNumber+"]");
+				String id=cursor.getString(idColumnIndex);
+				String displayName = cursor.getString(dispalyNameColumnIndex);
+				String phoneNumber = cursor.getString(numberColumnIndex);
+			//	Log.i(TAG, "id=["+id+"]name=["+displayName+"]"+"number=["+phoneNumber+"]");
 				
-				boolean kanjiStartContactsExist=kanjiStartContactsHashMap.containsKey(contactsId);
-				boolean nonKanjiStartContactsExist=nonKanjiStartContactsHashMap.containsKey(contactsId);
+				boolean kanjiStartContactsExist=kanjiStartContactsHashMap.containsKey(id);
+				boolean nonKanjiStartContactsExist=nonKanjiStartContactsHashMap.containsKey(id);
 				
 				if(true==kanjiStartContactsExist){
-					cs=kanjiStartContactsHashMap.get(contactsId);
+					cs=kanjiStartContactsHashMap.get(id);
 					cs.addPhoneNumber(phoneNumber);
 				}else if(true==nonKanjiStartContactsExist){
-					cs=nonKanjiStartContactsHashMap.get(contactsId);
+					cs=nonKanjiStartContactsHashMap.get(id);
 					cs.addPhoneNumber(phoneNumber);
 				}else{
-					cs = new Contacts(contactsId,displayName, phoneNumber);
+					cs = new Contacts(id,displayName, phoneNumber);
 					PinyinUtil.chineseStringToPinyinUnit(cs.getName(),
 							cs.getNamePinyinUnits());
 					sortkey = PinyinUtil.getSortKey(cs.getNamePinyinUnits())
@@ -664,9 +661,9 @@ public class ContactsHelper {
 					cs.setSortKey(praseSortKey(sortkey));
 					boolean isKanji=PinyinUtil.isKanji(cs.getName().charAt(0));
 					if(true==isKanji){
-						kanjiStartContactsHashMap.put(contactsId, cs);
+						kanjiStartContactsHashMap.put(id, cs);
 					}else{
-						nonKanjiStartContactsHashMap.put(contactsId, cs);
+						nonKanjiStartContactsHashMap.put(id, cs);
 					}
 					
 				}
@@ -717,67 +714,6 @@ public class ContactsHelper {
 		long endLoadTime=System.currentTimeMillis();
 		Log.i(TAG, "endLoadTime-startLoadTime=["+(endLoadTime-startLoadTime)+"]");
 		/*for(Contacts c:contacts){
-			c.showContacts();
-		}*/
-		return contacts;
-	}
-	
-	@SuppressLint("DefaultLocale")
-	private List<Contacts> loadContactsOK(Context context) {
-		List<Contacts> contacts=new ArrayList<Contacts>();
-		HashMap<String, Contacts> contactsHashMap=new HashMap<String, Contacts>();
-		
-		Contacts cs = null;
-		Cursor cursor = null;
-		long startLoadTime=System.currentTimeMillis();
-		try {
-
-			cursor = context.getContentResolver().query(
-					ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
-					null, null, "sort_key");
-			
-			String sortkey = null;
-			while (cursor.moveToNext()) {
-
-				String contactsId=cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID));
-				String displayName = cursor
-						.getString(cursor
-								.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-				String phoneNumber = cursor
-						.getString(cursor
-								.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-			//	Log.i(TAG, "contactsId=["+contactsId+"]name=["+displayName+"]"+"number=["+phoneNumber+"]");
-				
-				
-				boolean contactsExist=contactsHashMap.containsKey(contactsId);
-				if(true==contactsExist){
-					cs=contactsHashMap.get(contactsId);
-					cs.addPhoneNumber(phoneNumber);
-				}else{
-					cs = new Contacts(contactsId,displayName, phoneNumber);
-					PinyinUtil.chineseStringToPinyinUnit(cs.getName(),
-							cs.getNamePinyinUnits());
-					sortkey = PinyinUtil.getSortKey(cs.getNamePinyinUnits())
-							.toUpperCase();
-					cs.setSortKey(praseSortKey(sortkey));
-					contactsHashMap.put(contactsId, cs);
-				}
-			}
-		} catch (Exception e) {
-
-		} finally {
-			if (null != cursor) {
-				cursor.close();
-				cursor = null;
-			}
-		}
-		
-		contacts.addAll(contactsHashMap.values());
-		Collections.sort(contacts, Contacts.mAscComparator);
-		long endLoadTime=System.currentTimeMillis();
-		Log.i(TAG, "endLoadTime-startLoadTime=["+(endLoadTime-startLoadTime)+"]");
-/*
-		for(Contacts c:contacts){
 			c.showContacts();
 		}*/
 		return contacts;
