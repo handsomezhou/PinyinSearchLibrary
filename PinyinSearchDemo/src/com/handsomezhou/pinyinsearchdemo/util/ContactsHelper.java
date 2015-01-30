@@ -683,7 +683,7 @@ public class ContactsHelper {
 		
 		//contacts.addAll(nonKanjiStartContacts);
 		contacts.addAll(kanjiStartContacts);
-		
+	
 		//merge nonKanjiStartContacts and kanjiStartContacts
 		int lastIndex=0;
 		boolean shouldBeAdd=false;
@@ -702,18 +702,21 @@ public class ContactsHelper {
 				}
 			}
 			
+			if(lastIndex>=contacts.size()){
+				lastIndex++;
+				shouldBeAdd=true;
+				//Log.i(TAG, "lastIndex="+lastIndex);
+			}
+			
 			if(true==shouldBeAdd){
 				contacts.add(j, nonKanjiStartContacts.get(i));
-				//Log.i(TAG, "=================================j=["+j+"]");
 				shouldBeAdd=false;
 			}
 		}
 	
 		long endLoadTime=System.currentTimeMillis();
-		Log.i(TAG, "endLoadTime-startLoadTime=["+(endLoadTime-startLoadTime)+"]");
-		/*for(Contacts c:contacts){
-			c.showContacts();
-		}*/
+		Log.i(TAG, "endLoadTime-startLoadTime=["+(endLoadTime-startLoadTime)+"] contacts.size()="+contacts.size());
+		
 		return contacts;
 	}
 	

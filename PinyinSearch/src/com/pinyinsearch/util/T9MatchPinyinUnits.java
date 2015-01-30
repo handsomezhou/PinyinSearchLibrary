@@ -146,8 +146,8 @@ public class T9MatchPinyinUnits {
 					searchBuffer.delete(0, searchBuffer.length());
 					return true;
 				}else{
-//					 match case:[Non-Chinese characters]+[Chinese characters]
-//					 for example:baseData="Tony测试"; match this case:"onycs"<===>"66927" 
+					// match case:[Non-Chinese characters]+[Chinese characters]
+					//for example:baseData="Tony测试"; match this case:"onycs"<===>"66927" 
 					//start [Non-Chinese characters]+[Chinese characters]
 					int numLength=pinyinBaseUnit.getNumber().length();
 					for(int i=0; i<numLength; i++){
