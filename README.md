@@ -1,25 +1,31 @@
 PinyinSearchLibrary
 ===================
-	The library of PinyinSearch,a Java Library Which provide data analysis methods, data matching method and so on for T9 pinyin search and Qwerty pinyin search.
+	The library of PinyinSearch,a Java Library Which provide data analysis methods, data matching method 
+	and so on for T9 pinyin search and Qwerty pinyin search.
 
-### Depend
-	The library of pinyin4j: 
-	Pinyin4j is a popular Java library supporting convertion between Chinese characters and most popular Pinyin systems. The output format of pinyin could be customized.
+Depend
+---------------
+### The library of pinyin4j: 
+	Pinyin4j is a popular Java library supporting convertion between Chinese characters and most popular 
+	Pinyin systems. The output format of pinyin could be customized.
 	http://pinyin4j.sourceforge.net/
 	
-### API
-    Data structure:PinyinUnit
-	PinyinUnit as a base data structure to save the string that Chinese characters  converted to Pinyin characters.
+API
+---------------
+### Data structure:PinyinUnit
+	PinyinUnit as a base data structure to save the string that Chinese characters  converted to Pinyin 
+	characters.
 	
-	Function:
+### Function:
 	public static void chineseStringToPinyinUnit(String chineseString,List<PinyinUnit> pinyinUnit);
-	public static boolean matchPinyinUnits(final List<PinyinUnit> pinyinUnits,final String baseData, String search,StringBuffer chineseKeyWord);
+	public static boolean matchPinyinUnits(final List<PinyinUnit> pinyinUnits,final String baseData, 
+	String search,StringBuffer chineseKeyWord);
 	public static String getSortKey(List<PinyinUnit> pinyinUnit)
 	public static String getFirstLetter(List<PinyinUnit> pinyinUnit);
 	public static String getFirstCharacter(List<PinyinUnit> pinyinUnit);
 	public static boolean isKanji(char chr)
 
-	Function call:
+### Function call:
 	PinyinUtil.chineseStringToPinyinUnit(...);
 	T9MatchPinyinUnits.matchPinyinUnits(...);
 	QwertyMatchPinyinUnits.matchPinyinUnits(...);
@@ -28,20 +34,23 @@ PinyinSearchLibrary
 	PinyinUtil.getFirstLetter();
 	PinyinUtil.isKanji(...);
 	
-### Using
-	Import packages when use PinyinSearch Library:
+Using
+---------------	
+### T9 search demo:
+<img src="https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/image/T9_search.png"/>
+
+### Qwerty search demo:
+<img src="https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/image/Qwerty_search.png" />
+	
+### Function call in detail:
+	Import packages when use PinyinSearch Library(Dependent on pinyin4j-x.x.x.jar):
 	import com.pinyinsearch.util.*;
 	import com.pinyinsearch.model.*;
 	
-	T9 search demo:
-	<img src="https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/PinyinSearchDemo/res/drawable/arrow_down.png" />
-	Qwerty search demo:
-	<img src="https://d13yacurqjgara.cloudfront.net/users/125056/screenshots/1689922/events-menu_1-1-6.gif" />
-	
-	Function call methods in detail:
 	Reference PinyinSearchDemo Project.
 	
-### License 
+License 
+---------------
 	Copyright [handsomezhou] Pinyin search library,for T9 pinyin search and Qwerty pinyin search.
 
 	Licensed under the Apache License, Version 2.0 (the "License");
