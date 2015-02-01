@@ -1,25 +1,25 @@
 PinyinSearchLibrary
 ===================
-	The library of PinyinSearch,a Java Library Which provide data analysis methods, data matching method 
-	and so on for T9 pinyin search and Qwerty pinyin search.
+	The library of PinyinSearch,a Java Library Which provide data analysis methods, 
+	data matching method and so on for T9 pinyin search and Qwerty pinyin search.
 
 Depend
 ---------------
 ### The library of pinyin4j: 
-	Pinyin4j is a popular Java library supporting convertion between Chinese characters and most popular 
-	Pinyin systems. The output format of pinyin could be customized.
+	Pinyin4j is a popular Java library supporting convertion between Chinese characters 
+	and most popular Pinyin systems. The output format of pinyin could be customized.
 	http://pinyin4j.sourceforge.net/
 	
 API
 ---------------
 ### Data structure:PinyinUnit
-	PinyinUnit as a base data structure to save the string that Chinese characters  converted to Pinyin 
-	characters.
+	PinyinUnit as a base data structure to save the string that Chinese characters  
+	converted to Pinyin characters.
 	
 ### Function:
 	public static void chineseStringToPinyinUnit(String chineseString,List<PinyinUnit> pinyinUnit);
-	public static boolean matchPinyinUnits(final List<PinyinUnit> pinyinUnits,final String baseData, 
-	String search,StringBuffer chineseKeyWord);
+	public static boolean matchPinyinUnits(final List<PinyinUnit> pinyinUnits,
+	final String baseData, String search,StringBuffer chineseKeyWord);
 	public static String getSortKey(List<PinyinUnit> pinyinUnit)
 	public static String getFirstLetter(List<PinyinUnit> pinyinUnit);
 	public static String getFirstCharacter(List<PinyinUnit> pinyinUnit);
