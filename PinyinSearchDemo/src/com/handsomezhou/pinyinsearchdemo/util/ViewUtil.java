@@ -33,10 +33,12 @@ public class ViewUtil {
 		
 		int len=highlightText.length();
 		/**
-		 *  "<u><font color=#FF0000 >"+str+"</font></u>"; 	//with underline
-		 *  "<font color=#FF0000 >"+str+"</font>";			//without underline
+		 *  "<u><font color=#FF8C00 >"+str+"</font></u>"; 	//with underline
+		 *  "<font color=#FF8C00 >"+str+"</font>";			//without underline
+		 *  
+		 *  <color name="dark_orange">#FF8C00</color>
 		 */
-		Spanned spanned=Html.fromHtml(baseText.substring(0, index)+"<font color=#FF0000 >" 
+		Spanned spanned=Html.fromHtml(baseText.substring(0, index)+"<font color=#FF8C00 >" 
                 + baseText.substring(index, index + len) + "</font>" 
                 + baseText.substring(index + len, baseText.length()));
 		

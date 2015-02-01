@@ -20,8 +20,7 @@ public class PinyinUtil {
 	 * @param chineseString
 	 * @param pinyinUnit
 	 */
-	public static void chineseStringToPinyinUnit(String chineseString,
-			List<PinyinUnit> pinyinUnit) {
+	public static void chineseStringToPinyinUnit(String chineseString,List<PinyinUnit> pinyinUnit) {
 		if ((null == chineseString) || (null == pinyinUnit)) {
 			return;
 		}
@@ -64,8 +63,7 @@ public class PinyinUtil {
 					// add continuous non-kanji characters to PinyinUnit
 					originalString = nonPinyinString.toString();
 					String[] str = { nonPinyinString.toString() };
-					addPinyinUnit(pinyinUnit, pyUnit, false, originalString,
-							str, startPosition);
+					addPinyinUnit(pinyinUnit, pyUnit, false, originalString,str, startPosition);
 					nonPinyinString.delete(0, nonPinyinString.length());
 					lastChineseCharacters = true;
 				}
@@ -74,8 +72,7 @@ public class PinyinUtil {
 				pyUnit = new PinyinUnit();
 				startPosition = i;
 				originalString = String.valueOf(ch);
-				addPinyinUnit(pinyinUnit, pyUnit, true, originalString,
-						pinyinStr, startPosition);
+				addPinyinUnit(pinyinUnit, pyUnit, true, originalString,pinyinStr, startPosition);
 
 			}
 		}
@@ -84,8 +81,7 @@ public class PinyinUtil {
 			// add continuous non-kanji characters to PinyinUnit
 			originalString = nonPinyinString.toString();
 			String[] str = { nonPinyinString.toString() };
-			addPinyinUnit(pinyinUnit, pyUnit, false, originalString, str,
-					startPosition);
+			addPinyinUnit(pinyinUnit, pyUnit, false, originalString, str,startPosition);
 			nonPinyinString.delete(0, nonPinyinString.length());
 			lastChineseCharacters = true;
 		}
@@ -104,8 +100,7 @@ public class PinyinUtil {
 				break;
 			}
 
-			List<PinyinBaseUnit> pinyinBaseUnit = pinyinUnit.get(0)
-					.getPinyinBaseUnitIndex();
+			List<PinyinBaseUnit> pinyinBaseUnit = pinyinUnit.get(0).getPinyinBaseUnitIndex();
 			if (null == pinyinBaseUnit || pinyinBaseUnit.size() <= 0) {
 				break;
 			}
@@ -135,8 +130,7 @@ public class PinyinUtil {
 				break;
 			}
 
-			List<PinyinBaseUnit> pinyinBaseUnit = pinyinUnit.get(0)
-					.getPinyinBaseUnitIndex();
+			List<PinyinBaseUnit> pinyinBaseUnit = pinyinUnit.get(0).getPinyinBaseUnitIndex();
 			if (null == pinyinBaseUnit || pinyinBaseUnit.size() <= 0) {
 				break;
 			}
@@ -152,6 +146,7 @@ public class PinyinUtil {
 
 		return null;
 	}
+	
 	/**
 	 * get sort key, as sort keyword
 	 * @param pinyinUnit
@@ -197,9 +192,7 @@ public class PinyinUtil {
 		return (null==pinyinStr)?(false):(true);
 	}
 	
-	private static void addPinyinUnit(List<PinyinUnit> pinyinUnit,
-			PinyinUnit pyUnit, boolean pinyin, String originalString,
-			String[] string, int startPosition) {
+	private static void addPinyinUnit(List<PinyinUnit> pinyinUnit,PinyinUnit pyUnit, boolean pinyin, String originalString,String[] string, int startPosition) {
 		if ((null == pinyinUnit) || (null == pyUnit)
 				|| (null == originalString) || (null == string)) {
 			return;
@@ -212,8 +205,7 @@ public class PinyinUtil {
 
 	}
 
-	private static void initPinyinUnit(PinyinUnit pinyinUnit, boolean pinyin,
-			String originalString, String[] string, int startPosition) {
+	private static void initPinyinUnit(PinyinUnit pinyinUnit, boolean pinyin,String originalString, String[] string, int startPosition) {
 		if ((null == pinyinUnit) || (null == originalString)
 				|| (null == string)) {
 			return;
@@ -240,11 +232,9 @@ public class PinyinUtil {
 			initT9PinyinUnit(pinyinBaseUnit, originalString, string[0]);
 			pinyinUnit.getPinyinBaseUnitIndex().add(pinyinBaseUnit);
 			for (j = 1; j < strLength; j++) {
-				int curStringIndexlength = pinyinUnit.getPinyinBaseUnitIndex()
-						.size();
+				int curStringIndexlength = pinyinUnit.getPinyinBaseUnitIndex().size();
 				for (k = 0; k < curStringIndexlength; k++) {
-					if (pinyinUnit.getPinyinBaseUnitIndex().get(k).getPinyin()
-							.equals(string[j])) {
+					if (pinyinUnit.getPinyinBaseUnitIndex().get(k).getPinyin().equals(string[j])) {
 						break;
 					}
 				}
@@ -258,8 +248,7 @@ public class PinyinUtil {
 		}
 	}
 
-	private static void initT9PinyinUnit(PinyinBaseUnit pinyinBaseUnit,
-			String originalString, String pinyin) {
+	private static void initT9PinyinUnit(PinyinBaseUnit pinyinBaseUnit,String originalString, String pinyin) {
 		if ((null == pinyinBaseUnit) || (null == originalString)
 				|| (null == pinyin)) {
 			return;
