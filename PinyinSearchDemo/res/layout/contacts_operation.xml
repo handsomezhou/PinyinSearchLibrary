@@ -21,8 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right|top"
         android:layout_marginRight="50dp"
-        android:gravity="center_horizontal"
         android:background="@color/white"
+        android:gravity="center_horizontal"
         android:visibility="visible" >
     </com.handsomezhou.pinyinsearchdemo.view.ContactsIndexView>
 
@@ -30,8 +30,7 @@
         android:id="@+id/select_char_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right|center_vertical"
-        android:layout_marginRight="80dp"
+        android:layout_gravity="center"
         android:background="@drawable/sort_icon_bg_click"
         android:gravity="center_vertical|center_horizontal"
         android:textColor="@android:color/white"
