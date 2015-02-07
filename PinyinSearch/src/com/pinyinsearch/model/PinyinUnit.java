@@ -1,10 +1,26 @@
+/*
+ * Copyright  [handsomezhou] 2014 The Pinyin search Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.pinyinsearch.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @description PinyinUnit as a base data structure to save the string that Chinese characters  converted to Pinyin characters.
+ * PinyinUnit as a base data structure to save the string that Chinese characters  converted to Pinyin characters.
  * for example:
  * Reference: http://www.cnblogs.com/bomo/archive/2012/12/25/2833081.html
  * Chinese characters:"Hi你说了什么git???"
@@ -41,8 +57,6 @@ import java.util.List;
  * 		git???->git???				===>mPinyin=false, 	mPinyinBaseUnitIndex.size=1, mStartPosition=7	
  * 		{[mPinyinBaseUnitIndex.get(0).getPinyin()="git???",mPinyinBaseUnitIndex.get(0).getNumber="448???"];}
  * 
- * @author handsomezhou
- * @date 2014-11-11
  */
 
 public class PinyinUnit {
