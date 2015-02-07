@@ -3,12 +3,18 @@ PinyinSearchLibrary
 	The library of PinyinSearch,a Java Library Which provide data analysis methods, 
 	data matching method and so on for T9 pinyin search and Qwerty pinyin search.
 
+Related introduction
+---------------
+### [Android Pinyin search contacts analysis and implementation](http://blog.csdn.net/zjqyjg/article/details/41360769)
+### [Android T9 search contacts analysis and implementation](http://blog.csdn.net/zjqyjg/article/details/41182911)
+### [Android Qwerty search contacts analysis and implementation](http://blog.csdn.net/zjqyjg/article/details/41318907)
+
 Depend
 ---------------
 ### The library of pinyin4j: 
 	Pinyin4j is a popular Java library supporting convertion between Chinese characters 
 	and most popular Pinyin systems. The output format of pinyin could be customized.
-	http://pinyin4j.sourceforge.net/
+	[http://pinyin4j.sourceforge.net/](http://pinyin4j.sourceforge.net/)
 	
 API
 ---------------
@@ -57,7 +63,7 @@ License
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
 
-		http://www.apache.org/licenses/LICENSE-2.0
+		[http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
