@@ -238,14 +238,14 @@ public class PinyinUtil {
 		if (false == pinyin || strLength <= 1) {// no more than one pinyin
 			for (i = 0; i < strLength; i++) {
 				pinyinBaseUnit = new PinyinBaseUnit();
-				initT9PinyinUnit(pinyinBaseUnit, originalString, string[i]);
+				initPinyinBaseUnit(pinyinBaseUnit, originalString, string[i]);
 				pinyinUnit.getPinyinBaseUnitIndex().add(pinyinBaseUnit);
 			}
 		} else { // more than one pinyin.//we must delete the same pinyin
 					// string,because pinyin without tone.
 
 			pinyinBaseUnit = new PinyinBaseUnit();
-			initT9PinyinUnit(pinyinBaseUnit, originalString, string[0]);
+			initPinyinBaseUnit(pinyinBaseUnit, originalString, string[0]);
 			pinyinUnit.getPinyinBaseUnitIndex().add(pinyinBaseUnit);
 			for (j = 1; j < strLength; j++) {
 				int curStringIndexlength = pinyinUnit.getPinyinBaseUnitIndex().size();
@@ -257,14 +257,14 @@ public class PinyinUtil {
 
 				if (k == curStringIndexlength) {
 					pinyinBaseUnit = new PinyinBaseUnit();
-					initT9PinyinUnit(pinyinBaseUnit, originalString, string[j]);
+					initPinyinBaseUnit(pinyinBaseUnit, originalString, string[j]);
 					pinyinUnit.getPinyinBaseUnitIndex().add(pinyinBaseUnit);
 				}
 			}
 		}
 	}
 
-	private static void initT9PinyinUnit(PinyinBaseUnit pinyinBaseUnit,String originalString, String pinyin) {
+	private static void initPinyinBaseUnit(PinyinBaseUnit pinyinBaseUnit,String originalString, String pinyin) {
 		if ((null == pinyinBaseUnit) || (null == originalString)
 				|| (null == pinyin)) {
 			return;
