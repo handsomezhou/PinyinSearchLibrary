@@ -275,7 +275,7 @@ public class ContactsHelper {
 				mSearchContacts.add(mBaseContacts.get(i));
 				//mSearchByNameContacts.add(mBaseContacts.get(i));
 				
-				if(mBaseContacts.get(i).getPhoneNumberList().size()>1){
+				if(mBaseContacts.get(i).getMultipleNumbersContacts().size()>0){
 					int phoneNumberCount=mBaseContacts.get(i).getMultipleNumbersContacts().size();
 					for(int j=0; j<phoneNumberCount; j++){
 						Contacts cs=mBaseContacts.get(i).getMultipleNumbersContacts().get(j);
@@ -289,7 +289,7 @@ public class ContactsHelper {
 				}
 				continue;
 			} else {		
-				if (mBaseContacts.get(i).getPhoneNumberList().get(0).contains(search)) { // search by phone number
+				if (mBaseContacts.get(i).getPhoneNumber().contains(search)) { // search by phone number
 					mBaseContacts.get(i).setSearchByType(
 							SearchByType.SearchByPhoneNumber);
 					mBaseContacts.get(i).setMatchKeywords(search);
@@ -298,11 +298,11 @@ public class ContactsHelper {
 					
 				}
 				
-				if(mBaseContacts.get(i).getPhoneNumberList().size()>1){
+				if(mBaseContacts.get(i).getMultipleNumbersContacts().size()>0){
 					int phoneNumberCount=mBaseContacts.get(i).getMultipleNumbersContacts().size();
 					for(int j=0; j<phoneNumberCount; j++){
 						Contacts cs=mBaseContacts.get(i).getMultipleNumbersContacts().get(j);
-						if(cs.getPhoneNumberList().get(0).contains(search)){
+						if(cs.getPhoneNumber().contains(search)){
 							cs.setSearchByType(SearchByType.SearchByPhoneNumber);
 							cs.setMatchKeywords(search);
 							mSearchContacts.add(cs);
@@ -429,7 +429,7 @@ public class ContactsHelper {
 				chineseKeyWord.delete(0, chineseKeyWord.length());
 				mSearchContacts.add(mBaseContacts.get(i));
 				
-				if(mBaseContacts.get(i).getPhoneNumberList().size()>1){
+				if((mBaseContacts.get(i).getMultipleNumbersContacts().size())>0){
 					int phoneNumberCount=mBaseContacts.get(i).getMultipleNumbersContacts().size();
 					for(int j=0; j<phoneNumberCount; j++){
 						Contacts cs=mBaseContacts.get(i).getMultipleNumbersContacts().get(j);
@@ -442,7 +442,7 @@ public class ContactsHelper {
 				}
 				continue;
 			} else {
-				if (mBaseContacts.get(i).getPhoneNumberList().get(0).contains(search)) { // search  by phone number
+				if (mBaseContacts.get(i).getPhoneNumber().contains(search)) { // search  by phone number
 					mBaseContacts.get(i).setSearchByType(
 							SearchByType.SearchByPhoneNumber);
 					mBaseContacts.get(i).setMatchKeywords(search);
@@ -450,11 +450,11 @@ public class ContactsHelper {
 					//continue;
 				}
 
-				if(mBaseContacts.get(i).getPhoneNumberList().size()>1){
+				if((mBaseContacts.get(i).getMultipleNumbersContacts().size())>0){
 					int phoneNumberCount=mBaseContacts.get(i).getMultipleNumbersContacts().size();
 					for(int j=0; j<phoneNumberCount; j++){
 						Contacts cs=mBaseContacts.get(i).getMultipleNumbersContacts().get(j);
-						if(cs.getPhoneNumberList().get(0).contains(search)){
+						if(cs.getPhoneNumber().contains(search)){
 							cs.setSearchByType(SearchByType.SearchByPhoneNumber);
 							cs.setMatchKeywords(search);
 							mSearchContacts.add(cs);

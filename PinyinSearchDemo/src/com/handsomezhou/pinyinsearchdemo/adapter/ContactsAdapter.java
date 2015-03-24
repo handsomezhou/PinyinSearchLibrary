@@ -13,7 +13,6 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.handsomezhou.pinyinsearchdemo.R;
 import com.handsomezhou.pinyinsearchdemo.model.Contacts;
@@ -107,26 +106,26 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 				}else{
 					ViewUtil.hideView(viewHolder.mContactsMultiplePhoneOperationPromptIv);
 				}
-				ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumberList().get(0));
+				ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumber());
 			}else{
 				if(true==contacts.getMultipleNumbersContacts().get(0).isHideMultipleContacts()){
 					ViewUtil.hideView(viewHolder.mContactsMultiplePhoneOperationPromptIv);
-					ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumberList().get(0)+mContext.getString(R.string.phone_number_count, contacts.getPhoneNumberList().size()));
+					ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumber()+mContext.getString(R.string.phone_number_count, contacts.getMultipleNumbersContacts().size()+1));
 				}else{
 					ViewUtil.showView(viewHolder.mContactsMultiplePhoneOperationPromptIv);
-					ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumberList().get(0)+"("+mContext.getString(R.string.click_to_hide)+")");
+					ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumber()+"("+mContext.getString(R.string.click_to_hide)+")");
 				}
 			}
 			break;
 		case SearchByPhoneNumber:
 			ViewUtil.hideView(viewHolder.mContactsMultiplePhoneOperationPromptIv);
 			ViewUtil.showTextNormal(viewHolder.mNameTv, contacts.getName());
-			ViewUtil.showTextHighlight(viewHolder.mPhoneNumber, contacts.getPhoneNumberList().get(0), contacts.getMatchKeywords().toString());
+			ViewUtil.showTextHighlight(viewHolder.mPhoneNumber, contacts.getPhoneNumber(), contacts.getMatchKeywords().toString());
 			break;
 		case SearchByName:
 			ViewUtil.hideView(viewHolder.mContactsMultiplePhoneOperationPromptIv);
 			ViewUtil.showTextHighlight(viewHolder.mNameTv, contacts.getName(), contacts.getMatchKeywords().toString());
-			ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumberList().get(0));
+			ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumber());
 			break;
 		default:
 			break;

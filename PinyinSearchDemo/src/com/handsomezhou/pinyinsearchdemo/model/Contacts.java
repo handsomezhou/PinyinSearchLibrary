@@ -6,21 +6,16 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.pinyinsearch.model.PinyinUnit;
 
-public class Contacts {
+public class Contacts extends BaseContacts{
 	private static final String TAG="ContactsContacts";
 	public enum SearchByType {
 		SearchByNull, SearchByName, SearchByPhoneNumber,
 	}
-
-	private String mId;
-	private String mName;
-//	private String mPhoneNumber;
-	private List<String> mPhoneNumberList;
-
 	private String mSortKey; // as the sort key word
 
 	private List<PinyinUnit> mNamePinyinUnits; // save the mName converted to
@@ -36,13 +31,10 @@ public class Contacts {
 	private boolean mBelongMultipleContactsPhone; //whether belong multiple contacts phone
 
 	public Contacts(String id ,String name, String phoneNumber) {
-		// super();
-		mId=id;
-		mName = name;
-		
-//		mPhoneNumber = phoneNumber;
-		setPhoneNumberList(new ArrayList<String>());
-		getPhoneNumberList().add(phoneNumber);
+		super();
+		setId(id);
+		setName(name);
+		setPhoneNumber(phoneNumber);
 		
 		setNamePinyinUnits(new ArrayList<PinyinUnit>());
 		setSearchByType(SearchByType.SearchByNull);
@@ -57,14 +49,11 @@ public class Contacts {
 	}
 	
 	public Contacts(String id, String name, String phoneNumber, String sortKey) {
-		// super();
-		mId=id;
-		mName = name;
-		/*mPhoneNumber = phoneNumber;*/
-		setPhoneNumberList(new ArrayList<String>());
-		getPhoneNumberList().add(phoneNumber);
-		
-		mSortKey = sortKey;
+		super();
+		setId(id);
+		setName(name);
+		setPhoneNumber(phoneNumber);
+		setSortKey(sortKey);
 		setNamePinyinUnits(new ArrayList<PinyinUnit>());
 		setSearchByType(SearchByType.SearchByNull);
 		mMatchKeywords = new StringBuffer();
@@ -96,21 +85,7 @@ public class Contacts {
 		}
 	};
 
-	public String getId(){
-		return mId;
-	}
-	
-	public void setId(String id){
-		mId=id;
-	}
-	
-	public String getName() {
-		return mName;
-	}
 
-	public void setName(String name) {
-		mName = name;
-	}
 
 	public List<PinyinUnit> getNamePinyinUnits() {
 		return mNamePinyinUnits;
@@ -119,47 +94,33 @@ public class Contacts {
 	public void setNamePinyinUnits(List<PinyinUnit> namePinyinUnits) {
 		mNamePinyinUnits = namePinyinUnits;
 	}
-
-	/*public String getPhoneNumber() {
-		return mPhoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		mPhoneNumber = phoneNumber;
-	}
-*/
 	
-	public String getPhoneNumber(){
-		if((null==mPhoneNumberList)||mPhoneNumberList.size()<1){
-			return null;
-		}
-		
-		return mPhoneNumberList.get(0);
-	}
-	
-	public List<String> getPhoneNumberList() {
+	/*public List<String> getPhoneNumberList() {
 		return mPhoneNumberList;
 	}
 
 	public void setPhoneNumberList(List<String> phoneNumberList) {
 		mPhoneNumberList = phoneNumberList;
-	}
+	}*/
 	
 	public void addPhoneNumber(String phoneNumber){
-		if(null==mPhoneNumberList){
-			mPhoneNumberList=new ArrayList<String>();
+		if(TextUtils.isEmpty(phoneNumber)){
+			return;
+		}
+		
+		if(getPhoneNumber().equals(phoneNumber)){
+			return;
 		}
 		
 		int i=0;
-		for (i = 0; i < mPhoneNumberList.size(); i++) {
-			if (mPhoneNumberList.get(i).equals(phoneNumber)) {
+		for (i = 0; i < mMultipleNumbersContacts.size(); i++) {
+			if (mMultipleNumbersContacts.get(i).getPhoneNumber().equals(phoneNumber)) {
 				break;
 			}
 		}
 		
-		if (i >= mPhoneNumberList.size()) {
-			mPhoneNumberList.add(phoneNumber);
-			Contacts cs=new Contacts(mId, mName, phoneNumber);
+		if (i >= mMultipleNumbersContacts.size()) {
+			Contacts cs=new Contacts(getId(), getName(), phoneNumber);
 			cs.setSortKey(mSortKey);
 			cs.setNamePinyinUnits(mNamePinyinUnits);// not deep copy
 			cs.setHideMultipleContacts(true);
@@ -245,9 +206,9 @@ public class Contacts {
 	}
 
 	public void showContacts(){
-		Log.i(TAG,"mId=["+mId+"]mSortKey=["+mSortKey+"]"+"mName=["+mName+"] phoneNumberCount=["+mPhoneNumberList.size()+"]");
-		for(String number:mPhoneNumberList){
-			Log.i(TAG, "phone=["+number+"]");
+		Log.i(TAG,"mId=["+getId()+"]mSortKey=["+mSortKey+"]"+"mName=["+getName()+"]+"+"mPhoneNumber:"+getPhoneNumber()+"+ phoneNumberCount=["+mMultipleNumbersContacts.size()+1+"]");
+		for(Contacts contacts:mMultipleNumbersContacts){
+			Log.i(TAG, "phone=["+contacts.getPhoneNumber()+"]");
 		}
 	}
 }
