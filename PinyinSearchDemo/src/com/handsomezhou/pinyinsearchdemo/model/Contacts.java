@@ -22,8 +22,9 @@ public class Contacts extends BaseContacts{
 												// Pinyin characters.
 
 	private SearchByType mSearchByType; // Used to save the type of search
-	private StringBuffer mMatchKeywords; // Used to save the type of Match Keywords.(name or phoneNumber)
-	
+	private StringBuffer mMatchKeywords;// Used to save the type of Match Keywords.(name or phoneNumber)
+	private int mMatchStartIndex;		//the match start  position of mMatchKeywords in original string(name or phoneNumber).
+	private int mMatchLength;			//the match length of mMatchKeywords in original string(name or phoneNumber).
 	private List<Contacts> mMultipleNumbersContacts; //save the contacts information who has multiple numbers. 
 	private boolean mSelected;	//weather select contact
 	private boolean mHideMultipleContacts;		//whether hide multiple contacts
@@ -35,12 +36,12 @@ public class Contacts extends BaseContacts{
 		setId(id);
 		setName(name);
 		setPhoneNumber(phoneNumber);
-		
 		setNamePinyinUnits(new ArrayList<PinyinUnit>());
 		setSearchByType(SearchByType.SearchByNull);
-		mMatchKeywords = new StringBuffer();
-		mMatchKeywords.delete(0, mMatchKeywords.length());
-		
+		setMatchKeywords(new StringBuffer());
+		getMatchKeywords().delete(0, getMatchKeywords().length());
+		setMatchStartIndex(-1);
+		setMatchLength(0);
 		setMultipleNumbersContacts(new ArrayList<Contacts>());
 		setSelected(false);
 		setHideMultipleContacts(false);
@@ -56,9 +57,10 @@ public class Contacts extends BaseContacts{
 		setSortKey(sortKey);
 		setNamePinyinUnits(new ArrayList<PinyinUnit>());
 		setSearchByType(SearchByType.SearchByNull);
-		mMatchKeywords = new StringBuffer();
-		mMatchKeywords.delete(0, mMatchKeywords.length());
-		
+		setMatchKeywords(new StringBuffer());
+		getMatchKeywords().delete(0, getMatchKeywords().length());
+		setMatchStartIndex(-1);
+		setMatchLength(0);
 		setMultipleNumbersContacts(new ArrayList<Contacts>());
 		setSelected(false);
 		setHideMultipleContacts(false);
@@ -82,6 +84,15 @@ public class Contacts extends BaseContacts{
 		@Override
 		public int compare(Contacts lhs, Contacts rhs) {
 			return mChineseComparator.compare(lhs.mSortKey, rhs.mSortKey);
+		}
+	};
+	
+	public static Comparator<Contacts> mSearchComparator = new Comparator<Contacts>() {
+
+		@Override
+		public int compare(Contacts lhs, Contacts rhs) {
+			int compareMatchStartIndex=(lhs.mMatchStartIndex-rhs.mMatchStartIndex);
+			return ((0!=compareMatchStartIndex)?(compareMatchStartIndex):(rhs.mMatchLength-lhs.mMatchLength));
 		}
 	};
 
@@ -152,9 +163,9 @@ public class Contacts extends BaseContacts{
 		return mMatchKeywords;
 	}
 
-	// public void setMatchKeywords(StringBuffer matchKeywords) {
-	// mMatchKeywords = matchKeywords;
-	// }
+	public void setMatchKeywords(StringBuffer matchKeywords) {
+		mMatchKeywords = matchKeywords;
+	}
 
 	public void setMatchKeywords(String matchKeywords) {
 		mMatchKeywords.delete(0, mMatchKeywords.length());
@@ -165,6 +176,21 @@ public class Contacts extends BaseContacts{
 		mMatchKeywords.delete(0, mMatchKeywords.length());
 	}
 	
+	public int getMatchStartIndex() {
+		return mMatchStartIndex;
+	}
+
+	public void setMatchStartIndex(int matchStartIndex) {
+		mMatchStartIndex = matchStartIndex;
+	}
+
+	public int getMatchLength() {
+		return mMatchLength;
+	}
+
+	public void setMatchLength(int matchLength) {
+		mMatchLength = matchLength;
+	}
 	public List<Contacts> getMultipleNumbersContacts() {
 		return mMultipleNumbersContacts;
 	}

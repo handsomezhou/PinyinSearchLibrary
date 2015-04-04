@@ -97,7 +97,7 @@ public class T9SearchActivity extends Activity implements OnT9TelephoneDialpadVi
 		}else{
 			ContactsHelper.getInstance().parseT9InputSearchContacts(curCharacter);
 		}
-		mContactsOperationView.updateContactsList();
+		mContactsOperationView.updateContactsList(TextUtils.isEmpty(curCharacter));
 	}
 
 	@Override
@@ -138,7 +138,7 @@ public class T9SearchActivity extends Activity implements OnT9TelephoneDialpadVi
 			mContext.startActivity(intent);
 		}*/
 		ContactsHelper.getInstance().parseT9InputSearchContacts(null);
-		mContactsOperationView.updateContactsList();
+		mContactsOperationView.updateContactsList(true);
 	}
 
 	@Override

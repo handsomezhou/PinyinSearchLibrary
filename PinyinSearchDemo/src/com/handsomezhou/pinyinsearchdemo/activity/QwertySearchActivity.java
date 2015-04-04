@@ -106,7 +106,7 @@ public class QwertySearchActivity extends Activity implements OnContactsLoad,OnC
 				}else{
 					ContactsHelper.getInstance().parseQwertyInputSearchContacts(curCharacter);
 				}
-				mContactsOperationView.updateContactsList();
+				mContactsOperationView.updateContactsList(TextUtils.isEmpty(curCharacter));
 				
 			}
 		});
@@ -141,7 +141,7 @@ public class QwertySearchActivity extends Activity implements OnContactsLoad,OnC
 			mContext.startActivity(intent);
 		}*/
 		ContactsHelper.getInstance().parseQwertyInputSearchContacts(null);
-		mContactsOperationView.updateContactsList();
+		mContactsOperationView.updateContactsList(true);
 	}
 
 	@Override

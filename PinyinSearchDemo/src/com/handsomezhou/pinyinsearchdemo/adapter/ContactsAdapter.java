@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.handsomezhou.pinyinsearchdemo.R;
 import com.handsomezhou.pinyinsearchdemo.model.Contacts;
+import com.handsomezhou.pinyinsearchdemo.model.Contacts.SearchByType;
 import com.handsomezhou.pinyinsearchdemo.util.ViewUtil;
 import com.handsomezhou.pinyinsearchdemo.view.QuickAlphabeticBar;
 
@@ -257,7 +258,7 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 		if(position>0){
 			Contacts preContacts=getItem(position-1);
 			String preAlphabet=getAlphabet(preContacts.getSortKey());
-			if(curAlphabet.equals(preAlphabet)){
+			if(curAlphabet.equals(preAlphabet)||(SearchByType.SearchByNull!=contacts.getSearchByType())){
 				textView.setVisibility(View.GONE);
 				textView.setText(curAlphabet);
 			}else{
@@ -265,8 +266,12 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 				textView.setText(curAlphabet);
 			}
 		}else {
-			textView.setVisibility(View.VISIBLE);
-			textView.setText(curAlphabet);
+			if((SearchByType.SearchByNull==contacts.getSearchByType())){
+				textView.setVisibility(View.VISIBLE);
+				textView.setText(curAlphabet);
+			}else{
+				textView.setVisibility(View.GONE);
+			}
 		}
 		
 		return ;

@@ -97,7 +97,7 @@ public class ContactsOperationView extends FrameLayout implements
 
 	public void contactsLoadSuccess() {
 		ViewUtil.hideView(mLoadContactsView);
-		updateContactsList();
+		updateContactsList(true);
 	}
 
 	public void contactsLoadFailed() {
@@ -136,11 +136,28 @@ public class ContactsOperationView extends FrameLayout implements
 		return contactsList;
 	}
 	
+	public void updateContactsList(boolean searchEmpty) {
+		if (null == mContactsLv) {
+			return;
+		}
+		
+		
+		if(true==searchEmpty){
+			ViewUtil.showView(mQuickAlphabeticBar);
+		}else{
+			ViewUtil.hideView(mQuickAlphabeticBar);
+		}
+		
+		updateContactsList();
+	}
+	
 	public void updateContactsList() {
 		if (null == mContactsLv) {
 			return;
 		}
-
+		
+		ViewUtil.hideView(mContactsIndexView);
+		
 		BaseAdapter contactsAdapter = (BaseAdapter) mContactsLv.getAdapter();
 		if (null != contactsAdapter) {
 			contactsAdapter.notifyDataSetChanged();
