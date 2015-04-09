@@ -9,7 +9,7 @@
         android:targetSdkVersion="15" />
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:name="com.handsomezhou.pinyinsearchdemo.main.PinyinSearchApplication"
@@ -37,13 +37,6 @@
         <activity
             android:name="com.handsomezhou.pinyinsearchdemo.activity.QwertySearchActivity"
             android:label="@string/qwerty_search"
-            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
-            android:windowSoftInputMode="stateAlwaysHidden" >
-        </activity>
-        
-        <activity
-            android:name="com.handsomezhou.pinyinsearchdemo.activity.ContactDetailActivity"
-            android:label="@string/contacts_detail"
             android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>

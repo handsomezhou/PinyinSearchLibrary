@@ -116,26 +116,6 @@ public class ContactsOperationView extends FrameLayout implements
 		return ContactsHelper.getInstance().getSearchContacts().get(position);
 	}
 	
-	/**
-	 * parse one or multiple numbers from the contacts
-	 * @param contacts
-	 * @return
-	 */
-	public static List<Contacts> parseContacts(Contacts contacts){
-		if((null==contacts)){
-			return null;
-		}
-		
-		List<Contacts> contactsList=new ArrayList<Contacts>();
-		contactsList.add(contacts);
-		List<Contacts> multipleNumbersContacts=contacts.getMultipleNumbersContacts();
-		for(Contacts cs:multipleNumbersContacts){
-			contactsList.add(cs);
-		}
-		
-		return contactsList;
-	}
-	
 	public void updateContactsList(boolean searchEmpty) {
 		if (null == mContactsLv) {
 			return;
@@ -287,7 +267,7 @@ public class ContactsOperationView extends FrameLayout implements
 					int position, long id) {
 				Contacts contacts = ContactsHelper.getInstance()
 						.getSearchContacts().get(position);
-				if(contacts.getMultipleNumbersContacts().size()<=0){
+				if(null==contacts.getNextContacts()){
 					return;
 				}
 				
@@ -354,15 +334,20 @@ public class ContactsOperationView extends FrameLayout implements
 			return;
 		}
 		
-		List<Contacts> mMultipleContacts=contacts.getMultipleNumbersContacts();
-		if((null==mMultipleContacts)||(mMultipleContacts.size()<=0)){
+		if(null==contacts.getNextContacts()){
 			return;
 		}
 		
-		boolean hide=!mMultipleContacts.get(0).isHideMultipleContacts();
-		for(Contacts cs:mMultipleContacts){
-			cs.setHideMultipleContacts(hide);
+		boolean hide=!contacts.getNextContacts().isHideMultipleContacts();
+		
+		Contacts currentContact=contacts.getNextContacts();
+		Contacts nextContact=null;
+		while(null!=currentContact){
+			currentContact.setHideMultipleContacts(hide);
+			nextContact=currentContact;
+			currentContact=nextContact.getNextContacts();
 		}
+
 		
 		if(hide){
 			Toast.makeText(mContext, "hideMultipleContactsView", Toast.LENGTH_SHORT).show();

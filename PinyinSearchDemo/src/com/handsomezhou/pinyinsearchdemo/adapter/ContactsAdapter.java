@@ -59,11 +59,15 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 		for(Contacts contacts:mContacts){
 			contacts.setSelected(false);
 			
-			//other phoneNumber 
-			if(contacts.getMultipleNumbersContacts().size()>0){
-				List<Contacts> multipleNumbersContacts=contacts.getMultipleNumbersContacts();
-				for(Contacts cs:multipleNumbersContacts){
-					cs.setSelected(false);
+			//other phoneNumber
+			
+			if(null!=contacts.getNextContacts()){
+				Contacts currentContact=contacts.getNextContacts();
+				Contacts nextContact=null;
+				while(null!=currentContact){
+					currentContact.setSelected(false);
+					nextContact=currentContact;
+					currentContact=nextContact.getNextContacts();
 				}
 			}
 		}
@@ -101,7 +105,7 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 		switch (contacts.getSearchByType()) {
 		case SearchByNull:
 			ViewUtil.showTextNormal(viewHolder.mNameTv, contacts.getName());
-			if(contacts.getMultipleNumbersContacts().size()<=0){
+			if(null==contacts.getNextContacts()){
 				if((true==contacts.isBelongMultipleContactsPhone())&&(false==contacts.isHideMultipleContacts())){
 					ViewUtil.invisibleView(viewHolder.mContactsMultiplePhoneOperationPromptIv);
 				}else{
@@ -109,9 +113,9 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 				}
 				ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumber());
 			}else{
-				if(true==contacts.getMultipleNumbersContacts().get(0).isHideMultipleContacts()){
+				if(true==contacts.getNextContacts().isHideMultipleContacts()){
 					ViewUtil.hideView(viewHolder.mContactsMultiplePhoneOperationPromptIv);
-					ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumber()+mContext.getString(R.string.phone_number_count, contacts.getMultipleNumbersContacts().size()+1));
+					ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumber()+mContext.getString(R.string.phone_number_count, multipleNumbersContactsCount(contacts)+1));
 				}else{
 					ViewUtil.showView(viewHolder.mContactsMultiplePhoneOperationPromptIv);
 					ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumber()+"("+mContext.getString(R.string.click_to_hide)+")");
@@ -322,6 +326,21 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 		}
 	}
 	
+	private int multipleNumbersContactsCount(Contacts contacts){
+		int contactsCount=0;
+		if(null==contacts){
+			return contactsCount;
+		}
+		Contacts currentContacts=contacts.getNextContacts();
+		Contacts nextContacts=null;
+		while(null!=currentContacts){
+			contactsCount++;
+			nextContacts=currentContacts;
+			currentContacts=nextContacts.getNextContacts();
+		}
+		
+		return contactsCount;
+	}
 	/**
 	 * key=id+phoneNumber
 	 * */

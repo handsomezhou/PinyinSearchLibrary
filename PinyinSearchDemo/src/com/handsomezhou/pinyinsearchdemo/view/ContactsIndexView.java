@@ -141,9 +141,9 @@ public class ContactsIndexView extends LinearLayout implements OnContactsIndexAd
 			}
 		}
 
-		for (int j = 0; j < mContactsIndex.getContacts().size(); j++) {
+	/*	for (int j = 0; j < mContactsIndex.getContacts().size(); j++) {
 			mContactsIndex.getContacts().get(j).showContacts();
-		}
+		}*/
 
 		updateContactsList();
 		return;
