@@ -59,7 +59,7 @@ import java.util.List;
  * 
  */
 
-public class PinyinUnit {
+public class PinyinUnit implements Cloneable{
 	//Whether Pinyin
 	private boolean mPinyin;
 	private int mStartPosition; //save starting index position that the variables in the original string. 
@@ -98,4 +98,17 @@ public class PinyinUnit {
 	public void setStringIndex(List<PinyinBaseUnit> stringIndex) {
 		mPinyinBaseUnitIndex = stringIndex;
 	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		PinyinUnit obj=(PinyinUnit)super.clone();
+		
+		obj.mPinyinBaseUnitIndex=new ArrayList<PinyinBaseUnit>();
+		for(PinyinBaseUnit pbu:mPinyinBaseUnitIndex){
+			obj.mPinyinBaseUnitIndex.add((PinyinBaseUnit)pbu.clone());
+		}
+		
+		return obj;
+	}
+	
 }

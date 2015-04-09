@@ -22,7 +22,7 @@ package com.pinyinsearch.model;
  *  "???hao" 	===>mOriginalString="???hao"; mPinyin="???hao";mNumber="???426"; 
  *  "周"			===>mOriginalString="周"; mPinyin="zhou";mNumber="9468";
  */
-public class PinyinBaseUnit {
+public class PinyinBaseUnit implements Cloneable{
 	private String mOriginalString;
 	private String mPinyin;
 	private String mNumber;
@@ -60,5 +60,10 @@ public class PinyinBaseUnit {
 	
 	public void setNumber(String number) {
 		mNumber = number;
+	}
+	
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		return super.clone();
 	}
 }
