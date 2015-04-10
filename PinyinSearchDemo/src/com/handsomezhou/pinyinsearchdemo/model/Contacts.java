@@ -6,6 +6,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
+import android.text.TextUtils;
+
 import com.pinyinsearch.model.PinyinUnit;
 
 public class Contacts extends BaseContacts implements Cloneable{
@@ -215,6 +217,38 @@ public class Contacts extends BaseContacts implements Cloneable{
 		mNextContacts = nextContacts;
 	}
 
+	public static Contacts addMulitpleContact(Contacts contacts, String phoneNumber){
+		do{
+			if((TextUtils.isEmpty(phoneNumber))||(null==contacts)){
+				break;
+			}
+			
+			Contacts currentContact=null;
+			Contacts nextContacts=null;
+			for(nextContacts=contacts; null!=nextContacts; nextContacts=nextContacts.getNextContacts()){
+				currentContact=nextContacts;
+				if(nextContacts.getPhoneNumber().equals(phoneNumber)){
+					break;
+				}
+			}
+			Contacts cts=null;
+			if(null==nextContacts){
+				Contacts cs=currentContact;
+				cts=new Contacts(cs.getId(), cs.getName(),phoneNumber);
+				cts.setSortKey(cs.getSortKey());
+				cts.setNamePinyinUnits(cs.getNamePinyinUnits());// not deep copy
+				cts.setFirstMultipleContacts(false);
+				cts.setHideMultipleContacts(true);
+				cts.setBelongMultipleContactsPhone(true);
+				cs.setBelongMultipleContactsPhone(true);
+				cs.setNextContacts(cts);
+			}
+			
+			return cts;
+		}while(false);
+		
+		return null;
+	}
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		Contacts obj=(Contacts) super.clone();
