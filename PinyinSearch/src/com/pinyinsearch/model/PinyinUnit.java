@@ -100,7 +100,7 @@ public class PinyinUnit implements Cloneable{
 	}
 
 	@Override
-	protected Object clone() throws CloneNotSupportedException {
+	public Object clone() throws CloneNotSupportedException {
 		PinyinUnit obj=(PinyinUnit)super.clone();
 		
 		obj.mPinyinBaseUnitIndex=new ArrayList<PinyinBaseUnit>();
