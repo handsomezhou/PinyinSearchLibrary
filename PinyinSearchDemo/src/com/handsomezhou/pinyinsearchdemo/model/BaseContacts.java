@@ -1,6 +1,6 @@
 package com.handsomezhou.pinyinsearchdemo.model;
 
-public class BaseContacts {
+public class BaseContacts implements Cloneable{
 	private String mId;
 	private String mName;
 	private String mPhoneNumber;
@@ -27,5 +27,11 @@ public class BaseContacts {
 	
 	public void setPhoneNumber(String phoneNumber) {
 		mPhoneNumber = phoneNumber;
+	}
+	
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		
+		return super.clone();
 	}
 }

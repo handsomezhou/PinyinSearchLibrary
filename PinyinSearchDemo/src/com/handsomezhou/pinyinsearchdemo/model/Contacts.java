@@ -6,11 +6,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
-import android.util.Log;
-
 import com.pinyinsearch.model.PinyinUnit;
 
-public class Contacts extends BaseContacts{
+public class Contacts extends BaseContacts implements Cloneable{
 	private static final String TAG="ContactsContacts";
 	public enum SearchByType {
 		SearchByNull, SearchByName, SearchByPhoneNumber,
@@ -24,10 +22,11 @@ public class Contacts extends BaseContacts{
 	private StringBuffer mMatchKeywords;// Used to save the type of Match Keywords.(name or phoneNumber)
 	private int mMatchStartIndex;		//the match start  position of mMatchKeywords in original string(name or phoneNumber).
 	private int mMatchLength;			//the match length of mMatchKeywords in original string(name or phoneNumber).
-	//private List<Contacts> mMultipleNumbersContacts; //save the contacts information who has multiple numbers. 
-	private boolean mSelected;	//weather select contact
+	private boolean mSelected;	//whether select contact
+	private boolean mFirstMultipleContacts;//whether the first multiple Contacts
 	private boolean mHideMultipleContacts;		//whether hide multiple contacts
-	private boolean mBelongMultipleContactsPhone; //whether belong multiple contacts phone
+	private boolean mBelongMultipleContactsPhone; //whether belong multiple contacts phone, the value of the variable will not change once you set.
+	
 	private boolean mHideOperationView; 		//whether hide operation view
 	private Contacts mNextContacts; //point the contacts information who has multiple numbers. 
 
@@ -42,9 +41,9 @@ public class Contacts extends BaseContacts{
 		getMatchKeywords().delete(0, getMatchKeywords().length());
 		setMatchStartIndex(-1);
 		setMatchLength(0);
-		/*setMultipleNumbersContacts(new ArrayList<Contacts>());*/
 		setNextContacts(null);
 		setSelected(false);
+		setFirstMultipleContacts(true);
 		setHideMultipleContacts(false);
 		setHideOperationView(true);
 		setBelongMultipleContactsPhone(false);
@@ -62,9 +61,9 @@ public class Contacts extends BaseContacts{
 		getMatchKeywords().delete(0, getMatchKeywords().length());
 		setMatchStartIndex(-1);
 		setMatchLength(0);
-		/*setMultipleNumbersContacts(new ArrayList<Contacts>());*/
 		setNextContacts(null);
 		setSelected(false);
+		setFirstMultipleContacts(true);
 		setHideMultipleContacts(false);
 		setHideOperationView(true);
 		setBelongMultipleContactsPhone(false);
@@ -167,20 +166,21 @@ public class Contacts extends BaseContacts{
 	public void setMatchLength(int matchLength) {
 		mMatchLength = matchLength;
 	}
-/*	public List<Contacts> getMultipleNumbersContacts() {
-		return mMultipleNumbersContacts;
-	}
 
-	public void setMultipleNumbersContacts(List<Contacts> multipleNumbersContacts) {
-		mMultipleNumbersContacts = multipleNumbersContacts;
-	}*/
-	
 	public boolean isSelected() {
 		return mSelected;
 	}
 
 	public void setSelected(boolean selected) {
 		mSelected = selected;
+	}
+	
+	public boolean isFirstMultipleContacts() {
+		return mFirstMultipleContacts;
+	}
+
+	public void setFirstMultipleContacts(boolean firstMultipleContacts) {
+		mFirstMultipleContacts = firstMultipleContacts;
 	}
 	
 	public boolean isHideMultipleContacts() {
@@ -215,6 +215,21 @@ public class Contacts extends BaseContacts{
 		mNextContacts = nextContacts;
 	}
 
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		Contacts obj=(Contacts) super.clone();
+		obj.mNamePinyinUnits=new ArrayList<PinyinUnit>();
+		for(PinyinUnit pu:mNamePinyinUnits){
+			obj.mNamePinyinUnits.add((PinyinUnit)pu.clone());
+		}
+		obj.mSearchByType=mSearchByType;
+		obj.mMatchKeywords=new StringBuffer(mMatchKeywords);
+		obj.mNextContacts=mNextContacts;
+		
+		return super.clone();
+	}
+
+	
 /*	public void showContacts(){
 		Log.i(TAG,"mId=["+getId()+"]mSortKey=["+mSortKey+"]"+"mName=["+getName()+"]+"+"mPhoneNumber:"+getPhoneNumber()+"+ phoneNumberCount=["+mMultipleNumbersContacts.size()+1+"]");
 		for(Contacts contacts:mMultipleNumbersContacts){

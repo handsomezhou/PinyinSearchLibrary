@@ -105,20 +105,26 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 		switch (contacts.getSearchByType()) {
 		case SearchByNull:
 			ViewUtil.showTextNormal(viewHolder.mNameTv, contacts.getName());
-			if(null==contacts.getNextContacts()){
-				if((true==contacts.isBelongMultipleContactsPhone())&&(false==contacts.isHideMultipleContacts())){
-					ViewUtil.invisibleView(viewHolder.mContactsMultiplePhoneOperationPromptIv);
-				}else{
-					ViewUtil.hideView(viewHolder.mContactsMultiplePhoneOperationPromptIv);
-				}
+			
+			if(false==contacts.isBelongMultipleContactsPhone()){
+				ViewUtil.hideView(viewHolder.mContactsMultiplePhoneOperationPromptIv);
 				ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumber());
 			}else{
-				if(true==contacts.getNextContacts().isHideMultipleContacts()){
-					ViewUtil.hideView(viewHolder.mContactsMultiplePhoneOperationPromptIv);
-					ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumber()+mContext.getString(R.string.phone_number_count, multipleNumbersContactsCount(contacts)+1));
+				if(true==contacts.isFirstMultipleContacts()){
+					if(true==contacts.getNextContacts().isHideMultipleContacts()){
+						ViewUtil.hideView(viewHolder.mContactsMultiplePhoneOperationPromptIv);
+						ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumber()+mContext.getString(R.string.phone_number_count, multipleNumbersContactsCount(contacts)+1));
+					}else{
+						ViewUtil.showView(viewHolder.mContactsMultiplePhoneOperationPromptIv);
+						ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumber()+"("+mContext.getString(R.string.click_to_hide)+")");
+					}
 				}else{
-					ViewUtil.showView(viewHolder.mContactsMultiplePhoneOperationPromptIv);
-					ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumber()+"("+mContext.getString(R.string.click_to_hide)+")");
+					if(false==contacts.isHideMultipleContacts()){
+						ViewUtil.invisibleView(viewHolder.mContactsMultiplePhoneOperationPromptIv);
+					}else{
+						ViewUtil.hideView(viewHolder.mContactsMultiplePhoneOperationPromptIv);
+					}
+					ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumber());
 				}
 			}
 			break;

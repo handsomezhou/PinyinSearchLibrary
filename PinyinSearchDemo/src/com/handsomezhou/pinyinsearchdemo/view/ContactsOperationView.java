@@ -1,8 +1,5 @@
 package com.handsomezhou.pinyinsearchdemo.view;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
@@ -267,7 +264,7 @@ public class ContactsOperationView extends FrameLayout implements
 					int position, long id) {
 				Contacts contacts = ContactsHelper.getInstance()
 						.getSearchContacts().get(position);
-				if(null==contacts.getNextContacts()){
+				if(false==contacts.isFirstMultipleContacts()){
 					return;
 				}
 				

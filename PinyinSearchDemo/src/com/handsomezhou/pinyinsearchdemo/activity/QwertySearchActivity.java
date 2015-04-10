@@ -119,7 +119,7 @@ public class QwertySearchActivity extends Activity implements OnContactsLoad,OnC
 		mContactsOperationView.contactsLoadSuccess();
 		
 		//just background printing contacts information
-		ContactsHelper.getInstance().showContactsInfo();
+		//ContactsHelper.getInstance().showContactsInfo();
 		ContactsIndexHelper.getInstance().praseContacts(ContactsHelper.getInstance().getBaseContacts());
 		//ContactsIndexHelper.getInstance().showContactsInfo();
 	}
@@ -133,13 +133,6 @@ public class QwertySearchActivity extends Activity implements OnContactsLoad,OnC
 	/*start:OnContactsOperationView*/
 	@Override
 	public void onListItemClick(Contacts contacts,int position){
-		/*if(null!=contacts){
-			Intent intent=new Intent(mContext, ContactDetailActivity.class);
-			Bundle bundle=new Bundle();
-			bundle.putInt(ContactsOperationView.CONTACTS_INDEX, position);
-			intent.putExtras(bundle);
-			mContext.startActivity(intent);
-		}*/
 		ContactsHelper.getInstance().parseQwertyInputSearchContacts(null);
 		mContactsOperationView.updateContactsList(true);
 	}

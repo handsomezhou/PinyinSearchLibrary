@@ -29,7 +29,7 @@ public class ContactsHelper {
 	private Context mContext;
 	private static ContactsHelper mInstance = null;
 	//private List<Contacts> mBaseContacts = null; // The basic data used for the search
-	private List<List<Contacts>> mBaseContacts2=null;// The basic data used for the search
+	private List<List<Contacts>> mBaseContacts=null;// The basic data used for the search
 	private List<Contacts> mSearchContacts = null; // The search results from the basic data
 	/*
 	 * save the first input string which search no result.
@@ -82,7 +82,7 @@ public class ContactsHelper {
 	}
 
 	public List<List<Contacts>> getBaseContacts() {
-		return mBaseContacts2;
+		return mBaseContacts;
 	}
 
 	// public void setBaseContacts(List<Contacts> baseContacts) {
@@ -191,18 +191,18 @@ public class ContactsHelper {
 				mSearchContacts = new ArrayList<Contacts>();
 			}
 
-			for(int i=0; i<mBaseContacts2.size(); i++){
-				for(int j=0; j<mBaseContacts2.get(i).size(); j++){
+			for(int i=0; i<mBaseContacts.size(); i++){
+				for(int j=0; j<mBaseContacts.get(i).size(); j++){
 					
-					mBaseContacts2.get(i).get(j).setSearchByType(SearchByType.SearchByNull);
-					mBaseContacts2.get(i).get(j).clearMatchKeywords();
-					mBaseContacts2.get(i).get(j).setMatchStartIndex(-1);
-					mBaseContacts2.get(i).get(j).setMatchLength(0);
+					mBaseContacts.get(i).get(j).setSearchByType(SearchByType.SearchByNull);
+					mBaseContacts.get(i).get(j).clearMatchKeywords();
+					mBaseContacts.get(i).get(j).setMatchStartIndex(-1);
+					mBaseContacts.get(i).get(j).setMatchLength(0);
 					if(j==0){
-						mSearchContacts.add(mBaseContacts2.get(i).get(j));
+						mSearchContacts.add(mBaseContacts.get(i).get(j));
 					}else{
-						if(false==mBaseContacts2.get(i).get(j).isHideMultipleContacts()){
-							mSearchContacts.add(mBaseContacts2.get(i).get(j));
+						if(false==mBaseContacts.get(i).get(j).isHideMultipleContacts()){
+							mSearchContacts.add(mBaseContacts.get(i).get(j));
 						}
 					}
 				}
@@ -245,7 +245,7 @@ public class ContactsHelper {
 			mSearchContacts = new ArrayList<Contacts>();
 		}
 
-		int contactsListCount = mBaseContacts2.size();
+		int contactsListCount = mBaseContacts.size();
 
 		/**
 		 * search process: 1:Search by name (1)Search by name pinyin
@@ -255,28 +255,28 @@ public class ContactsHelper {
 		 */
 		for (int i = 0; i < contactsListCount; i++) {
 
-			List<PinyinUnit> pinyinUnits = mBaseContacts2.get(i).get(0).getNamePinyinUnits();
+			List<PinyinUnit> pinyinUnits = mBaseContacts.get(i).get(0).getNamePinyinUnits();
 			StringBuffer chineseKeyWord = new StringBuffer();// In order to get Chinese KeyWords.Ofcourse it's maybe not Chinese characters.
-			String name = mBaseContacts2.get(i).get(0).getName();
+			String name = mBaseContacts.get(i).get(0).getName();
 			if (true == T9MatchPinyinUnits.matchPinyinUnits(pinyinUnits, name,search, chineseKeyWord)) {// search by NamePinyinUnits;
-				for(int j=0; j<mBaseContacts2.get(i).size(); j++){
-					mBaseContacts2.get(i).get(j).setSearchByType(SearchByType.SearchByName);
-					mBaseContacts2.get(i).get(j).setMatchKeywords(chineseKeyWord.toString());
-					mBaseContacts2.get(i).get(j).setMatchStartIndex(mBaseContacts2.get(i).get(0).getName().indexOf(mBaseContacts2.get(i).get(0).getMatchKeywords().toString()));
-					mBaseContacts2.get(i).get(j).setMatchLength(mBaseContacts2.get(i).get(0).getMatchKeywords().length());
-					mSearchByNameContacts.add(mBaseContacts2.get(i).get(j));
+				for(int j=0; j<mBaseContacts.get(i).size(); j++){
+					mBaseContacts.get(i).get(j).setSearchByType(SearchByType.SearchByName);
+					mBaseContacts.get(i).get(j).setMatchKeywords(chineseKeyWord.toString());
+					mBaseContacts.get(i).get(j).setMatchStartIndex(mBaseContacts.get(i).get(0).getName().indexOf(mBaseContacts.get(i).get(0).getMatchKeywords().toString()));
+					mBaseContacts.get(i).get(j).setMatchLength(mBaseContacts.get(i).get(0).getMatchKeywords().length());
+					mSearchByNameContacts.add(mBaseContacts.get(i).get(j));
 				}
 				chineseKeyWord.delete(0, chineseKeyWord.length());
 				
 				continue;
 			} else {
-				for(int j=0;j<mBaseContacts2.get(i).size();j++){
-					if(mBaseContacts2.get(i).get(j).getPhoneNumber().contains(search)){// search by phone number
-						mBaseContacts2.get(i).get(j).setSearchByType(SearchByType.SearchByPhoneNumber);
-						mBaseContacts2.get(i).get(j).setMatchKeywords(search);
-						mBaseContacts2.get(i).get(j).setMatchStartIndex(mBaseContacts2.get(i).get(j).getPhoneNumber().indexOf(search));
-						mBaseContacts2.get(i).get(j).setMatchLength(search.length());
-						mSearchByPhoneNumberContacts.add(mBaseContacts2.get(i).get(j));
+				for(int j=0;j<mBaseContacts.get(i).size();j++){
+					if(mBaseContacts.get(i).get(j).getPhoneNumber().contains(search)){// search by phone number
+						mBaseContacts.get(i).get(j).setSearchByType(SearchByType.SearchByPhoneNumber);
+						mBaseContacts.get(i).get(j).setMatchKeywords(search);
+						mBaseContacts.get(i).get(j).setMatchStartIndex(mBaseContacts.get(i).get(j).getPhoneNumber().indexOf(search));
+						mBaseContacts.get(i).get(j).setMatchLength(search.length());
+						mSearchByPhoneNumberContacts.add(mBaseContacts.get(i).get(j));
 					}
 				}
 				
@@ -325,18 +325,18 @@ public class ContactsHelper {
 				mSearchContacts = new ArrayList<Contacts>();
 			}
 
-			for(int i=0; i<mBaseContacts2.size(); i++){
-				for(int j=0; j<mBaseContacts2.get(i).size(); j++){
+			for(int i=0; i<mBaseContacts.size(); i++){
+				for(int j=0; j<mBaseContacts.get(i).size(); j++){
 					
-					mBaseContacts2.get(i).get(j).setSearchByType(SearchByType.SearchByNull);
-					mBaseContacts2.get(i).get(j).clearMatchKeywords();
-					mBaseContacts2.get(i).get(j).setMatchStartIndex(-1);
-					mBaseContacts2.get(i).get(j).setMatchLength(0);
+					mBaseContacts.get(i).get(j).setSearchByType(SearchByType.SearchByNull);
+					mBaseContacts.get(i).get(j).clearMatchKeywords();
+					mBaseContacts.get(i).get(j).setMatchStartIndex(-1);
+					mBaseContacts.get(i).get(j).setMatchLength(0);
 					if(j==0){
-						mSearchContacts.add(mBaseContacts2.get(i).get(j));
+						mSearchContacts.add(mBaseContacts.get(i).get(j));
 					}else{
-						if(false==mBaseContacts2.get(i).get(j).isHideMultipleContacts()){
-							mSearchContacts.add(mBaseContacts2.get(i).get(j));
+						if(false==mBaseContacts.get(i).get(j).isHideMultipleContacts()){
+							mSearchContacts.add(mBaseContacts.get(i).get(j));
 						}
 					}
 				}
@@ -379,7 +379,7 @@ public class ContactsHelper {
 			mSearchContacts = new ArrayList<Contacts>();
 		}
 
-		int contactsListCount = mBaseContacts2.size();
+		int contactsListCount = mBaseContacts.size();
 
 		/**
 		 * search process: 1:Search by name (1)Search by original name (2)Search
@@ -388,29 +388,29 @@ public class ContactsHelper {
 		 */
 		for (int i = 0; i < contactsListCount; i++) {
 
-			List<PinyinUnit> pinyinUnits = mBaseContacts2.get(i).get(0).getNamePinyinUnits();
+			List<PinyinUnit> pinyinUnits = mBaseContacts.get(i).get(0).getNamePinyinUnits();
 			StringBuffer chineseKeyWord = new StringBuffer();// In order to get Chinese KeyWords.Ofcourse it's maybe not Chinese characters.
 			
-			String name = mBaseContacts2.get(i).get(0).getName();
+			String name = mBaseContacts.get(i).get(0).getName();
 			if (true == QwertyMatchPinyinUnits.matchPinyinUnits(pinyinUnits,name, search, chineseKeyWord)) {// search by NamePinyinUnits;
-				for(int j=0; j<mBaseContacts2.get(i).size(); j++){
-					mBaseContacts2.get(i).get(j).setSearchByType(SearchByType.SearchByName);
-					mBaseContacts2.get(i).get(j).setMatchKeywords(chineseKeyWord.toString());
-					mBaseContacts2.get(i).get(j).setMatchStartIndex(mBaseContacts2.get(i).get(0).getName().indexOf(mBaseContacts2.get(i).get(0).getMatchKeywords().toString()));
-					mBaseContacts2.get(i).get(j).setMatchLength(mBaseContacts2.get(i).get(0).getMatchKeywords().length());
-					mSearchContacts.add(mBaseContacts2.get(i).get(j));
+				for(int j=0; j<mBaseContacts.get(i).size(); j++){
+					mBaseContacts.get(i).get(j).setSearchByType(SearchByType.SearchByName);
+					mBaseContacts.get(i).get(j).setMatchKeywords(chineseKeyWord.toString());
+					mBaseContacts.get(i).get(j).setMatchStartIndex(mBaseContacts.get(i).get(0).getName().indexOf(mBaseContacts.get(i).get(0).getMatchKeywords().toString()));
+					mBaseContacts.get(i).get(j).setMatchLength(mBaseContacts.get(i).get(0).getMatchKeywords().length());
+					mSearchContacts.add(mBaseContacts.get(i).get(j));
 				}
 				chineseKeyWord.delete(0, chineseKeyWord.length());
 				
 				continue;
 			} else {
-				for(int j=0;j<mBaseContacts2.get(i).size();j++){
-					if(mBaseContacts2.get(i).get(j).getPhoneNumber().contains(search)){// search by phone number
-						mBaseContacts2.get(i).get(j).setSearchByType(SearchByType.SearchByPhoneNumber);
-						mBaseContacts2.get(i).get(j).setMatchKeywords(search);
-						mBaseContacts2.get(i).get(j).setMatchStartIndex(mBaseContacts2.get(i).get(j).getPhoneNumber().indexOf(search));
-						mBaseContacts2.get(i).get(j).setMatchLength(search.length());
-						mSearchContacts.add(mBaseContacts2.get(i).get(j));
+				for(int j=0;j<mBaseContacts.get(i).size();j++){
+					if(mBaseContacts.get(i).get(j).getPhoneNumber().contains(search)){// search by phone number
+						mBaseContacts.get(i).get(j).setSearchByType(SearchByType.SearchByPhoneNumber);
+						mBaseContacts.get(i).get(j).setMatchKeywords(search);
+						mBaseContacts.get(i).get(j).setMatchStartIndex(mBaseContacts.get(i).get(j).getPhoneNumber().indexOf(search));
+						mBaseContacts.get(i).get(j).setMatchLength(search.length());
+						mSearchContacts.add(mBaseContacts.get(i).get(j));
 					}
 				}
 				continue;
@@ -515,10 +515,10 @@ public class ContactsHelper {
 	private void initContactsHelper() {
 		mContext = PinyinSearchApplication.getContextObject();
 		setContactsChanged(true);
-		if (null == mBaseContacts2) {
-			mBaseContacts2 = new ArrayList<List<Contacts>>();
+		if (null == mBaseContacts) {
+			mBaseContacts = new ArrayList<List<Contacts>>();
 		} else {
-			clearBaseContacts(mBaseContacts2);
+			clearBaseContacts(mBaseContacts);
 		}
 
 		if (null == mSearchContacts) {
@@ -565,8 +565,6 @@ public class ContactsHelper {
 		HashMap<String, List<Contacts>> nonKanjiStartContactsHashMap=new HashMap<String, List<Contacts>>();
 		
 		List<List<Contacts>> contactsLists=new ArrayList<List<Contacts>>();
-		
-		//Contacts cs = null;
 		
 		List<Contacts> contactList=null;
 		
@@ -705,6 +703,7 @@ public class ContactsHelper {
 				contacts=new Contacts(cs.getId(), cs.getName(),phoneNumber);
 				contacts.setSortKey(cs.getSortKey());
 				contacts.setNamePinyinUnits(cs.getNamePinyinUnits());// not deep copy
+				contacts.setFirstMultipleContacts(false);
 				contacts.setHideMultipleContacts(true);
 				contacts.setBelongMultipleContactsPhone(true);
 				cs.setBelongMultipleContactsPhone(true);
@@ -725,8 +724,8 @@ public class ContactsHelper {
 		}
 
 		for (List<Contacts> contactList : contactsLists) {
-			if (!mBaseContacts2.contains(contactList)) {
-				mBaseContacts2.add(contactList);
+			if (!mBaseContacts.contains(contactList)) {
+				mBaseContacts.add(contactList);
 			}
 		}
 
