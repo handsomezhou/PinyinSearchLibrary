@@ -147,15 +147,11 @@ public class ContactsOperationView extends FrameLayout implements
 				ViewUtil.showView(mSearchResultPromptTv);
 
 			}
-			// showView(mContactsIndexView);//just for test
 		}
 	}
 	
 	@Override
 	public void onContactsSelected(Contacts contacts) {
-//		Toast.makeText(mContext,
-//				PinyinUtil.getFirstCharacter(contacts.getNamePinyinUnits()),
-//				Toast.LENGTH_SHORT).show();
 		int contactsIndex = ContactsHelper.getInstance()
 				.getSearchContactsIndex(contacts);
 		if (contactsIndex < 0) {
@@ -173,7 +169,7 @@ public class ContactsOperationView extends FrameLayout implements
 	public void onQuickAlphabeticBarDown() {
 		clearViewDisappearMsg();
 		ViewUtil.showView(mContactsIndexView);
-		Log.i(TAG, "onQuickAlphabeticBarDown");
+		//Log.i(TAG, "onQuickAlphabeticBarDown");
 	}
 
 	@Override

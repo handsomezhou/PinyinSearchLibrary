@@ -80,15 +80,15 @@ public class Contacts extends BaseContacts implements Cloneable{
 		}
 	};
 
-	/*public static Comparator<Contacts> mAscComparator = new Comparator<Contacts>() {
+	public static Comparator<Contacts> mAscComparator = new Comparator<Contacts>() {
 
 		@Override
 		public int compare(Contacts lhs, Contacts rhs) {
 			return mChineseComparator.compare(lhs.mSortKey, rhs.mSortKey);
 		}
-	};*/
+	};
 	
-	public static Comparator<List<Contacts>> mAscComparator = new Comparator<List<Contacts>>() {
+	/*public static Comparator<List<Contacts>> mAscComparator = new Comparator<List<Contacts>>() {
 
 		@Override
 		public int compare(List<Contacts> lhs, List<Contacts> rhs) {
@@ -97,7 +97,7 @@ public class Contacts extends BaseContacts implements Cloneable{
 			}
 			return mChineseComparator.compare(lhs.get(0).mSortKey, rhs.get(0).mSortKey);
 		}
-	};
+	};*/
 	
 	public static Comparator<Contacts> mSearchComparator = new Comparator<Contacts>() {
 

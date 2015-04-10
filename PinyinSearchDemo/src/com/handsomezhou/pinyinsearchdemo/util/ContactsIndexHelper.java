@@ -55,17 +55,17 @@ public class ContactsIndexHelper{
 		return mContactsIndexs;
 	}
 
-	public void praseContacts(List<List<Contacts>> contactsLists){
-		if(null==contactsLists){
+	public void praseContacts(List<Contacts> contacts){
+		if(null==contacts){
 			return;
 		}
 		
-		int contactsListCount=contactsLists.size();
-		for(int i=0; i<contactsListCount; i++){
-			List<Contacts> contacts=contactsLists.get(i);
+		int contactsCount=contacts.size();
+		for(int i=0; i<contactsCount; i++){
+			Contacts cs=contacts.get(i);
 			for(int j=0; j<mContactsIndexs.size(); j++){
-				if(String.valueOf(contacts.get(0).getSortKey().charAt(0)).equals(mContactsIndexs.get(j).getIndexKey())){
-					mContactsIndexs.get(j).getContacts().add(contacts.get(0));
+				if(String.valueOf(cs.getSortKey().charAt(0)).equals(mContactsIndexs.get(j).getIndexKey())){
+					mContactsIndexs.get(j).getContacts().add(cs);
 					break;
 				}
 				

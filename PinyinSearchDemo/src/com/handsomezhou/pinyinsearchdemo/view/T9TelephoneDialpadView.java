@@ -77,7 +77,7 @@ public class T9TelephoneDialpadView extends LinearLayout implements
 				.findViewById(R.id.dial_delete_btn);
 		mT9InputEt = (EditText) mDialpadView
 				.findViewById(R.id.dial_input_edit_text);
-
+		mT9InputEt.setCursorVisible(false);
 	}
 
 	private void initListener() {
