@@ -1,4 +1,4 @@
-package com.handsomezhou.pinyinsearchdemo.util;
+package com.handsomezhou.pinyinsearchdemo.helper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,7 +13,7 @@ import android.os.AsyncTask.Status;
 import android.provider.ContactsContract;
 import android.util.Log;
 
-import com.handsomezhou.pinyinsearchdemo.main.PinyinSearchApplication;
+import com.handsomezhou.pinyinsearchdemo.application.PinyinSearchApplication;
 import com.handsomezhou.pinyinsearchdemo.model.Contacts;
 import com.handsomezhou.pinyinsearchdemo.model.Contacts.SearchByType;
 import com.handsomezhou.pinyinsearchdemo.view.QuickAlphabeticBar;

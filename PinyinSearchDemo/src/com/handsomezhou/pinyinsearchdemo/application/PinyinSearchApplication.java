@@ -1,4 +1,4 @@
-package com.handsomezhou.pinyinsearchdemo.main;
+package com.handsomezhou.pinyinsearchdemo.application;
 
 import android.app.Application;
 import android.content.Context;

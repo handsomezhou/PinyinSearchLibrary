@@ -1,4 +1,4 @@
-package com.handsomezhou.pinyinsearchdemo.util;
+package com.handsomezhou.pinyinsearchdemo.helper;
 
 import java.util.ArrayList;
 import java.util.List;

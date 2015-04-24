@@ -15,10 +15,10 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.handsomezhou.pinyinsearchdemo.R;
+import com.handsomezhou.pinyinsearchdemo.helper.ContactsHelper;
+import com.handsomezhou.pinyinsearchdemo.helper.ContactsIndexHelper;
+import com.handsomezhou.pinyinsearchdemo.helper.ContactsHelper.OnContactsLoad;
 import com.handsomezhou.pinyinsearchdemo.model.Contacts;
-import com.handsomezhou.pinyinsearchdemo.util.ContactsHelper;
-import com.handsomezhou.pinyinsearchdemo.util.ContactsHelper.OnContactsLoad;
-import com.handsomezhou.pinyinsearchdemo.util.ContactsIndexHelper;
 import com.handsomezhou.pinyinsearchdemo.util.ShareUtil;
 import com.handsomezhou.pinyinsearchdemo.view.ContactsOperationView;
 import com.handsomezhou.pinyinsearchdemo.view.ContactsOperationView.OnContactsOperationView;

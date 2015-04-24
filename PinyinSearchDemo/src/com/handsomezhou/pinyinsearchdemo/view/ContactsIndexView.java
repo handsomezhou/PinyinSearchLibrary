@@ -15,9 +15,9 @@ import android.widget.TextView;
 import com.handsomezhou.pinyinsearchdemo.R;
 import com.handsomezhou.pinyinsearchdemo.adapter.ContactsIndexAdapter;
 import com.handsomezhou.pinyinsearchdemo.adapter.ContactsIndexAdapter.OnContactsIndexAdapter;
+import com.handsomezhou.pinyinsearchdemo.helper.ContactsIndexHelper;
 import com.handsomezhou.pinyinsearchdemo.model.Contacts;
 import com.handsomezhou.pinyinsearchdemo.model.ContactsIndex;
-import com.handsomezhou.pinyinsearchdemo.util.ContactsIndexHelper;
 
 /**
  * 
