@@ -654,12 +654,15 @@ public class ContactsHelper {
 		long endLoadTime=System.currentTimeMillis();
 		Log.i(TAG, "endLoadTime-startLoadTime=["+(endLoadTime-startLoadTime)+"] contacts.size()="+contacts.size());
 		
-		/*for(int i=0; i<contacts.size(); i++){
-			for(int j=0; j<contacts.get(i).size();j++){
-				Log.i(TAG, "****************************************");
-				Log.i(TAG, "name["+contacts.get(i).get(j).getName()+"]phoneNumber["+contacts.get(i).get(j).getPhoneNumber());
+		/*for (int i = 0; i < contacts.size(); i++) {
+			Log.i(TAG, "****************************************");
+			Contacts currentContacts = contacts.get(i);
+			while (null != currentContacts) {
+				Log.i(TAG, "name[" + currentContacts.getName()+"]phoneNumber[" + currentContacts.getPhoneNumber()+"]");
+				currentContacts = currentContacts.getNextContacts();
 			}
 		}*/
+		
 		return contacts;
 	}
 	
