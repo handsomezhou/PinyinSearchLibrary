@@ -106,13 +106,6 @@ public class ContactsOperationView extends FrameLayout implements
 		mContactsAdapter.clearSelectedContacts();
 	}
 	
-	public static Contacts getContacts(int position){
-		if((position<0)||(position>=ContactsHelper.getInstance().getSearchContacts().size())){
-			return null;
-		}
-		return ContactsHelper.getInstance().getSearchContacts().get(position);
-	}
-	
 	public void updateContactsList(boolean searchEmpty) {
 		if (null == mContactsLv) {
 			return;
@@ -213,8 +206,6 @@ public class ContactsOperationView extends FrameLayout implements
 		// TODO Auto-generated method stub
 		updateContactsList();
 	}
-	
-	
 	/*end:OnContactsAdapter*/
 	
 	private void initView() {
