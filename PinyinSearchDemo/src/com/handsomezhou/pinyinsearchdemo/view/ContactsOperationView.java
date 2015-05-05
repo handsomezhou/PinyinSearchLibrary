@@ -159,14 +159,14 @@ public class ContactsOperationView extends FrameLayout implements
 	}
 
 	@Override
-	public void onQuickAlphabeticBarDown() {
+	public void onQuickAlphabeticBarDown(char selectCharacters) {
 		clearViewDisappearMsg();
 		ViewUtil.showView(mContactsIndexView);
 		//Log.i(TAG, "onQuickAlphabeticBarDown");
 	}
 
 	@Override
-	public void onQuickAlphabeticBarUp() {
+	public void onQuickAlphabeticBarUp(char selectCharacters) {
 		// hideView(mContactsIndexView);
 		sendViewDisappearMsg();
 		Log.i(TAG, "onQuickAlphabeticBarUp");

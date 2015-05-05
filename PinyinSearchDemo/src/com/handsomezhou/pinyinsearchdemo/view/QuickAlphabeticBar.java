@@ -12,6 +12,8 @@ import android.widget.ListView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
+import com.handsomezhou.pinyinsearchdemo.R;
+
 /**
  * 
  * @author lake&handsomezhou
@@ -32,8 +34,8 @@ public class QuickAlphabeticBar extends View {
 	private OnQuickAlphabeticBar mOnQuickAlphabeticBar;
 	
 	public interface OnQuickAlphabeticBar{
-		public void onQuickAlphabeticBarDown();
-		public void onQuickAlphabeticBarUp();
+		public void onQuickAlphabeticBarDown(char selectCharacters);
+		public void onQuickAlphabeticBarUp(char selectCharacters);
 	}
 	
 	public QuickAlphabeticBar(Context context, AttributeSet attrs) {
@@ -94,6 +96,7 @@ public class QuickAlphabeticBar extends View {
 		int index = getCurrentIndex(event);
 		//Log.i(TAG,"index="+index);
 		if((event.getAction()==MotionEvent.ACTION_DOWN)||(event.getAction()==MotionEvent.ACTION_MOVE)){
+	        setBackgroundColor(getResources().getColor(R.color.light_blue));
 			if(null!=mSelectCharTv){	//show select char
 				mSelectCharTv.setVisibility(View.VISIBLE);
 				mSelectCharTv.setText(String.valueOf(mSelectCharacters[index]));
@@ -111,16 +114,17 @@ public class QuickAlphabeticBar extends View {
 				}
 			}
 			if(null!=mOnQuickAlphabeticBar){
-				mOnQuickAlphabeticBar.onQuickAlphabeticBarDown();
+				mOnQuickAlphabeticBar.onQuickAlphabeticBarDown(mSelectCharacters[index]);
 			}
 			
 		}else if(event.getAction()==MotionEvent.ACTION_UP){
+	          setBackgroundColor(getResources().getColor(R.color.transparent));
 			if(null!=mSelectCharTv){	//hide select char
 				mSelectCharTv.setVisibility(View.GONE);
 			}
 			
 			if(null!=mOnQuickAlphabeticBar){
-				mOnQuickAlphabeticBar.onQuickAlphabeticBarUp();
+				mOnQuickAlphabeticBar.onQuickAlphabeticBarUp(mSelectCharacters[index]);
 			}
 		}
 		return true;
@@ -172,7 +176,7 @@ public class QuickAlphabeticBar extends View {
 	
 	private Paint mOtherIndexPaint=new Paint();
 	{
-		mOtherIndexPaint.setColor(Color.WHITE);
+		mOtherIndexPaint.setColor(Color.BLACK);
 		mOtherIndexPaint.setTextSize(24);
 		mOtherIndexPaint.setTypeface(Typeface.DEFAULT_BOLD);
 		mOtherIndexPaint.setTextAlign(Paint.Align.CENTER);
