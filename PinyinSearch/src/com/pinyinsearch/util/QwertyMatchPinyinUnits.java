@@ -1,5 +1,5 @@
 /*
- * Copyright  [handsomezhou] 2014 The Pinyin search Open Source Project
+ * Copyright 2014 handsomezhou
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
