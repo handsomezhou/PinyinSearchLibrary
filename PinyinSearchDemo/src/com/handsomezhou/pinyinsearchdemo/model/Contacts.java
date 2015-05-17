@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.pinyinsearch.model.PinyinUnit;
 
@@ -280,6 +281,33 @@ public class Contacts extends BaseContacts implements Cloneable{
 		return contactsCount;
 	}
 	
+	public static void hideOrUnfoldMultipleContactsView(Contacts contacts){
+		if(null==contacts){
+			return;
+		}
+		
+		if(null==contacts.getNextContacts()){
+			return;
+		}
+		
+		boolean hide=!contacts.getNextContacts().isHideMultipleContacts();
+		
+		Contacts currentContact=contacts.getNextContacts();
+		Contacts nextContact=null;
+		while(null!=currentContact){
+			currentContact.setHideMultipleContacts(hide);
+			nextContact=currentContact;
+			currentContact=nextContact.getNextContacts();
+		}
+
+		
+		if(hide){
+			Log.i(TAG, "hideMultipleContactsView");
+		}else{
+			Log.i(TAG, "UnfoldMultipleContactsView");
+		}
+		
+	}
 /*	public void showContacts(){
 		Log.i(TAG,"mId=["+getId()+"]mSortKey=["+mSortKey+"]"+"mName=["+getName()+"]+"+"mPhoneNumber:"+getPhoneNumber()+"+ phoneNumberCount=["+mMultipleNumbersContacts.size()+1+"]");
 		for(Contacts contacts:mMultipleNumbersContacts){

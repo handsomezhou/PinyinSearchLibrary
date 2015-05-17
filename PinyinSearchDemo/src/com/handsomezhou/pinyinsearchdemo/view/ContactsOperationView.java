@@ -16,7 +16,6 @@ import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.handsomezhou.pinyinsearchdemo.R;
 import com.handsomezhou.pinyinsearchdemo.adapter.ContactsAdapter;
@@ -80,68 +79,7 @@ public class ContactsOperationView extends FrameLayout implements
 		initListener();
 	}
 
-	public OnContactsOperationView getOnContactsOperationView() {
-		return mOnContactsOperationView;
-	}
-
-	public void setOnContactsOperationView(OnContactsOperationView onContactsOperationView) {
-		mOnContactsOperationView = onContactsOperationView;
-	}
 	
-	public void contactsLoading() {
-		ViewUtil.showView(mLoadContactsView);
-	}
-
-	public void contactsLoadSuccess() {
-		ViewUtil.hideView(mLoadContactsView);
-		updateContactsList(true);
-	}
-
-	public void contactsLoadFailed() {
-		ViewUtil.hideView(mLoadContactsView);
-		ViewUtil.showView(mContactsLv);
-	}
-
-	public void clearSelectedContacts(){
-		mContactsAdapter.clearSelectedContacts();
-	}
-	
-	public void updateContactsList(boolean searchEmpty) {
-		if (null == mContactsLv) {
-			return;
-		}
-		
-		
-		if(true==searchEmpty){
-			ViewUtil.showView(mQuickAlphabeticBar);
-		}else{
-			ViewUtil.hideView(mQuickAlphabeticBar);
-		}
-		
-		updateContactsList();
-	}
-	
-	public void updateContactsList() {
-		if (null == mContactsLv) {
-			return;
-		}
-		
-		ViewUtil.hideView(mContactsIndexView);
-		
-		BaseAdapter contactsAdapter = (BaseAdapter) mContactsLv.getAdapter();
-		if (null != contactsAdapter) {
-			contactsAdapter.notifyDataSetChanged();
-			if (contactsAdapter.getCount() > 0) {
-				ViewUtil.showView(mContactsLv);
-				ViewUtil.hideView(mSearchResultPromptTv);
-
-			} else {
-				ViewUtil.hideView(mContactsLv);
-				ViewUtil.showView(mSearchResultPromptTv);
-
-			}
-		}
-	}
 	
 	@Override
 	public void onContactsSelected(Contacts contacts) {
@@ -208,6 +146,69 @@ public class ContactsOperationView extends FrameLayout implements
 	}
 	/*end:OnContactsAdapter*/
 	
+	public OnContactsOperationView getOnContactsOperationView() {
+		return mOnContactsOperationView;
+	}
+
+	public void setOnContactsOperationView(OnContactsOperationView onContactsOperationView) {
+		mOnContactsOperationView = onContactsOperationView;
+	}
+	
+	public void contactsLoading() {
+		ViewUtil.showView(mLoadContactsView);
+	}
+
+	public void contactsLoadSuccess() {
+		ViewUtil.hideView(mLoadContactsView);
+		updateContactsList(true);
+	}
+
+	public void contactsLoadFailed() {
+		ViewUtil.hideView(mLoadContactsView);
+		ViewUtil.showView(mContactsLv);
+	}
+
+	public void clearSelectedContacts(){
+		mContactsAdapter.clearSelectedContacts();
+	}
+	
+	public void updateContactsList(boolean searchEmpty) {
+		if (null == mContactsLv) {
+			return;
+		}
+		
+		
+		if(true==searchEmpty){
+			ViewUtil.showView(mQuickAlphabeticBar);
+		}else{
+			ViewUtil.hideView(mQuickAlphabeticBar);
+		}
+		
+		updateContactsList();
+	}
+	
+	public void updateContactsList() {
+		if (null == mContactsLv) {
+			return;
+		}
+		
+		ViewUtil.hideView(mContactsIndexView);
+		
+		BaseAdapter contactsAdapter = (BaseAdapter) mContactsLv.getAdapter();
+		if (null != contactsAdapter) {
+			contactsAdapter.notifyDataSetChanged();
+			if (contactsAdapter.getCount() > 0) {
+				ViewUtil.showView(mContactsLv);
+				ViewUtil.hideView(mSearchResultPromptTv);
+
+			} else {
+				ViewUtil.hideView(mContactsLv);
+				ViewUtil.showView(mSearchResultPromptTv);
+
+			}
+		}
+	}
+	
 	private void initView() {
 		LayoutInflater inflater = (LayoutInflater) mContext
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -255,7 +256,7 @@ public class ContactsOperationView extends FrameLayout implements
 					return;
 				}
 				
-				hideOrUnfoldMultipleContactsView(contacts);
+				Contacts.hideOrUnfoldMultipleContactsView(contacts);
 				
 				if(null!=mOnContactsOperationView){
 					mOnContactsOperationView.onListItemClick(contacts,position);
@@ -313,32 +314,4 @@ public class ContactsOperationView extends FrameLayout implements
 		return;
 	}
 	
-	private void hideOrUnfoldMultipleContactsView(Contacts contacts){
-		if(null==contacts){
-			return;
-		}
-		
-		if(null==contacts.getNextContacts()){
-			return;
-		}
-		
-		boolean hide=!contacts.getNextContacts().isHideMultipleContacts();
-		
-		Contacts currentContact=contacts.getNextContacts();
-		Contacts nextContact=null;
-		while(null!=currentContact){
-			currentContact.setHideMultipleContacts(hide);
-			nextContact=currentContact;
-			currentContact=nextContact.getNextContacts();
-		}
-
-		
-		if(hide){
-			Toast.makeText(mContext, "hideMultipleContactsView", Toast.LENGTH_SHORT).show();
-		}else{
-			Toast.makeText(mContext, "UnfoldMultipleContactsView", Toast.LENGTH_SHORT).show();
-		}
-		
-	}
-
 }
