@@ -113,7 +113,7 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 				if(true==contacts.isFirstMultipleContacts()){
 					if(true==contacts.getNextContacts().isHideMultipleContacts()){
 						ViewUtil.hideView(viewHolder.mContactsMultiplePhoneOperationPromptIv);
-						ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumber()+mContext.getString(R.string.phone_number_count, multipleNumbersContactsCount(contacts)+1));
+						ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumber()+mContext.getString(R.string.phone_number_count, Contacts.getMultipleNumbersContactsCount(contacts)+1));
 					}else{
 						ViewUtil.showView(viewHolder.mContactsMultiplePhoneOperationPromptIv);
 						ViewUtil.showTextNormal(viewHolder.mPhoneNumber, contacts.getPhoneNumber()+"("+mContext.getString(R.string.click_to_hide)+")");
@@ -331,30 +331,4 @@ public class ContactsAdapter extends ArrayAdapter<Contacts> implements SectionIn
 			mOnContactsAdapter.onRemoveContactsSelected(contacts);
 		}
 	}
-	
-	private int multipleNumbersContactsCount(Contacts contacts){
-		int contactsCount=0;
-		if(null==contacts){
-			return contactsCount;
-		}
-		Contacts currentContacts=contacts.getNextContacts();
-		Contacts nextContacts=null;
-		while(null!=currentContacts){
-			contactsCount++;
-			nextContacts=currentContacts;
-			currentContacts=nextContacts.getNextContacts();
-		}
-		
-		return contactsCount;
-	}
-	/**
-	 * key=id+phoneNumber
-	 * */
-	/*private String getSelectedContactsKey(Contacts contacts){
-		if(null==contacts){
-			return null;
-		}
-		
-		return contacts.getId()+contacts.getPhoneNumber();
-	}*/
 }

@@ -71,6 +71,20 @@ public class Contacts extends BaseContacts implements Cloneable{
 		setBelongMultipleContactsPhone(false);
 	}
 	
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		Contacts obj=(Contacts) super.clone();
+		obj.mNamePinyinUnits=new ArrayList<PinyinUnit>();
+		for(PinyinUnit pu:mNamePinyinUnits){
+			obj.mNamePinyinUnits.add((PinyinUnit)pu.clone());
+		}
+		obj.mSearchByType=mSearchByType;
+		obj.mMatchKeywords=new StringBuffer(mMatchKeywords);
+		obj.mNextContacts=mNextContacts;
+		
+		return super.clone();
+	}
+
 	private static Comparator<Object> mChineseComparator = Collator.getInstance(Locale.CHINA);
 	
 	public static Comparator<Contacts> mDesComparator = new Comparator<Contacts>() {
@@ -249,20 +263,22 @@ public class Contacts extends BaseContacts implements Cloneable{
 		
 		return null;
 	}
-	@Override
-	protected Object clone() throws CloneNotSupportedException {
-		Contacts obj=(Contacts) super.clone();
-		obj.mNamePinyinUnits=new ArrayList<PinyinUnit>();
-		for(PinyinUnit pu:mNamePinyinUnits){
-			obj.mNamePinyinUnits.add((PinyinUnit)pu.clone());
+	
+	public static int getMultipleNumbersContactsCount(Contacts contacts){
+		int contactsCount=0;
+		if(null==contacts){
+			return contactsCount;
 		}
-		obj.mSearchByType=mSearchByType;
-		obj.mMatchKeywords=new StringBuffer(mMatchKeywords);
-		obj.mNextContacts=mNextContacts;
+		Contacts currentContacts=contacts.getNextContacts();
+		Contacts nextContacts=null;
+		while(null!=currentContacts){
+			contactsCount++;
+			nextContacts=currentContacts;
+			currentContacts=nextContacts.getNextContacts();
+		}
 		
-		return super.clone();
+		return contactsCount;
 	}
-
 	
 /*	public void showContacts(){
 		Log.i(TAG,"mId=["+getId()+"]mSortKey=["+mSortKey+"]"+"mName=["+getName()+"]+"+"mPhoneNumber:"+getPhoneNumber()+"+ phoneNumberCount=["+mMultipleNumbersContacts.size()+1+"]");
