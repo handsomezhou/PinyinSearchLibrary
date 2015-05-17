@@ -250,8 +250,8 @@ public class ContactsOperationView extends FrameLayout implements
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Contacts contacts = ContactsHelper.getInstance()
-						.getSearchContacts().get(position);
+				Contacts contacts = (Contacts) parent.getItemAtPosition(position);
+				
 				if(false==contacts.isFirstMultipleContacts()){
 					return;
 				}
