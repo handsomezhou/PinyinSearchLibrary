@@ -56,7 +56,8 @@ Using
 	import com.pinyinsearch.model.*;
 	
 	Reference PinyinSearchDemo Project.
-	
+### Demo Apk
+https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/bin/PinyinSearchDemo.apk?raw=true	
 License 
 ---------------
 	Copyright 2014 handsomezhou
