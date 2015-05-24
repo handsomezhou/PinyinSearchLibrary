@@ -583,10 +583,10 @@ public class ContactsHelper {
 				
 				if(true==kanjiStartContactsExist){
 					cs=kanjiStartContactsHashMap.get(id);
-					Contacts.addMulitpleContact(cs, phoneNumber);
+					Contacts.addMultipleContact(cs, phoneNumber);
 				}else if(true==nonKanjiStartContactsExist){
 					cs=nonKanjiStartContactsHashMap.get(id);
-					Contacts.addMulitpleContact(cs, phoneNumber);
+					Contacts.addMultipleContact(cs, phoneNumber);
 				}else{
 					
 					cs = new Contacts(id,displayName, phoneNumber);

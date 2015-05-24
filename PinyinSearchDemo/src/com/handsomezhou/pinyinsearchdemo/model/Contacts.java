@@ -232,7 +232,7 @@ public class Contacts extends BaseContacts implements Cloneable{
 		mNextContacts = nextContacts;
 	}
 
-	public static Contacts addMulitpleContact(Contacts contacts, String phoneNumber){
+	public static Contacts addMultipleContact(Contacts contacts, String phoneNumber){
 		do{
 			if((TextUtils.isEmpty(phoneNumber))||(null==contacts)){
 				break;
