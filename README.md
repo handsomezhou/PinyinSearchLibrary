@@ -44,11 +44,8 @@ API
 	
 Using
 ---------------	
-### T9 search demo:
-<img src="https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/image/T9_search.png"/>
-
-### Qwerty search demo:
-<img src="https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/image/Qwerty_search.png" />
+### Pinyin search demo:
+<img src="https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/image/PinyinSearchDemo.gif"/>
 	
 ### Function call in detail:
 	Import packages when use PinyinSearch Library(Dependent on pinyin4j-x.x.x.jar):
