@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="snow">#FFFFFAFA</color>
+    <color name="white_smoke">#FFF5F5F5</color>
+    <color name="deep_sky_blue">#FF00BFFF</color>	
+    <color name="light_blue">#BBADD8E6</color>	
+    <color name="dodger_blue">#FF1E90FF</color>
+    <color name="dark_sea_green1">#40C1FFC1</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="grey">#FFBEBEBE</color>
+    <!-- start:android-segmented-control -->
+    <color name="radio_button_selected_color">#ff33b5e5</color>
+    <color name="radio_button_unselected_color">@android:color/transparent</color>
+    <!-- end:android-segmented-control -->
+
+</resources>

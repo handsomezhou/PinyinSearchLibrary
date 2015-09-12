@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">应用搜索</string>
+    <string name="search_input_prompt">输入应用名称</string>
+    <string name="app_info_loading">应用信息加载中...</string>
+    <string name="no_match_search_result">无相关搜索结果</string>
+    <string name="app_can_not_be_launched_directly">该应用无法被直接启动</string>
+    <string name="the_app_has_been_launched">该应用已经打开</string>
+    <string name="can_not_to_uninstall_yourself">无法卸载自己</string>
+
+    <!-- start: exit_app_prompt_mode -->
+    <string name="whether_prompt_exit_app">退出应用时是否提示</string>
+    <string name="double_back_press_exit_app">再按一次退出%s</string>
+    <!-- end: exit_app_prompt_mode -->
+
+
+    <!-- start: long_press_uninstall_app -->
+    <string name="long_press_uninstall_app">长按卸载应用</string>
+    <!-- end: long_press_uninstall_app -->
+
+</resources>

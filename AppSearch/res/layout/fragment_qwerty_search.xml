@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <com.handsomezhou.appsearch.view.SearchBox
+        android:id="@+id/search_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <GridView
+            android:id="@+id/qwerty_search_grid_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:columnWidth="80dp"
+            android:listSelector="@android:color/transparent"
+            android:numColumns="auto_fit"
+            android:verticalSpacing="24dp" >
+        </GridView>
+
+        <TextView
+            android:id="@+id/search_result_prompt_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/no_match_search_result"
+            android:visibility="gone" />
+    </FrameLayout>
+
+</LinearLayout>

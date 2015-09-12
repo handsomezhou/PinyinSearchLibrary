@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="80dp"
+    android:layout_height="80dp"
+    android:background="@drawable/icon_button_grid_item_selector"
+    android:gravity="center_vertical|center_horizontal"
+    android:orientation="vertical"
+    android:paddingTop="8dp" >
+
+    <ImageView
+        android:id="@+id/icon_image_view"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:contentDescription="@string/app_name"/>
+
+    <TextView
+        android:id="@+id/title_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:singleLine="true"
+        android:textSize="12sp" />
+
+</LinearLayout>
