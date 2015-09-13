@@ -7,31 +7,24 @@
     <dimen name="dialpad_icon_width">32dp</dimen>
     <dimen name="dialpad_margin_right">12dp</dimen>
     <dimen name="dialpad_margin_left">12dp</dimen>
-    <dimen name="padding">8dp</dimen>
-    <dimen name="padding_left">8dp</dimen>
-    <dimen name="padding_right">8dp</dimen>
-    <dimen name="padding_top">8dp</dimen>
-    <dimen name="padding_bottom">8dp</dimen>
-    <dimen name="margin">8dp</dimen>
-    <dimen name="margin_left">8dp</dimen>
-    <dimen name="margin_right">8dp</dimen>
-    <dimen name="margin_top">8dp</dimen>
-    <dimen name="margin_bottom">8dp</dimen>
+    <dimen name="padding">4dp</dimen>
+    <dimen name="padding_left">4dp</dimen>
+    <dimen name="padding_right">4dp</dimen>
+    <dimen name="padding_top">4dp</dimen>
+    <dimen name="padding_bottom">4dp</dimen>
+    <dimen name="margin">4dp</dimen>
+    <dimen name="margin_left">4dp</dimen>
+    <dimen name="margin_right">4dp</dimen>
+    <dimen name="margin_top">4dp</dimen>
+    <dimen name="margin_bottom">4dp</dimen>
     <dimen name="icon_width">54dp</dimen>
     <dimen name="icon_height">54dp</dimen>
-    <dimen name="quick_alphabetic_bar_width">32dp</dimen>
     <dimen name="navigation_bar_height">54dp</dimen>
     <dimen name="navigation_bar_back_text_size">16sp</dimen>
     <dimen name="navigation_bar_title_text_size">24sp</dimen>
     <dimen name="tab_index_icon_height">32dp</dimen>
     <dimen name="tab_index_icon_width">32dp</dimen>
     <dimen name="tab_index_text_size">12sp</dimen>
-    <dimen name="quick_alphabetic_bar_text_size">18sp</dimen>
-    <dimen name="settings_item_title_text_size">20sp</dimen>
-
-    <!-- start:android-segmented-control -->
-    <dimen name="radio_button_conner_radius">5dp</dimen>
-    <dimen name="radio_button_stroke_border">1dp</dimen>
-    <!-- end:android-segmented-control -->
+    <dimen name="bottom_tab_height">54dp</dimen>
 
 </resources>

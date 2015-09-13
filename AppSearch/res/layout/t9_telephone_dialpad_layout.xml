@@ -2,47 +2,74 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dialpad_row_height"
-        android:background="@drawable/dial_input_bg"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/dialpad_row_height"
         android:orientation="horizontal" >
 
-        <Button
-            android:id="@+id/telephone_dial_close_btn"
-            android:layout_width="@dimen/dialpad_icon_width"
-            android:layout_height="@dimen/dialpad_icon_height"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/dialpad_margin_left"
-            android:layout_marginRight="@dimen/dialpad_margin_right"
-            android:background="@drawable/telephone_dial_close" />
-
-        <EditText
-            android:id="@+id/dial_input_edit_text"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="4dp"
-            android:layout_weight="2"
-            android:background="@drawable/dial_digitbar_input_bg"
-            android:hint="@string/search_input_prompt"
-            android:inputType="phone"
-            android:padding="4dp" />
-
-        <Button
-            android:id="@+id/dial_delete_btn"
-            android:layout_width="@dimen/dialpad_icon_width"
-            android:layout_height="@dimen/dialpad_icon_height"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/dialpad_margin_left"
-            android:layout_marginRight="@dimen/dialpad_margin_right"
-            android:background="@drawable/dial_delete_selector" />
+            android:layout_margin="@dimen/margin"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/telephone_dial_close_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/telephone_dial_close_selector"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/margin"
+            android:layout_weight="9"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/dial_input_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@color/white_smoke"
+                android:hint="@string/search_input_prompt"
+                android:inputType="phone"
+                android:padding="@dimen/padding" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/margin"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/dial_delete_btn"
+                android:layout_width="@dimen/dialpad_icon_width"
+                android:layout_height="@dimen/dialpad_icon_height"
+                android:layout_gravity="center"
+                android:background="@drawable/dial_delete_selector" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dialpad_row_height"
+        android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
         <Button
@@ -72,7 +99,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dialpad_row_height"
+        android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
         <Button
@@ -102,7 +129,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dialpad_row_height"
+        android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
         <Button
@@ -132,7 +159,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dialpad_row_height"
+        android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
         <Button

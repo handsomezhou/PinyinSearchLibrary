@@ -5,14 +5,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.handsomezhou.appsearch.R;
 import com.handsomezhou.appsearch.adapter.AppInfoAdapter;
 import com.handsomezhou.appsearch.helper.AppInfoHelper;
-import com.handsomezhou.appsearch.model.SearchMode;
+import com.handsomezhou.appsearch.model.AppInfo;
+import com.handsomezhou.appsearch.util.AppUtil;
 import com.handsomezhou.appsearch.util.ViewUtil;
 import com.handsomezhou.appsearch.view.SearchBox;
 import com.handsomezhou.appsearch.view.SearchBox.OnSearchBox;
@@ -52,7 +57,29 @@ public class QwertySearchFragment extends BaseFragment implements OnSearchBox{
 
 	@Override
 	protected void initListener() {
-		// TODO Auto-generated method stub
+		mQwertySearchGv.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				AppInfo appInfo=(AppInfo) parent.getItemAtPosition(position);
+				AppUtil.startApp(getContext(), appInfo);
+				
+			}
+		});
+
+		mQwertySearchGv.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				AppInfo appInfo=(AppInfo) parent.getItemAtPosition(position);
+	
+				AppUtil.uninstallApp(getContext(), appInfo);
+			
+				return true;
+			}
+		});
 
 	}
 

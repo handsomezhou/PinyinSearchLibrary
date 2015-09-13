@@ -5,15 +5,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 
 import com.handsomezhou.appsearch.R;
 import com.handsomezhou.appsearch.adapter.AppInfoAdapter;
 import com.handsomezhou.appsearch.helper.AppInfoHelper;
+import com.handsomezhou.appsearch.model.AppInfo;
 import com.handsomezhou.appsearch.model.SearchMode;
+import com.handsomezhou.appsearch.util.AppUtil;
 import com.handsomezhou.appsearch.util.ViewUtil;
 import com.handsomezhou.appsearch.view.T9TelephoneDialpadView;
 import com.handsomezhou.appsearch.view.T9TelephoneDialpadView.OnT9TelephoneDialpadView;
@@ -62,6 +67,30 @@ public class T9SearchFragment extends BaseFragment implements
 
 	@Override
 	protected void initListener() {
+		mT9SearchGv.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				AppInfo appInfo=(AppInfo) parent.getItemAtPosition(position);
+				AppUtil.startApp(getContext(), appInfo);
+				
+			}
+		});
+
+		mT9SearchGv.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				AppInfo appInfo=(AppInfo) parent.getItemAtPosition(position);
+	
+				AppUtil.uninstallApp(getContext(), appInfo);
+			
+				return true;
+			}
+		});
+		
 		mKeyboardSwitchLayout.setOnClickListener(new View.OnClickListener() {
 
 			@Override

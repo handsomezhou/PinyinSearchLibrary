@@ -26,7 +26,7 @@ public class MainFragment extends BaseFragment implements OnAppInfoLoad{
 	private CustomFragmentPagerAdapter mCustomFragmentPagerAdapter;
 	private SearchMode mSearchMode;
 	private BaseProgressDialog mBaseProgressDialog;
-
+	
 	@Override
 	protected void initData() {
 		setContext(getActivity());

@@ -3,7 +3,9 @@
     android:id="@+id/search_box"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/search_box_bg"
+    android:layout_gravity="center_vertical"
+    android:background="@color/white"
+    android:minHeight="@dimen/navigation_bar_height"
     android:orientation="horizontal" >
 
     <ImageView
@@ -11,25 +13,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start|center_vertical"
-        android:layout_margin="@dimen/margin"
-        android:background="@drawable/search_box_search"
+        android:background="@drawable/search_selector"
         android:contentDescription="@string/app_name" />
 
     <EditText
         android:id="@+id/search_edit_text"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_marginBottom="@dimen/margin_bottom"
         android:layout_weight="1"
-        android:background="@null"
-        android:hint="@string/search_input_prompt" />
+        android:background="@color/white_smoke"
+        android:hint="@string/search_input_prompt"
+        android:padding="@dimen/padding" />
 
     <ImageView
         android:id="@+id/delete_image_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|center_vertical"
-        android:layout_margin="@dimen/margin"
         android:background="@drawable/search_box_delete_selector"
         android:contentDescription="@string/app_name" />
 

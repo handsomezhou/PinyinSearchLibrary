@@ -17,15 +17,17 @@ import android.widget.LinearLayout;
 
 import com.handsomezhou.appsearch.R;
 import com.handsomezhou.appsearch.util.ViewUtil;
+
 /**
  * @description Custom T9 phone dialpad View
  * @author handsomezhou
  */
 public class T9TelephoneDialpadView extends LinearLayout implements
-		OnClickListener ,OnLongClickListener{
-	private static final char DIAL_X_SECOND_MEANING=',';
-	private static final char DIAL_0_SECOND_MEANING='+';
-	private static final char DIAL_J_SECOND_MEANING=';';
+		OnClickListener, OnLongClickListener {
+	private static final char DIAL_X_SECOND_MEANING = ',';
+	private static final char DIAL_0_SECOND_MEANING = '+';
+	private static final char DIAL_J_SECOND_MEANING = ';';
+
 	/**
 	 * Interface definition for a callback to be invoked when a
 	 * T9TelephoneDialpadView is operated.
@@ -36,7 +38,7 @@ public class T9TelephoneDialpadView extends LinearLayout implements
 		void onDeleteDialCharacter(String deleteCharacter);
 
 		void onDialInputTextChanged(String curCharacter);
-		
+
 		void onHideT9TelephoneDialpadView();
 	}
 
@@ -61,14 +63,14 @@ public class T9TelephoneDialpadView extends LinearLayout implements
 
 	}
 
-	public void show(){
+	public void show() {
 		ViewUtil.showView(this);
 	}
-	
-	public void hide(){
+
+	public void hide() {
 		ViewUtil.hideView(this);
 	}
-	
+
 	private void initData() {
 
 	}
@@ -78,7 +80,6 @@ public class T9TelephoneDialpadView extends LinearLayout implements
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		mDialpadView = inflater.inflate(R.layout.t9_telephone_dialpad_layout,
 				this);
-		mDialpadView.setBackgroundColor(mContext.getResources().getColor(R.color.black));
 
 		mTelephoneDialCloseBtn = (Button) mDialpadView
 				.findViewById(R.id.telephone_dial_close_btn);
@@ -108,17 +109,17 @@ public class T9TelephoneDialpadView extends LinearLayout implements
 			View v = mDialpadView.findViewById(R.id.dialNum1 + i);
 			v.setOnClickListener(this);
 		}
-		
+
 		/**
 		 * set long click listener for button('*','0','#')
 		 * */
-		View viewX=mDialpadView.findViewById(R.id.dialx);
+		View viewX = mDialpadView.findViewById(R.id.dialx);
 		viewX.setOnLongClickListener(this);
-		
-		View viewO=mDialpadView.findViewById(R.id.dialNum0);
+
+		View viewO = mDialpadView.findViewById(R.id.dialNum0);
 		viewO.setOnLongClickListener(this);
-		
-		View viewJ=mDialpadView.findViewById(R.id.dialj);
+
+		View viewJ = mDialpadView.findViewById(R.id.dialj);
 		viewJ.setOnLongClickListener(this);
 
 		mT9InputEt.addTextChangedListener(new TextWatcher() {
@@ -167,7 +168,7 @@ public class T9TelephoneDialpadView extends LinearLayout implements
 		switch (v.getId()) {
 		case R.id.telephone_dial_close_btn:
 			hideT9TelephoneDialpadView();
-			if(null!=mOnT9TelephoneDialpadView){
+			if (null != mOnT9TelephoneDialpadView) {
 				mOnT9TelephoneDialpadView.onHideT9TelephoneDialpadView();
 			}
 			break;
@@ -215,7 +216,7 @@ public class T9TelephoneDialpadView extends LinearLayout implements
 		}
 		return true;
 	}
-	
+
 	public OnT9TelephoneDialpadView getOnT9TelephoneDialpadView() {
 		return mOnT9TelephoneDialpadView;
 	}
@@ -232,7 +233,7 @@ public class T9TelephoneDialpadView extends LinearLayout implements
 	public void setT9InputEt(EditText t9InputEt) {
 		mT9InputEt = t9InputEt;
 	}
-	
+
 	public void deleteSingleDialCharacter() {
 		String curInputStr = mT9InputEt.getText().toString();
 		if (curInputStr.length() > 0) {
@@ -271,7 +272,7 @@ public class T9TelephoneDialpadView extends LinearLayout implements
 				mOnT9TelephoneDialpadView.onAddDialCharacter(addCharacter);
 			}
 		}
-		
+
 		// Toast.makeText(mContext, "addSingleDialCharacter[" + addCharacter +
 		// "]",
 		// Toast.LENGTH_SHORT).show();
@@ -292,14 +293,13 @@ public class T9TelephoneDialpadView extends LinearLayout implements
 	public int getT9TelephoneDialpadViewVisibility() {
 		return this.getVisibility();
 	}
-	
-	public String getT9Input(){
+
+	public String getT9Input() {
 		return mT9InputEt.getText().toString();
 	}
-	
-	public void  clearT9Input(){
+
+	public void clearT9Input() {
 		mT9InputEt.setText("");
 	}
 
-	
 }

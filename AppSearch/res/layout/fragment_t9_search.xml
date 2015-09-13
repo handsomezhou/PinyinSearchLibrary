@@ -34,10 +34,15 @@
             android:layout_height="wrap_content"
             android:clickable="true" />
 
+        <View style="@style/dividing_line_horizontal" />
+
         <LinearLayout
             android:id="@+id/keyboard_switch_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center"
+            android:minHeight="@dimen/bottom_tab_height"
             android:orientation="vertical" >
 
             <ImageView
@@ -45,9 +50,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:clickable="true"
+                android:layout_margin="@dimen/margin"
                 android:background="@drawable/keyboard_show_selector"
-                android:layout_margin="@dimen/margin" />
+                android:clickable="true" />
         </LinearLayout>
     </LinearLayout>
 
