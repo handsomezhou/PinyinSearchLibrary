@@ -8,18 +8,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:background="@color/grey"
         android:gravity="center_vertical"
         android:minHeight="@dimen/dialpad_row_height"
         android:orientation="horizontal" >
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_margin="@dimen/margin"
-            android:layout_weight="2"
+            android:background="@color/white"
             android:gravity="center"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:visibility="gone" >
 
             <Button
                 android:id="@+id/telephone_dial_close_btn"
@@ -34,8 +36,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_margin="@dimen/margin"
-            android:layout_weight="9"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_weight="1"
+            android:background="@color/white"
             android:orientation="vertical" >
 
             <EditText
@@ -43,23 +48,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:background="@color/white_smoke"
+                android:background="@color/white"
                 android:hint="@string/search_input_prompt"
                 android:inputType="phone"
                 android:padding="@dimen/padding" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_margin="@dimen/margin"
-            android:layout_weight="2"
+            android:layout_marginBottom="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/white"
             android:gravity="center"
             android:orientation="vertical" >
 
             <Button
                 android:id="@+id/dial_delete_btn"
+                android:visibility="gone"
                 android:layout_width="@dimen/dialpad_icon_width"
                 android:layout_height="@dimen/dialpad_icon_height"
                 android:layout_gravity="center"

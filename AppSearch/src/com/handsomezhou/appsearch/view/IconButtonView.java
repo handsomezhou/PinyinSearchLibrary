@@ -20,13 +20,19 @@ public class IconButtonView extends RelativeLayout {
     public IconButtonView(Context context) {
         super(context);
         mContext=context;
-        initView();
+        initView(false);
     }
 
     public IconButtonView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext=context;
-        initView();
+        initView(false);
+    }
+    
+    public IconButtonView(Context context, boolean hideIcon){
+    	 super(context);
+         mContext=context;
+         initView(hideIcon);
     }
 
     public ImageView getIconIv() {
@@ -45,7 +51,7 @@ public class IconButtonView extends RelativeLayout {
         mTitleTv = titleTv;
     }
     
-    private void initView(){
+    private void initView(boolean hideIcon){
     	 this.removeAllViews();
         
 		mTitleTv = new TextView(mContext);
@@ -55,7 +61,7 @@ public class IconButtonView extends RelativeLayout {
 		mTitleTv.setGravity(Gravity.CENTER);
 		RelativeLayout.LayoutParams titleTvLp = new RelativeLayout.LayoutParams(
 				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		titleTvLp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		titleTvLp.addRule(RelativeLayout.CENTER_VERTICAL);
 		titleTvLp.addRule(RelativeLayout.CENTER_HORIZONTAL);
 		this.addView(mTitleTv, titleTvLp);
 
@@ -73,7 +79,12 @@ public class IconButtonView extends RelativeLayout {
 				layoutWidth, layoutHeight);
 		iconIvLp.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
 		iconIvLp.addRule(RelativeLayout.ABOVE, mTitleTv.getId());
-      
+		if(hideIcon){
+			iconIvLp.addRule(GONE);
+		}else{
+			iconIvLp.addRule(VISIBLE);
+		}
+		
          
         this.addView(mIconIv,iconIvLp);
         

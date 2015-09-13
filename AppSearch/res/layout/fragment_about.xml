@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <com.handsomezhou.appsearch.view.NavigationBarLayout
+        android:id="@+id/navigation_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/author_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/item_height" >
+
+                <TextView
+                    android:id="@+id/author_prompt_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/margin"
+                    android:text="@string/author_prompt" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/margin"
+                    android:layout_toRightOf="@id/author_prompt_text_view"
+                    android:text="@string/author" />
+            </RelativeLayout>
+
+            <View style="@style/dividing_line_horizontal" />
+
+            <RelativeLayout
+                android:id="@+id/contact_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/item_height" >
+
+                <TextView
+                    android:id="@+id/contact_prompt_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/margin"
+                    android:text="@string/contact_prompt" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/margin"
+                    android:layout_toRightOf="@id/contact_prompt_text_view"
+                    android:autoLink="email"
+                    android:text="@string/email" />
+            </RelativeLayout>
+
+            <View style="@style/dividing_line_horizontal" />
+
+            <RelativeLayout
+                android:id="@+id/github_home_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/item_height" >
+
+                <TextView
+                    android:id="@+id/github_home_prompt_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/margin"
+                    android:text="@string/github_home_prompt" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/margin"
+                    android:layout_toRightOf="@id/github_home_prompt_text_view"
+                    android:autoLink="web"
+                    android:text="@string/github_home" />
+            </RelativeLayout>
+
+            <View style="@style/dividing_line_horizontal" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

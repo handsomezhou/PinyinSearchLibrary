@@ -2,6 +2,7 @@ package com.handsomezhou.appsearch.view;
 
 import android.content.Context;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.handsomezhou.appsearch.R;
+import com.handsomezhou.appsearch.util.ViewUtil;
 
 public class SearchBox extends LinearLayout {
 	private Context mContext;
@@ -90,7 +92,13 @@ public class SearchBox extends LinearLayout {
 			@Override
 			public void afterTextChanged(Editable s) {
 				if (null != mOnSearchBox) {
-					mOnSearchBox.onSearchTextChanged(s.toString());
+					String inputStr=s.toString();
+					mOnSearchBox.onSearchTextChanged(inputStr);
+					if(TextUtils.isEmpty(inputStr)){
+						ViewUtil.hideView(mDeleteIv);
+					}else{
+						ViewUtil.showView(mDeleteIv);
+					}
 				}
 
 			}
@@ -109,6 +117,7 @@ public class SearchBox extends LinearLayout {
 
 	private void delete() {
 		mSearchEt.setText("");
+		ViewUtil.hideView(mDeleteIv);
 	}
 
 }

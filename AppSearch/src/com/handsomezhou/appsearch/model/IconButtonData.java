@@ -13,7 +13,7 @@ public class IconButtonData {
     public IconButtonData(Context context,IconButtonValue iconButtonValue) {
         super();
         mIconButtonValue = iconButtonValue;
-        mIconButtonView = new IconButtonView(context);
+        mIconButtonView = new IconButtonView(context,iconButtonValue.isHideIcon());
         mIconButtonView.getTitleTv().setText(mIconButtonValue.getText());;
         mIconButtonView.getIconIv().setBackgroundResource(mIconButtonValue.getIconUnselected());
     }

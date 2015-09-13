@@ -13,20 +13,26 @@ public class IconButtonValue {
     private int mIconSelectedFocused;   // selected_focused Icon
     private int mIconUnselected;        // unselected Icon
     private int mText;// text
+    private boolean mHideIcon;
     
-    public IconButtonValue(Object tag, int iconSelectedUnfocused,int text) {
+
+
+	public IconButtonValue(Object tag, int iconSelectedUnfocused,int text) {
         super();
+        setHideIcon(false);
         initViewOption(tag, iconSelectedUnfocused, iconSelectedUnfocused, iconSelectedUnfocused, text);
     }
     
     public IconButtonValue(Object tag, int iconSelectedUnfocused, int iconUnselected, int text) {
         super();
+        setHideIcon(false);
         initViewOption(tag, iconSelectedUnfocused, iconSelectedUnfocused, iconUnselected, text);
     }
 
     public IconButtonValue(Object tag,int iconSelectedUnfocused, int iconSelectedFocused, 
             int iconUnselected, int text) {
         super();
+        setHideIcon(false);
         initViewOption(tag, iconSelectedUnfocused, iconSelectedFocused, iconUnselected, text);
     }
 
@@ -76,4 +82,12 @@ public class IconButtonValue {
     public void setText(int text) {
         mText = text;
     }
+    
+    public boolean isHideIcon() {
+		return mHideIcon;
+	}
+
+	public void setHideIcon(boolean hideIcon) {
+		mHideIcon = hideIcon;
+	}
 }

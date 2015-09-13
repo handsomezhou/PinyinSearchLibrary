@@ -6,43 +6,52 @@ import java.util.List;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.handsomezhou.appsearch.R;
-import com.handsomezhou.appsearch.adapter.CustomFragmentPagerAdapter;
+import com.handsomezhou.appsearch.Interface.OnTabChange;
+import com.handsomezhou.appsearch.adapter.CustomPartnerViewPagerAdapter;
 import com.handsomezhou.appsearch.dialog.BaseProgressDialog;
 import com.handsomezhou.appsearch.helper.AppInfoHelper;
 import com.handsomezhou.appsearch.helper.AppInfoHelper.OnAppInfoLoad;
+import com.handsomezhou.appsearch.model.IconButtonData;
+import com.handsomezhou.appsearch.model.IconButtonValue;
+import com.handsomezhou.appsearch.model.PartnerView;
 import com.handsomezhou.appsearch.model.SearchMode;
+import com.handsomezhou.appsearch.view.TopTabView;
 import com.handsomezhou.appsearch.view.CustomViewPager;
 
-public class MainFragment extends BaseFragment implements OnAppInfoLoad{
-	private static final String TAG="MainFragment";
-	private List<Fragment> mFragments;
+public class MainFragment extends BaseFragment implements OnAppInfoLoad,
+		OnTabChange {
+	private static final String TAG = "MainFragment";
+	private List<PartnerView> mPartnerViews;
+	private TopTabView mTopTabView;
 	private CustomViewPager mCustomViewPager;
-	private CustomFragmentPagerAdapter mCustomFragmentPagerAdapter;
+	private CustomPartnerViewPagerAdapter mCustomPartnerViewPagerAdapter;
 	private SearchMode mSearchMode;
 	private BaseProgressDialog mBaseProgressDialog;
-	
+
 	@Override
 	protected void initData() {
 		setContext(getActivity());
-		if (null == mFragments) {
-			mFragments = new ArrayList<Fragment>();
-			Fragment t9SearchFragment = new T9SearchFragment();
-			if (null != t9SearchFragment) {
-				mFragments.add(SearchMode.T9.ordinal(),t9SearchFragment);
-			}
 
-			Fragment qwertySearchFragment = new QwertySearchFragment();
-			if (null != qwertySearchFragment) {
-				mFragments.add(SearchMode.QWERTY.ordinal(),qwertySearchFragment);
-			}
-		}
+		mPartnerViews = new ArrayList<PartnerView>();
+		/* start: T9 search view */
+		PartnerView t9PartnerView = new PartnerView(SearchMode.T9,
+				new T9SearchFragment());
+		mPartnerViews.add(t9PartnerView);
 		
+		/* end: T9 search view */
+
+		/* start: Qwerty search view */
+		PartnerView qwertyPartnerView = new PartnerView(SearchMode.QWERTY,
+				new QwertySearchFragment());
+		mPartnerViews.add(qwertyPartnerView);
+		/* end: Qwerty search view */
+		
+
 		boolean startLoadSuccess = AppInfoHelper.getInstance()
 				.startLoadAppInfo();
 		if (true == startLoadSuccess) {
@@ -58,89 +67,121 @@ public class MainFragment extends BaseFragment implements OnAppInfoLoad{
 		View view = inflater.inflate(R.layout.fragment_main, container, false);
 		mCustomViewPager = (CustomViewPager) view
 				.findViewById(R.id.custom_view_pager);
+		mCustomViewPager.setPagingEnabled(true);
+
+		mTopTabView = (TopTabView) view.findViewById(R.id.top_tab_view);
+		mTopTabView.setTextColorFocused(getContext().getResources().getColor(R.color.orange));
+		mTopTabView.setTextColorUnfocused(getContext().getResources().getColor(R.color.black));
+		mTopTabView.setTextColorUnselected(getContext().getResources().getColor(R.color.black));
+		mTopTabView.setHideIcon(true);
+		mTopTabView.removeAllViews();
+
+		/* start: T9 search tab */
+		IconButtonValue t9IconBtnValue = new IconButtonValue(SearchMode.T9,0,  R.string.t9_search);
+		t9IconBtnValue.setHideIcon(mTopTabView.isHideIcon());
+		IconButtonData t9IconBtnData = new IconButtonData(getContext(),
+				t9IconBtnValue);
+		mTopTabView.addIconButtonData(t9IconBtnData);
+		/* end: T9 search tab */
+
+		/* start: Qwerty search tab */
+		IconButtonValue qwertyIconBtnValue = new IconButtonValue(
+				SearchMode.QWERTY, 0, R.string.qwerty_search);
+		t9IconBtnValue.setHideIcon(mTopTabView.isHideIcon());
+		IconButtonData qwertyIconBtnData = new IconButtonData(getContext(),
+				qwertyIconBtnValue);
+		mTopTabView.addIconButtonData(qwertyIconBtnData);
+		/* end: Qwerty search tab */
+
+		mTopTabView.setOnTabChange(this);
 		return view;
 	}
 
 	@Override
 	protected void initListener() {
 		FragmentManager fm = getChildFragmentManager();
-		mCustomFragmentPagerAdapter = new CustomFragmentPagerAdapter(fm,
-				mFragments);
-		mCustomViewPager.setAdapter(mCustomFragmentPagerAdapter);
-		mCustomViewPager.setPagingEnabled(true);
+		mCustomPartnerViewPagerAdapter = new CustomPartnerViewPagerAdapter(fm,
+				mPartnerViews);
+		mCustomViewPager.setAdapter(mCustomPartnerViewPagerAdapter);
 		mCustomViewPager
 				.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
 					@Override
 					public void onPageSelected(int pos) {
-						//setCurrentAppInfoFragmentIndex(pos);
-						SearchMode searchMode=getSearchMode(pos);
-						setSearchMode(searchMode);
-						setCurrentFragment(getSearchMode().ordinal());
+
+						PartnerView partnerView = mPartnerViews.get(pos);
+						// Toast.makeText(getContext(),addressBookView.getTag().toString()+"+++"
+						// , Toast.LENGTH_LONG).show();
+						mTopTabView.setCurrentTabItem(partnerView.getTag());
 						refreshView();
 					}
 
 					@Override
 					public void onPageScrolled(int pos, float posOffset,
 							int posOffsetPixels) {
-						// TODO Auto-generated method stub
 
 					}
 
 					@Override
 					public void onPageScrollStateChanged(int state) {
-						// TODO Auto-generated method stub
 
 					}
 				});
 
-
-		setSearchMode(SearchMode.T9);
-		setCurrentFragment(getSearchMode().ordinal());
-		//SearchMode
-		//setCurrentFragment();
-
 	}
 
-	/*start: OnAppInfoLoad*/
+	/* start: OnAppInfoLoad */
 	@Override
 	public void onAppInfoLoadSuccess() {
 		getBaseProgressDialog().hide();
-		if (null == mFragments) {
-			return;
-		}
-		
-		Log.i(TAG, "app count"+ AppInfoHelper.getInstance()
-				.getT9SearchAppInfos().size());
-		Fragment fragment=mFragments.get(getSearchMode().ordinal());
-		
+
 		AppInfoHelper.getInstance().getQwertySearchAppInfo(null);
 		AppInfoHelper.getInstance().getT9SearchAppInfo(null);
-		
-		if(fragment instanceof T9SearchFragment){
-			((T9SearchFragment) fragment).refreshView();
-		}else if(fragment instanceof QwertySearchFragment){
-			((QwertySearchFragment) fragment).refreshView();
-		}
-		
-		
+
+		refreshView();
+
 	}
 
 	@Override
 	public void onAppInfoLoadFailed() {
 		getBaseProgressDialog().hide();
-		if (null == mFragments) {
-			return;
-		}
-		
-		Fragment fragment=mFragments.get(getSearchMode().ordinal());
-		if(fragment instanceof T9SearchFragment){
-			((T9SearchFragment) fragment).refreshView();
-		}else if(fragment instanceof QwertySearchFragment){
-			((QwertySearchFragment) fragment).refreshView();
-		}
+		refreshView();
 	}
-	/*end: OnAppInfoLoad*/
+
+	/* end: OnAppInfoLoad */
+
+	/* start: OnTabChange */
+	@Override
+	public void onChangeToTab(Object fromTab, Object toTab,
+			TAB_CHANGE_STATE tabChangeState) {
+		int item = getPartnerViewItem(toTab);
+		mCustomViewPager.setCurrentItem(item);
+
+	}
+
+	@Override
+	public void onClickTab(Object currentTab, TAB_CHANGE_STATE tabChangeState) {
+		Fragment fragment = mPartnerViews.get(getPartnerViewItem(currentTab))
+				.getFragment();
+		switch ((SearchMode) currentTab) {
+		case T9:
+			if (fragment instanceof T9SearchFragment) {
+				// ((T9SearchFragment) fragment).updateView(tabChangeState);
+				((T9SearchFragment) fragment).refreshView();
+			}
+			break;
+		case QWERTY:
+			if (fragment instanceof QwertySearchFragment) {
+				((QwertySearchFragment) fragment).refreshView();
+			}
+			break;
+		default:
+			break;
+		}
+
+	}
+
+	/* end: OnTabChange */
 
 	public SearchMode getSearchMode() {
 		return mSearchMode;
@@ -160,34 +201,44 @@ public class MainFragment extends BaseFragment implements OnAppInfoLoad{
 	public void setBaseProgressDialog(BaseProgressDialog baseProgressDialog) {
 		mBaseProgressDialog = baseProgressDialog;
 	}
-	
-	public void setCurrentFragment(int fragmentIndex) {
-		if (fragmentIndex < 0 || fragmentIndex >= mFragments.size()) {
-			return;
+
+
+	private void refreshView() {
+		Object currentTab = mTopTabView.getCurrentTab();
+		int itemIndex = getPartnerViewItem(currentTab);
+		Fragment fragment = mPartnerViews.get(itemIndex).getFragment();
+		switch ((SearchMode) currentTab) {
+		case T9:
+			if (fragment instanceof T9SearchFragment) {
+				((T9SearchFragment) fragment).refreshView();
+			}
+			break;
+		case QWERTY:
+			if (fragment instanceof QwertySearchFragment) {
+				((QwertySearchFragment) fragment).refreshView();
+			}
+			break;
+		default:
+			break;
 		}
-		mCustomViewPager.setCurrentItem(fragmentIndex);
-		//setCurrentAppInfoFragmentIndex(fragmentIndex);
 	}
-	
-	private SearchMode getSearchMode(int postion){
-		SearchMode searchMode=SearchMode.T9;
-		if(postion==SearchMode.QWERTY.ordinal()){
-			searchMode=SearchMode.QWERTY;
-		}
-		
-		return searchMode;
-	}
-	
-	private void refreshView(){
-		if (null == mFragments) {
-			return;
-		}
-		
-		Fragment fragment=mFragments.get(getSearchMode().ordinal());
-		if(fragment instanceof T9SearchFragment){
-			((T9SearchFragment) fragment).refreshView();
-		}else if(fragment instanceof QwertySearchFragment){
-			((QwertySearchFragment) fragment).refreshView();
-		}
+
+	private int getPartnerViewItem(Object tag) {
+		int item = 0;
+		;
+		do {
+			if (null == tag) {
+				break;
+			}
+
+			for (int i = 0; i < mPartnerViews.size(); i++) {
+				if (mPartnerViews.get(i).getTag().equals(tag)) {
+					item = i;
+					break;
+				}
+			}
+		} while (false);
+
+		return item;
 	}
 }

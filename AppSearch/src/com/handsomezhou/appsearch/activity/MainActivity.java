@@ -2,8 +2,10 @@ package com.handsomezhou.appsearch.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.handsomezhou.appsearch.R;
@@ -58,6 +60,18 @@ public class MainActivity extends BaseSingleFragmentActivity {
 		doubleClickExit();
 	}
 
+	
+	@Override
+	public boolean onKeyDown(int keycode, KeyEvent e) {
+	    switch(keycode) {
+	        case KeyEvent.KEYCODE_MENU:
+	            enterAbout();
+	            return true;
+	    }
+
+	    return super.onKeyDown(keycode, e);
+	}
+	
 	private void initData() {
 
 		return;
@@ -91,4 +105,8 @@ public class MainActivity extends BaseSingleFragmentActivity {
 		mBackPressedTimeMillis = System.currentTimeMillis();
 	}
 
+	private void enterAbout(){
+		Intent intent=new Intent(getContext(), AboutActivity.class);
+		startActivity(intent);
+	}
 }

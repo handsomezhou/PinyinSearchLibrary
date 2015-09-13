@@ -5,8 +5,10 @@ import java.util.List;
 
 import android.content.Context;
 import android.util.AttributeSet;
+
 import android.view.View;
 import android.view.View.OnClickListener;
+
 import android.widget.LinearLayout;
 
 import com.handsomezhou.appsearch.Interface.OnTabChange;
@@ -15,7 +17,7 @@ import com.handsomezhou.appsearch.model.IconButtonData;
 
 
 
-public class BottomTabView extends LinearLayout implements OnClickListener{
+public class TopTabView extends LinearLayout implements OnClickListener{
     private static final int PADDING_DEFAULT=0;
     private static final int PADDING_LEFT_DEFAULT=0;
     private static final int PADDING_TOP_DEFAULT=0;
@@ -34,8 +36,13 @@ public class BottomTabView extends LinearLayout implements OnClickListener{
 	private OnTabChange  mOnTabChange;
 	private Object mCurrentTab=null;
 	private int mLastIconResId;
+	
+	private int mTextColorFocused;
+	private int mTextColorUnfocused;
+	private int mTextColorUnselected;
+	private boolean mHideIcon;
 
-	public BottomTabView(Context context, AttributeSet attrs) {
+	public TopTabView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		mContext=context;
 		initData();
@@ -68,11 +75,19 @@ public class BottomTabView extends LinearLayout implements OnClickListener{
 	    addIconButtonView(mIconButtonData.get(mIconButtonData.size()-1).getIconButtonView());
 	    setCurrentTab(mIconButtonData.get(0).getIconButtonValue().getTag());
 	    mIconButtonData.get(0).getIconButtonView().getIconIv().setBackgroundResource( mIconButtonData.get(0).getIconButtonValue().getIconSelectedFocused());
+	    mIconButtonData.get(0).getIconButtonView().getTitleTv().setTextColor(getTextColorFocused());
 	    setLastIconResId(mIconButtonData.get(0).getIconButtonValue().getIconSelectedFocused());
 	    
 	    mIconButtonData.get(mIconButtonData.size()-1).getIconButtonView().setOnClickListener(this);
 	    mIconButtonData.get(mIconButtonData.size()-1).getIconButtonView().setTag(mIconButtonData.get(mIconButtonData.size()-1).getIconButtonValue().getTag());
-	   
+	    mIconButtonData.get(mIconButtonData.size()-1).getIconButtonView().getTitleTv().setTextColor(getTextColorUnselected());
+
+	    
+	    if(isHideIcon()){
+	    	mIconButtonData.get(mIconButtonData.size()-1).getIconButtonView().getIconIv().setVisibility(View.GONE);
+	    }else{
+	    	mIconButtonData.get(mIconButtonData.size()-1).getIconButtonView().getIconIv().setVisibility(View.VISIBLE);
+	    }
 	    return;
 	}
 	
@@ -85,9 +100,11 @@ public class BottomTabView extends LinearLayout implements OnClickListener{
 		for(IconButtonData ibd:mIconButtonData){
 			if(ibd.getIconButtonValue().getTag().equals(tag)){
 				ibd.getIconButtonView().getIconIv().setBackgroundResource(ibd.getIconButtonValue().getIconSelectedFocused());
+				ibd.getIconButtonView().getTitleTv().setTextColor(getTextColorFocused());
 				setLastIconResId(ibd.getIconButtonValue().getIconSelectedFocused());
 			}else{
 				ibd.getIconButtonView().getIconIv().setBackgroundResource(ibd.getIconButtonValue().getIconUnselected());
+				ibd.getIconButtonView().getTitleTv().setTextColor(getTextColorUnselected());
 			}
 		}
 	}
@@ -112,9 +129,42 @@ public class BottomTabView extends LinearLayout implements OnClickListener{
 		mCurrentTab = currentTab;
 	}
 	
+	public int getTextColorFocused() {
+		return mTextColorFocused;
+	}
+
+	public void setTextColorFocused(int textColorFocused) {
+		mTextColorFocused = textColorFocused;
+	}
+
+	public int getTextColorUnfocused() {
+		return mTextColorUnfocused;
+	}
+
+	public void setTextColorUnfocused(int textColorUnfocused) {
+		mTextColorUnfocused = textColorUnfocused;
+	}
+
+	public int getTextColorUnselected() {
+		return mTextColorUnselected;
+	}
+
+	public void setTextColorUnselected(int textColorUnselected) {
+		mTextColorUnselected = textColorUnselected;
+	}
+
+	
+	public boolean isHideIcon() {
+		return mHideIcon;
+	}
+
+	public void setHideIcon(boolean hideIcon) {
+		mHideIcon = hideIcon;
+	}
+
 	private void initData(){
 	    mIconButtonData=new ArrayList<IconButtonData>();
-	    
+	    setHideIcon(false);
 	    return;
 	}
 	
@@ -151,6 +201,7 @@ public class BottomTabView extends LinearLayout implements OnClickListener{
 	    }
 	    LinearLayout.LayoutParams lp= new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 1.0f);
         lp.setMargins(MARGIN_LEFT_DEFAULT, MARGIN_TOP_DEFAULT, MARGIN_RIGHT_DEFAULT, MARGIN_BOTTOM_DEFAULT);
+
         iconButtonView.setLayoutParams(lp);
         this.addView(iconButtonView);
 	}
@@ -163,10 +214,13 @@ public class BottomTabView extends LinearLayout implements OnClickListener{
 				IconButtonData fromTabIconButtonData=getIconButtonData(fromTab);
 				if(null!=fromTabIconButtonData){
 					fromTabIconButtonData.getIconButtonView().getIconIv().setBackgroundResource(fromTabIconButtonData.getIconButtonValue().getIconUnselected());
+					fromTabIconButtonData.getIconButtonView().getTitleTv().setTextColor(getTextColorUnselected());
+					
 				}
 				IconButtonData toTabIconButtonData=getIconButtonData(toTab);
 				if(null!=toTabIconButtonData){
 					toTabIconButtonData.getIconButtonView().getIconIv().setBackgroundResource(toTabIconButtonData.getIconButtonValue().getIconSelectedFocused());
+					toTabIconButtonData.getIconButtonView().getTitleTv().setTextColor(getTextColorFocused());
 				}
 				
 				setLastIconResId(toTabIconButtonData.getIconButtonValue().getIconSelectedFocused());
@@ -178,10 +232,12 @@ public class BottomTabView extends LinearLayout implements OnClickListener{
 				if(null!=toTabIconButtonData){
 					if(getLastIconResId()==toTabIconButtonData.getIconButtonValue().getIconSelectedUnfocused()){
 						toTabIconButtonData.getIconButtonView().getIconIv().setBackgroundResource(toTabIconButtonData.getIconButtonValue().getIconSelectedFocused());
+						toTabIconButtonData.getIconButtonView().getTitleTv().setTextColor(getTextColorFocused());
 						setLastIconResId(toTabIconButtonData.getIconButtonValue().getIconSelectedFocused());
 						mOnTabChange.onClickTab(toTab,TAB_CHANGE_STATE.TAB_SELECTED_FOCUSED);
 					}else{
 						toTabIconButtonData.getIconButtonView().getIconIv().setBackgroundResource(toTabIconButtonData.getIconButtonValue().getIconSelectedUnfocused());
+						toTabIconButtonData.getIconButtonView().getTitleTv().setTextColor(getTextColorUnfocused());
 						setLastIconResId(toTabIconButtonData.getIconButtonValue().getIconSelectedUnfocused());
 						mOnTabChange.onClickTab(toTab,TAB_CHANGE_STATE.TAB_SELECTED_UNFOCUSED);
 					}
