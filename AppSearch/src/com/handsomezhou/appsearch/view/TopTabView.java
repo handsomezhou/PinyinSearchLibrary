@@ -5,12 +5,11 @@ import java.util.List;
 
 import android.content.Context;
 import android.util.AttributeSet;
-
 import android.view.View;
 import android.view.View.OnClickListener;
-
 import android.widget.LinearLayout;
 
+import com.handsomezhou.appsearch.R;
 import com.handsomezhou.appsearch.Interface.OnTabChange;
 import com.handsomezhou.appsearch.Interface.OnTabChange.TAB_CHANGE_STATE;
 import com.handsomezhou.appsearch.model.IconButtonData;
@@ -174,8 +173,9 @@ public class TopTabView extends LinearLayout implements OnClickListener{
 	    //this.setPadding(PADDING_LEFT_DEFAULT, PADDING_TOP_DEFAULT, PADDING_RIGHT_DEFAULT, PADDING_BOTTOM_DEFAULT);
 	    LinearLayout.LayoutParams lp= new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 	    //lp.setMargins(MARGIN_LEFT_DEFAULT, MARGIN_TOP_DEFAULT, MARGIN_RIGHT_DEFAULT, MARGIN_BOTTOM_DEFAULT);
-	          
+	   
 	    this.setLayoutParams(lp);
+	    this.setBackgroundResource(R.color.ghost_white); 
 	    
 	   
 	    return;

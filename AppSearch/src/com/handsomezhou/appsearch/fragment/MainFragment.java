@@ -70,9 +70,9 @@ public class MainFragment extends BaseFragment implements OnAppInfoLoad,
 		mCustomViewPager.setPagingEnabled(true);
 
 		mTopTabView = (TopTabView) view.findViewById(R.id.top_tab_view);
-		mTopTabView.setTextColorFocused(getContext().getResources().getColor(R.color.orange));
-		mTopTabView.setTextColorUnfocused(getContext().getResources().getColor(R.color.black));
-		mTopTabView.setTextColorUnselected(getContext().getResources().getColor(R.color.black));
+		mTopTabView.setTextColorFocused(getContext().getResources().getColor(R.color.sea_green4));
+		mTopTabView.setTextColorUnfocused(getContext().getResources().getColor(R.color.dim_grey));
+		mTopTabView.setTextColorUnselected(getContext().getResources().getColor(R.color.dim_grey));
 		mTopTabView.setHideIcon(true);
 		mTopTabView.removeAllViews();
 

@@ -26,6 +26,8 @@
     <dimen name="tab_index_icon_width">32dp</dimen>
     <dimen name="tab_index_text_size">12sp</dimen>
     <dimen name="bottom_tab_height">54dp</dimen>
+    <dimen name="top_tab_height">54dp</dimen>
+    <dimen name="top_tab_height_without_icon">44dp</dimen>
     <dimen name="item_height">54dp</dimen>
 
 </resources>

@@ -9,6 +9,7 @@
         android:id="@+id/top_tab_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="@dimen/top_tab_height_without_icon"
         android:gravity="center_vertical"
         android:padding="@dimen/padding" />
 

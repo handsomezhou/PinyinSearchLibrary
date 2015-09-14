@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@color/white" >
 
     <GridView
         android:id="@+id/t9_search_grid_view"
@@ -40,7 +41,7 @@
             android:id="@+id/keyboard_switch_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@color/ghost_white"
             android:gravity="center"
             android:minHeight="@dimen/bottom_tab_height"
             android:orientation="vertical" >
