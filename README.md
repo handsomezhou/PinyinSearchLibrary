@@ -1,15 +1,17 @@
 PinyinSearchLibrary
 ===================
-	The library of PinyinSearch,a Java Library Which provide data analysis methods, 
-	data matching method and so on for T9 pinyin search and Qwerty pinyin search.
+	The library of PinyinSearch,a Java Library Which provide data parsing methods, 
+	data matching method and so on for T9 search and Qwerty search.
 
-Related introduction
+Features
 ---------------
-1.[Android Pinyin search contacts analysis and implementation](http://blog.csdn.net/zjqyjg/article/details/41360769)
-
-2.[Android T9 search contacts analysis and implementation](http://blog.csdn.net/zjqyjg/article/details/41182911)
-
-3.[Android Qwerty search contacts analysis and implementation](http://blog.csdn.net/zjqyjg/article/details/41318907)
+ * Support T9 search
+ * Support Qwerty search
+ * Support Chinese character search
+ * Support Pinyin search
+ * Support English search
+ * Support polyphone search
+ * Support highlight
 
 Depend
 ---------------
@@ -17,7 +19,11 @@ Depend
 	Pinyin4j is a popular Java library supporting convertion between Chinese characters 
 	and most popular Pinyin systems. The output format of pinyin could be customized.
 [http://pinyin4j.sourceforge.net/](http://pinyin4j.sourceforge.net/)
-	
+
+Renderings
+---------------
+<img src="https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/image/PinyinSearchDemo.gif"/>
+
 API
 ---------------
 ### Data structure:PinyinUnit
@@ -42,19 +48,37 @@ API
 	PinyinUtil.getFirstLetter();
 	PinyinUtil.isKanji(...);
 	
-Using
+Usage
 ---------------	
-### Pinyin search demo:
-<img src="https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/image/PinyinSearchDemo.gif"/>
-	
 ### Function call in detail:
 	Import packages when use PinyinSearch Library(Dependent on pinyin4j-x.x.x.jar):
 	import com.pinyinsearch.util.*;
 	import com.pinyinsearch.model.*;
 	
-	Reference PinyinSearchDemo Project.
+	The first step:  Data parsing  
+	    * (PinyinUtil.chineseStringToPinyinUnit(...))
+    The second step: Data matching 
+	    * (T9MatchPinyinUnits.matchPinyinUnits(...) or QwertyMatchPinyinUnits.matchPinyinUnits(...))
+	
+	For details, please see project AppSearch and PinyinSearchDemo
+
+### Support Library
+	 * **[pinyinsearch.jar](https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/jar/pinyinsearch.jar)**
+	 * **[pinyin4j-2.5.0.jar](https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/jar/pinyin4j-2.5.0.jar)**
+	 
 ### Demo Apk
 https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/bin/PinyinSearchDemo.apk?raw=true	
+
+https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/bin/AppSearch.apk?raw=true	
+
+Algorithm introduction
+---------------
+1.[Android Pinyin search contacts analysis and implementation](http://blog.csdn.net/zjqyjg/article/details/41360769)
+
+2.[Android T9 search contacts analysis and implementation](http://blog.csdn.net/zjqyjg/article/details/41182911)
+
+3.[Android Qwerty search contacts analysis and implementation](http://blog.csdn.net/zjqyjg/article/details/41318907)
+
 License 
 ---------------
 	Copyright 2014 handsomezhou
