@@ -1,6 +1,6 @@
 PinyinSearchLibrary
 ===================
-	The library of PinyinSearch,a Java Library Which provide data parsing methods, 
+	The library of PinyinSearch,a Java Library which provide data parsing methods, 
 	data matching method and so on for T9 search and Qwerty search.
 
 Features
@@ -63,13 +63,12 @@ Usage
 	For details, please see project AppSearch and PinyinSearchDemo
 
 ### Support Library
-	 * **[pinyinsearch.jar](https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/jar/pinyinsearch.jar)**
-	 * **[pinyin4j-2.5.0.jar](https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/jar/pinyin4j-2.5.0.jar)**
+	 * [pinyinsearch.jar](https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/jar/pinyinsearch.jar?raw=true)
+	 * [pinyin4j-2.5.0.jar](https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/jar/pinyin4j-2.5.0.jar?raw=true)
 	 
 ### Demo Apk
-https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/bin/PinyinSearchDemo.apk?raw=true	
-
-https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/bin/AppSearch.apk?raw=true	
+[PinyinSearchDemo](https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/bin/PinyinSearchDemo.apk?raw=true)
+[AppSearch](https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/bin/AppSearch.apk?raw=true)
 
 Algorithm introduction
 ---------------
