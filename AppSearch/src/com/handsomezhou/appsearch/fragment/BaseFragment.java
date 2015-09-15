@@ -7,9 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.handsomezhou.appsearch.util.ViewUtil;
+
 public abstract class BaseFragment extends Fragment {
 	private Context mContext;
-
+	private boolean mHideImeTouchOutsideEditText=true;
+	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +24,12 @@ public abstract class BaseFragment extends Fragment {
 			Bundle savedInstanceState) {
 	
 		View view =initView(inflater,container);
+		if(isHideImeTouchOutsideEditText()){
+            ViewUtil.setHideIme(getActivity(), view);
+        }
+		
 		initListener();
+		
 		return view;
 	}
 
@@ -56,4 +64,11 @@ public abstract class BaseFragment extends Fragment {
 		mContext = context;
 	}
 	
+    public boolean isHideImeTouchOutsideEditText() {
+        return mHideImeTouchOutsideEditText;
+    }
+
+    public void setHideImeTouchOutsideEditText(boolean hideImeTouchOutsideEditText) {
+        mHideImeTouchOutsideEditText = hideImeTouchOutsideEditText;
+    }
 }

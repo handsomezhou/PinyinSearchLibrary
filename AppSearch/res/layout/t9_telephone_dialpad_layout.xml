@@ -67,11 +67,12 @@
 
             <Button
                 android:id="@+id/dial_delete_btn"
-                android:visibility="gone"
                 android:layout_width="@dimen/dialpad_icon_width"
                 android:layout_height="@dimen/dialpad_icon_height"
                 android:layout_gravity="center"
-                android:background="@drawable/dial_delete_selector" />
+                android:layout_marginRight="@dimen/margin_right"
+                android:background="@drawable/dial_delete_selector"
+                android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>
 
