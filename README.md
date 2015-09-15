@@ -23,6 +23,7 @@ Depend
 Renderings
 ---------------
 <img src="https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/image/PinyinSearchDemo.gif"/>
+<img src="https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/image/AppSearch.gif"/>
 
 API
 ---------------
@@ -63,11 +64,12 @@ Usage
 	For details, please see project AppSearch and PinyinSearchDemo
 
 ### Support Library
-	 * [pinyinsearch.jar](https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/jar/pinyinsearch.jar?raw=true)
-	 * [pinyin4j-2.5.0.jar](https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/jar/pinyin4j-2.5.0.jar?raw=true)
+[pinyinsearch.jar](https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/jar/pinyinsearch.jar?raw=true)
+[pinyin4j-2.5.0.jar](https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/jar/pinyin4j-2.5.0.jar?raw=true)
 	 
 ### Demo Apk
 [PinyinSearchDemo](https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/bin/PinyinSearchDemo.apk?raw=true)
+
 [AppSearch](https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/bin/AppSearch.apk?raw=true)
 
 Algorithm introduction
