@@ -97,6 +97,10 @@ public class QwertySearchFragment extends BaseFragment implements OnSearchBox{
 		refreshQwertySearchGv();
 	}
 	
+	public void updateSearch(){
+		updateSearch(mSearchBox.getSearchEtInput());
+	}
+	
 	private void refreshQwertySearchGv() {
 		if (null == mQwertySearchGv) {
 			return;

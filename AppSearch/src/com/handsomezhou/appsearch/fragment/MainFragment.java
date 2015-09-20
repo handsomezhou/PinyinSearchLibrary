@@ -210,11 +210,13 @@ public class MainFragment extends BaseFragment implements OnAppInfoLoad,
 		switch ((SearchMode) currentTab) {
 		case T9:
 			if (fragment instanceof T9SearchFragment) {
+				((T9SearchFragment) fragment).updateSearch();
 				((T9SearchFragment) fragment).refreshView();
 			}
 			break;
 		case QWERTY:
 			if (fragment instanceof QwertySearchFragment) {
+				((QwertySearchFragment) fragment).updateSearch();
 				((QwertySearchFragment) fragment).refreshView();
 			}
 			break;

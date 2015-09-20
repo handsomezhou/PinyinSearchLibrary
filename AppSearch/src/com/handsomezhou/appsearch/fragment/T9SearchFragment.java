@@ -138,9 +138,14 @@ public class T9SearchFragment extends BaseFragment implements
 	/* end: OnT9TelephoneDialpadView */
 
 	public void refreshView() {
+		
 		refreshT9SearchGv();
 	}
 
+	public void updateSearch(){
+		updateSearch(mT9TelephoneDialpadView.getT9Input());
+	}
+	
 	private void switchKeyboard() {
 		if (ViewUtil.getViewVisibility(mT9TelephoneDialpadView) == View.GONE) {
 			showKeyboard();
@@ -179,6 +184,7 @@ public class T9SearchFragment extends BaseFragment implements
 			}
 		}
 	}
+	
 	
 	private void updateSearch(String search) {
 		Log.i(TAG, "search=["+search+"]");
