@@ -8,9 +8,9 @@ import android.util.Log;
 
 import com.handsomezhou.appsearch.helper.AppInfoHelper;
 
-public class EasyHelperService extends Service{
-	private static final String TAG="EasyHelperService";
-	public static final String ACTION_EASY_HELPER_SERVICE="com.handsomezhou.easyhelper.service.APP_ASSISTANT_SERVICE";
+public class AppSearchService extends Service{
+	private static final String TAG="AppSearchService";
+	public static final String ACTION_APP_SEARCH_SERVICE="com.handsomezhou.appsearch.service.APP_SEARCH_SERVICE";
 	@Override
 	public IBinder onBind(Intent intent) {
 		// TODO Auto-generated method stub
@@ -44,20 +44,20 @@ public class EasyHelperService extends Service{
 	
 	private void startEasyHelperService(){
 		Intent intent=new Intent();
-		intent.setAction(ACTION_EASY_HELPER_SERVICE);
+		intent.setAction(ACTION_APP_SEARCH_SERVICE);
 		startService(intent);
 	}
 	
 	public static void startEasyHelperService(Context context){
-		Intent easyHelperServiceIntent=new Intent(context,EasyHelperService.class);
-		easyHelperServiceIntent.setAction(EasyHelperService.ACTION_EASY_HELPER_SERVICE);
+		Intent easyHelperServiceIntent=new Intent(context,AppSearchService.class);
+		easyHelperServiceIntent.setAction(AppSearchService.ACTION_APP_SEARCH_SERVICE);
 		context.startService(easyHelperServiceIntent);
 		
 		
 	}
 	
 	public static void stopEasyHelperService(Context context){
-		Intent easyHelperServiceIntent=new Intent(context,EasyHelperService.class);
+		Intent easyHelperServiceIntent=new Intent(context,AppSearchService.class);
 		context.stopService(easyHelperServiceIntent);
 	}
 

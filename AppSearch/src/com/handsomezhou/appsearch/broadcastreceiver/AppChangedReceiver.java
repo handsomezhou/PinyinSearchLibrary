@@ -1,7 +1,7 @@
 package com.handsomezhou.appsearch.broadcastreceiver;
 
 import com.handsomezhou.appsearch.helper.AppInfoHelper;
-import com.handsomezhou.appsearch.service.EasyHelperService;
+import com.handsomezhou.appsearch.service.AppSearchService;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -22,17 +22,17 @@ public class AppChangedReceiver extends BroadcastReceiver {
 				AppInfoHelper.getInstance().setAppInfoChanged(true);
 			}
 			
-			EasyHelperService.startEasyHelperService(context);
+			AppSearchService.startEasyHelperService(context);
 		} else if (intent.getAction().equals(Intent.ACTION_PACKAGE_CHANGED)) {
 			//Toast.makeText(context, "AppChangedReceiver ACTION_PACKAGE_CHANGED", Toast.LENGTH_LONG).show();
 			Log.i(TAG, "ACTION_PACKAGE_CHANGED");
 			//AppInfoHelper.getInstance().setAppInfoChanged(true);
-			EasyHelperService.startEasyHelperService(context);
+			AppSearchService.startEasyHelperService(context);
 		} else if (intent.getAction().equals(Intent.ACTION_PACKAGE_REMOVED)) {
 			//Toast.makeText(context, "AppChangedReceiver ACTION_PACKAGE_REMOVED", Toast.LENGTH_LONG).show();
 			Log.i(TAG, "ACTION_PACKAGE_REMOVED");
 			//AppInfoHelper.getInstance().setAppInfoChanged(true);
-			EasyHelperService.startEasyHelperService(context);
+			AppSearchService.startEasyHelperService(context);
 		}
 	}
 	

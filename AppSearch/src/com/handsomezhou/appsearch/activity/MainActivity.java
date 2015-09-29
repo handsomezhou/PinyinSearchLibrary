@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.handsomezhou.appsearch.R;
 import com.handsomezhou.appsearch.fragment.MainFragment;
-import com.handsomezhou.appsearch.service.EasyHelperService;
+import com.handsomezhou.appsearch.service.AppSearchService;
 
 @SuppressLint("ResourceAsColor")
 public class MainActivity extends BaseSingleFragmentActivity {
@@ -92,7 +92,7 @@ public class MainActivity extends BaseSingleFragmentActivity {
 				.currentTimeMillis()) {
 
 			moveTaskToBack(true);
-			EasyHelperService.startEasyHelperService(getApplicationContext());
+			AppSearchService.startEasyHelperService(getApplicationContext());
 
 		} else {
 			String DoubleBackPressExitApp = mContext.getString(
