@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:focusable="false" >
+
+    <TextView
+        android:id="@+id/alphabet_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/darker_gray"
+        android:gravity="left"
+        android:paddingLeft="@dimen/padding_left"
+        android:textColor="@color/white"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/contacs_info_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/alphabet_text_view"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/list_item_height" >
+
+        <ImageView
+            android:id="@+id/contacts_multiple_phone_operation_prompt_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@drawable/multiple_phone_unfold"
+            android:contentDescription="@string/app_name"
+            android:visibility="gone" />
+
+        <CheckBox
+            android:id="@+id/select_contacts_check_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/contacts_multiple_phone_operation_prompt_image_view"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/contacts_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left"
+            android:layout_marginRight="@dimen/margin_right"
+            android:layout_toRightOf="@id/select_contacts_check_box" >
+
+            <TextView
+                android:id="@+id/name_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left" />
+
+            <TextView
+                android:id="@+id/phone_number_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/name_text_view"
+                android:gravity="left" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/operation_view_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/index_view_width"
+            android:background="@drawable/arrow_down_selector"
+            android:contentDescription="@string/app_name" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/division_line_view"
+        style="@style/dividing_line_horizontal"
+        android:layout_below="@id/contacs_info_layout" />
+
+    <RelativeLayout
+        android:id="@+id/operation_view_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/division_line_view"
+        android:background="@color/white" >
+
+        <ImageView
+            android:id="@+id/call_image_view"
+            android:layout_width="@dimen/icon_width"
+            android:layout_height="@dimen/icon_height"
+            android:layout_marginLeft="@dimen/margin_left"
+            android:background="@drawable/call_icon"
+            android:contentDescription="@string/app_name" />
+
+        <ImageView
+            android:id="@+id/sms_image_view"
+            android:layout_width="@dimen/icon_width"
+            android:layout_height="@dimen/icon_height"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/index_view_width"
+            android:background="@drawable/sms_icon"
+            android:contentDescription="@string/app_name" />
+    </RelativeLayout>
+
+</RelativeLayout>

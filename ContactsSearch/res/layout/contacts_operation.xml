@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ListView
+        android:id="@+id/contacts_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    </ListView>
+
+    <com.handsomezhou.contactssearch.view.QuickAlphabeticBar
+        android:id="@+id/quick_alphabetic_bar"
+        android:layout_width="32dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center_vertical" />
+
+    <com.handsomezhou.contactssearch.view.ContactsIndexView
+        android:id="@+id/contacts_index_view"
+        android:layout_width="@dimen/index_view_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|top"
+        android:layout_marginRight="50dp"
+        android:background="@color/white"
+        android:gravity="center_horizontal"
+        android:visibility="visible" />
+\
+    <TextView
+        android:id="@+id/select_char_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/sort_icon_bg_click"
+        android:gravity="center_vertical|center_horizontal"
+        android:textColor="@android:color/white"
+        android:textSize="50sp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/load_contacts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loading_contacts" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/search_result_prompt_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/no_match_search_result"
+        android:visibility="gone" />
+
+</FrameLayout>

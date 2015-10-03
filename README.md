@@ -61,14 +61,14 @@ Usage
     The second step: Data matching 
 	    * (T9MatchPinyinUnits.matchPinyinUnits(...) or QwertyMatchPinyinUnits.matchPinyinUnits(...))
 	
-	For details, please see project AppSearch and PinyinSearchDemo
+	For details, please see project ContactsSearch and AppSearch.
 
 ### Support Library
 [pinyinsearch.jar](https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/jar/pinyinsearch.jar?raw=true)
 [pinyin4j-2.5.0.jar](https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/jar/pinyin4j-2.5.0.jar?raw=true)
 	 
 ### Demo Apk
-[PinyinSearchDemo](https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/bin/PinyinSearchDemo.apk?raw=true)
+[ContactsSearch](https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/bin/ContactsSearch.apk?raw=true)
 
 [AppSearch](https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/bin/AppSearch.apk?raw=true)
 

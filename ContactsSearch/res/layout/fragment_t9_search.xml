@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <com.handsomezhou.contactssearch.view.ContactsOperationView
+            android:id="@+id/contacts_operation_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom" />
+
+        <com.handsomezhou.contactssearch.view.T9TelephoneDialpadView
+            android:id="@+id/t9_telephone_dialpad_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:clickable="true" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/keyboard_switch_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/ghost_white"
+        android:gravity="center"
+        android:minHeight="@dimen/bottom_tab_height"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/keyboard_switch_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/margin"
+            android:background="@drawable/keyboard_show_selector"
+            android:clickable="true" />
+    </LinearLayout>
+
+</LinearLayout>

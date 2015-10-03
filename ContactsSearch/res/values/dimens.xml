@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="dialpad_row_height">54dp</dimen>
+    <dimen name="dialpad_icon_height">32dp</dimen>
+    <dimen name="dialpad_icon_width">32dp</dimen>
+    <dimen name="dialpad_margin_right">12dp</dimen>
+    <dimen name="dialpad_margin_left">12dp</dimen>
+    <dimen name="bottom_tab_height">54dp</dimen>
+    <dimen name="list_item_height">54dp</dimen>
+    <dimen name="btn_height">54dp</dimen>
+    <dimen name="padding">4dp</dimen>
+    <dimen name="padding_left">4dp</dimen>
+    <dimen name="padding_right">4dp</dimen>
+    <dimen name="padding_top">4dp</dimen>
+    <dimen name="padding_bottom">4dp</dimen>
+    <dimen name="margin">4dp</dimen>
+    <dimen name="margin_left">4dp</dimen>
+    <dimen name="margin_right">4dp</dimen>
+    <dimen name="margin_top">4dp</dimen>
+    <dimen name="margin_bottom">4dp</dimen>
+    <dimen name="index_view_width">48dp</dimen>
+    <dimen name="index_view_height">192dp</dimen>
+    <dimen name="index_key_width">36dp</dimen>
+    <dimen name="index_key_height">36dp</dimen>
+    <dimen name="index_value_width">36dp</dimen>
+    <dimen name="index_value_height">36dp</dimen>
+    <dimen name="index_key_text_size">24sp</dimen>
+    <dimen name="index_value_text_size">24sp</dimen>
+    <dimen name="division_line_height">1dp</dimen>
+    <dimen name="icon_width">36dp</dimen>
+    <dimen name="icon_height">36dp</dimen>
+    <dimen name="navigation_bar_height">54dp</dimen>
+    <dimen name="corner_radius">3dp</dimen>
+
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true"><shape android:shape="rectangle">
+            <solid android:color="@color/grey_press" />
+            <!-- 设置按钮的四个角为弧形 -->
+            <!-- android:radius 弧形的半径 -->
+            <corners android:radius="@dimen/corner_radius" />
+        </shape></item>
+    <item android:state_pressed="false"><shape android:shape="rectangle">
+            <solid android:color="@color/grey_normal" />
+            <!-- 设置按钮的四个角为弧形 -->
+            <!-- android:radius 弧形的半径 -->
+            <corners android:radius="@dimen/corner_radius" />
+        </shape></item>
+
+</selector>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/t9_search_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:background="@drawable/btn_grey_selector"
+        android:minHeight="@dimen/btn_height"
+        android:text="@string/t9_search" />
+
+    <Button
+        android:id="@+id/qwerty_search_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin"
+        android:background="@drawable/btn_grey_selector"
+        android:minHeight="@dimen/btn_height"
+        android:text="@string/qwerty_search" />
+
+</LinearLayout>
