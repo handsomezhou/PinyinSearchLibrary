@@ -174,6 +174,9 @@ public class AppInfoHelper {
 				boolean canLaunchTheMainActivity=AppUtil.appCanLaunchTheMainActivity(mContext, pi.packageName);
 				if(true==canLaunchTheMainActivity){
 					AppInfo appInfo=getAppInfo(pm, pi);
+					if(TextUtils.isEmpty(appInfo.getLabel())){
+						continue;
+					}
 					
 					PinyinUtil.chineseStringToPinyinUnit(appInfo.getLabel(), appInfo.getLabelPinyinUnits());
 					String sortKey=PinyinUtil.getSortKey(appInfo.getLabelPinyinUnits()).toUpperCase();

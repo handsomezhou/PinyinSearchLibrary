@@ -143,6 +143,10 @@ public class T9SearchFragment extends BaseFragment implements
 	}
 
 	public void updateSearch(){
+		if(null==mT9TelephoneDialpadView){
+			return;
+		}
+		
 		updateSearch(mT9TelephoneDialpadView.getT9Input());
 	}
 	
