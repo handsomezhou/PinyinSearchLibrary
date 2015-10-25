@@ -8,6 +8,7 @@ import java.util.Locale;
 
 import android.graphics.drawable.Drawable;
 
+import com.pinyinsearch.model.PinyinSearchUnit;
 import com.pinyinsearch.model.PinyinUnit;
 
 public class AppInfo extends BaseAppInfo{
@@ -16,7 +17,7 @@ public class AppInfo extends BaseAppInfo{
 	}
 	
 	private String mSortKey; // as the sort key word
-	private List<PinyinUnit> mLabelPinyinUnits; // save the mLabel converted to Pinyin characters.
+	private PinyinSearchUnit mLabelPinyinSearchUnit;// save the mLabel converted to Pinyin characters.
 	private SearchByType mSearchByType; // Used to save the type of search
 	private StringBuffer mMatchKeywords;// Used to save the type of Match Keywords.(label)
 	private int mMatchStartIndex;		//the match start  position of mMatchKeywords in original string(label).
@@ -24,7 +25,7 @@ public class AppInfo extends BaseAppInfo{
 	
 	public AppInfo() {
 		super();
-		setLabelPinyinUnits(new ArrayList<PinyinUnit>());
+		setLabelPinyinSearchUnit(new PinyinSearchUnit());
 		setSearchByType(SearchByType.SearchByNull);
 		setMatchKeywords(new StringBuffer());
 		getMatchKeywords().delete(0, getMatchKeywords().length());
@@ -34,7 +35,7 @@ public class AppInfo extends BaseAppInfo{
 	
 	public AppInfo(String label, Drawable icon, String packageName) {
 		super(label, icon, packageName);
-		setLabelPinyinUnits(new ArrayList<PinyinUnit>());
+		setLabelPinyinSearchUnit(new PinyinSearchUnit(label));
 		setSearchByType(SearchByType.SearchByNull);
 		setMatchKeywords(new StringBuffer());
 		getMatchKeywords().delete(0, getMatchKeywords().length());
@@ -73,12 +74,12 @@ public class AppInfo extends BaseAppInfo{
 	};
 
 
-	public List<PinyinUnit> getLabelPinyinUnits() {
-		return mLabelPinyinUnits;
+	public PinyinSearchUnit getLabelPinyinSearchUnit() {
+		return mLabelPinyinSearchUnit;
 	}
 
-	public void setLabelPinyinUnits(List<PinyinUnit> labelPinyinUnits) {
-		mLabelPinyinUnits = labelPinyinUnits;
+	public void setLabelPinyinSearchUnit(PinyinSearchUnit labelPinyinSearchUnit) {
+		mLabelPinyinSearchUnit = labelPinyinSearchUnit;
 	}
 
 	public String getSortKey() {
@@ -129,4 +130,6 @@ public class AppInfo extends BaseAppInfo{
 	public void setMatchLength(int matchLength) {
 		mMatchLength = matchLength;
 	}
+
+	
 }

@@ -17,50 +17,52 @@
 package com.pinyinsearch.util;
 
 import java.util.List;
+
 import android.annotation.SuppressLint;
+
 import com.pinyinsearch.model.PinyinBaseUnit;
+import com.pinyinsearch.model.PinyinSearchUnit;
 import com.pinyinsearch.model.PinyinUnit;
 
 @SuppressLint("DefaultLocale")
-public class QwertyMatchPinyinUnits {
+public class QwertyUtil {
 	// private static final String TAG="QwertyMatchPinyinUnits";
 	/**
-	 * Match Pinyin Units
-	 * @param pinyinUnits
-	 * @param baseData			the original string which be parsed to PinyinUnit
-	 * @param search			search key words
-	 * @param chineseKeyWord	the sub string of base data
+	 * match PinyinSearchUnit
+	 * 
+	 * @param pinyinSearchUnit
+	 * @param search
 	 * @return true if match success,false otherwise.
 	 */
 	@SuppressLint("DefaultLocale")
-	public static boolean matchPinyinUnits(final List<PinyinUnit> pinyinUnits,
-			final String baseData, String search, StringBuffer chineseKeyWord) {
-		if ((null == pinyinUnits) || (null == search)
-				|| (null == chineseKeyWord)) {
+	public static boolean match(PinyinSearchUnit pinyinSearchUnit,String search) {
+		if ((null == pinyinSearchUnit) || (null == search)) {
+			return false;
+		}
+		
+		if(null==pinyinSearchUnit.getBaseData()||null==pinyinSearchUnit.getMatchKeyWord()){
 			return false;
 		}
 
-		StringBuffer matchSearch = new StringBuffer();
-		matchSearch.delete(0, matchSearch.length());
-		chineseKeyWord.delete(0, chineseKeyWord.length());
+		pinyinSearchUnit.getMatchKeyWord().delete(0, pinyinSearchUnit.getMatchKeyWord().length());
 
 		//search by  original string
 		String searchLowerCase=search.toLowerCase();
-		int index=baseData.toLowerCase().indexOf(searchLowerCase);
+		int index=pinyinSearchUnit.getBaseData().toLowerCase().indexOf(searchLowerCase);
 		if(index>-1){
-			chineseKeyWord.append(baseData.substring(index, index+searchLowerCase.length()));
+			pinyinSearchUnit.getMatchKeyWord().append(pinyinSearchUnit.getBaseData().substring(index, index+searchLowerCase.length()));
 			return true;
 		}
 		
 		//search by pinyin characters
-		int pinyinUnitsLength = pinyinUnits.size();
+		int pinyinUnitsLength = pinyinSearchUnit.getPinyinUnits().size();
 		StringBuffer searchBuffer = new StringBuffer();
 		for (int i = 0; i < pinyinUnitsLength; i++) {
 			int j = 0;
-			chineseKeyWord.delete(0, chineseKeyWord.length());
+			pinyinSearchUnit.getMatchKeyWord().delete(0,pinyinSearchUnit.getMatchKeyWord().length());
 			searchBuffer.delete(0, searchBuffer.length());
 			searchBuffer.append(searchLowerCase);
-			boolean found = findPinyinUnits(pinyinUnits, i, j, baseData,searchBuffer, chineseKeyWord);
+			boolean found = findPinyinUnits(pinyinSearchUnit.getPinyinUnits(), i, j, pinyinSearchUnit.getBaseData(),searchBuffer, pinyinSearchUnit.getMatchKeyWord());
 			if (true == found) {
 				return true;
 			}

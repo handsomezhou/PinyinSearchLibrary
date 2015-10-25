@@ -32,21 +32,20 @@ API
 	converted to Pinyin characters.
 	
 ### Function:
-	public static void chineseStringToPinyinUnit(String chineseString,List<PinyinUnit> pinyinUnit);
-	public static boolean matchPinyinUnits(final List<PinyinUnit> pinyinUnits,
-	final String baseData, String search,StringBuffer chineseKeyWord);
-	public static String getSortKey(List<PinyinUnit> pinyinUnit)
-	public static String getFirstLetter(List<PinyinUnit> pinyinUnit);
-	public static String getFirstCharacter(List<PinyinUnit> pinyinUnit);
-	public static boolean isKanji(char chr)
+	public static void parse(PinyinSearchUnit pinyinSearchUnit);
+	public static boolean match(PinyinSearchUnit pinyinSearchUnit,String search);
+	public static String getSortKey(PinyinSearchUnit pinyinSearchUnit);
+	public static String getFirstLetter(PinyinSearchUnit pinyinSearchUnit);
+	public static String getFirstCharacter(PinyinSearchUnit pinyinSearchUnit);
+	public static boolean isKanji(char chr);
 
 ### Function call:
-	PinyinUtil.chineseStringToPinyinUnit(...);
-	T9MatchPinyinUnits.matchPinyinUnits(...);
-	QwertyMatchPinyinUnits.matchPinyinUnits(...);
+	PinyinUtil.parse(...);
+	T9Util.match(...);
+	QwertyUtil.match(...);
 	PinyinUtil.getSortKey(...);
+	PinyinUtil.getFirstLetter(...);
 	PinyinUtil.getFirstCharacter(...);
-	PinyinUtil.getFirstLetter();
 	PinyinUtil.isKanji(...);
 	
 Usage
@@ -57,9 +56,9 @@ Usage
 	import com.pinyinsearch.model.*;
 	
 	The first step:  Data parsing  
-	    * (PinyinUtil.chineseStringToPinyinUnit(...))
+	    * (PinyinUtil.parse(...))
     The second step: Data matching 
-	    * (T9MatchPinyinUnits.matchPinyinUnits(...) or QwertyMatchPinyinUnits.matchPinyinUnits(...))
+	    * (T9Util.match(...) or QwertyUtil.match(...))
 	
 	For details, please see project ContactsSearch and AppSearch.
 

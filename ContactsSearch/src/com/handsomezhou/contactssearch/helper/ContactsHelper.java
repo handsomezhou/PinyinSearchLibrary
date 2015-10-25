@@ -18,10 +18,12 @@ import com.handsomezhou.contactssearch.model.Contacts;
 import com.handsomezhou.contactssearch.model.Contacts.SearchByType;
 import com.handsomezhou.contactssearch.view.QuickAlphabeticBar;
 import com.pinyinsearch.model.PinyinBaseUnit;
+import com.pinyinsearch.model.PinyinSearchUnit;
 import com.pinyinsearch.model.PinyinUnit;
 import com.pinyinsearch.util.PinyinUtil;
-import com.pinyinsearch.util.QwertyMatchPinyinUnits;
-import com.pinyinsearch.util.T9MatchPinyinUnits;
+import com.pinyinsearch.util.QwertyUtil;
+import com.pinyinsearch.util.T9Util;
+
 
 public class ContactsHelper {
 	private static final String TAG = "ContactsHelper";
@@ -253,21 +255,18 @@ public class ContactsHelper {
 		 */
 		for (int i = 0; i < contactsCount; i++) {
 
-			List<PinyinUnit> pinyinUnits = mBaseContacts.get(i).getNamePinyinUnits();
-			StringBuffer chineseKeyWord = new StringBuffer();// In order to get Chinese KeyWords.Ofcourse it's maybe not Chinese characters.
-			String name = mBaseContacts.get(i).getName();
-			if (true == T9MatchPinyinUnits.matchPinyinUnits(pinyinUnits, name,search, chineseKeyWord)) {// search by NamePinyinUnits;
+			PinyinSearchUnit namePinyinSearchUnit= mBaseContacts.get(i).getNamePinyinSearchUnit();
+			if (true == T9Util.match(namePinyinSearchUnit,search)) {// search by name;
 				
 				Contacts currentContacts=null;
 				Contacts firstContacts=null;
 				for(currentContacts=mBaseContacts.get(i),firstContacts=currentContacts; null!=currentContacts; currentContacts=currentContacts.getNextContacts()){
 					currentContacts.setSearchByType(SearchByType.SearchByName);
-					currentContacts.setMatchKeywords(chineseKeyWord.toString());
+					currentContacts.setMatchKeywords(namePinyinSearchUnit.getMatchKeyWord().toString());
 					currentContacts.setMatchStartIndex(firstContacts.getName().indexOf(firstContacts.getMatchKeywords().toString()));
 					currentContacts.setMatchLength(firstContacts.getMatchKeywords().length());
 					mSearchByNameContacts.add(currentContacts);
 				}
-				chineseKeyWord.delete(0, chineseKeyWord.length());
 				
 				continue;
 			} else {
@@ -388,22 +387,18 @@ public class ContactsHelper {
 		 * 2:Search by phone number
 		 */
 		for (int i = 0; i < contactsCount; i++) {
+			PinyinSearchUnit namePinyinSearchUnit= mBaseContacts.get(i).getNamePinyinSearchUnit();
 
-			List<PinyinUnit> pinyinUnits = mBaseContacts.get(i).getNamePinyinUnits();
-			StringBuffer chineseKeyWord = new StringBuffer();// In order to get Chinese KeyWords.Ofcourse it's maybe not Chinese characters.
-			
-			String name = mBaseContacts.get(i).getName();
-			if (true == QwertyMatchPinyinUnits.matchPinyinUnits(pinyinUnits,name, search, chineseKeyWord)) {// search by NamePinyinUnits;
+			if (true == QwertyUtil.match(namePinyinSearchUnit,search)) {// search by name;
 				Contacts currentContacts=null;
 				Contacts firstContacts=null;
 				for(currentContacts=mBaseContacts.get(i),firstContacts=currentContacts; null!=currentContacts; currentContacts=currentContacts.getNextContacts()){
 					currentContacts.setSearchByType(SearchByType.SearchByName);
-					currentContacts.setMatchKeywords(chineseKeyWord.toString());
+					currentContacts.setMatchKeywords(namePinyinSearchUnit.getMatchKeyWord().toString());
 					currentContacts.setMatchStartIndex(firstContacts.getName().indexOf(firstContacts.getMatchKeywords().toString()));
 					currentContacts.setMatchLength(firstContacts.getMatchKeywords().length());
 					mSearchContacts.add(currentContacts);
 				}
-				chineseKeyWord.delete(0, chineseKeyWord.length());
 				
 				continue;
 			} else {
@@ -487,17 +482,18 @@ public class ContactsHelper {
 			for(currentCoutacts=ContactsHelper.getInstance().getBaseContacts().get(i);null!=currentCoutacts; currentCoutacts=currentCoutacts.getNextContacts()){
 				Log.i(TAG, "======================================================================");
 				String name = currentCoutacts.getName();
-				List<PinyinUnit> pinyinUnit = currentCoutacts.getNamePinyinUnits();
+				//List<PinyinUnit> pinyinUnit = currentCoutacts.getPinyinSearchUnit().getPinyinUnits();//.getNamePinyinUnits();
+				PinyinSearchUnit pinyinSearchUnit= currentCoutacts.getNamePinyinSearchUnit();//.getNamePinyinUnits();
 				Log.i(TAG,
 						"++++++++++++++++++++++++++++++:name=[" + name + "] phoneNumber"+currentCoutacts.getPhoneNumber()
 								+currentCoutacts.isHideMultipleContacts()+ "firstCharacter=["
-								+ PinyinUtil.getFirstCharacter(pinyinUnit) + "]"
+								+ PinyinUtil.getFirstCharacter(pinyinSearchUnit) + "]"
 								+ "firstLetter=["
-								+ PinyinUtil.getFirstLetter(pinyinUnit) + "]"
+								+ PinyinUtil.getFirstLetter(pinyinSearchUnit) + "]"
 								+ "+++++++++++++++++++++++++++++");
-				int pinyinUnitCount = pinyinUnit.size();
+				int pinyinUnitCount = pinyinSearchUnit.getPinyinUnits().size();
 				for (int j = 0; j < pinyinUnitCount; j++) {
-					PinyinUnit pyUnit = pinyinUnit.get(j);
+					PinyinUnit pyUnit = pinyinSearchUnit.getPinyinUnits().get(j);
 					Log.i(TAG, "j=" + j + ",isPinyin[" + pyUnit.isPinyin()
 							+ "],startPosition=[" + pyUnit.getStartPosition() + "]");
 					List<PinyinBaseUnit> stringIndex = pyUnit
@@ -590,8 +586,9 @@ public class ContactsHelper {
 				}else{
 					
 					cs = new Contacts(id,displayName, phoneNumber);
-					PinyinUtil.chineseStringToPinyinUnit(cs.getName(),cs.getNamePinyinUnits());
-					sortkey = PinyinUtil.getSortKey(cs.getNamePinyinUnits()).toUpperCase();
+					
+					PinyinUtil.parse(cs.getNamePinyinSearchUnit());
+					sortkey = PinyinUtil.getSortKey(cs.getNamePinyinSearchUnit()).toUpperCase();
 					cs.setSortKey(praseSortKey(sortkey));
 					boolean isKanji=PinyinUtil.isKanji(cs.getName().charAt(0));
 					
@@ -625,11 +622,11 @@ public class ContactsHelper {
 		int lastIndex=0;
 		boolean shouldBeAdd=false;
 		for(int i=0; i<nonKanjiStartContacts.size(); i++){
-			String nonKanfirstLetter=PinyinUtil.getFirstLetter(nonKanjiStartContacts.get(i).getNamePinyinUnits());
+			String nonKanfirstLetter=PinyinUtil.getFirstLetter(nonKanjiStartContacts.get(i).getNamePinyinSearchUnit());
 			//Log.i(TAG, "nonKanfirstLetter=["+nonKanfirstLetter+"]");
 			int j=0;
 			for(j=0+lastIndex; j<contacts.size(); j++){
-				String firstLetter=PinyinUtil.getFirstLetter(contacts.get(j).getNamePinyinUnits());
+				String firstLetter=PinyinUtil.getFirstLetter(contacts.get(j).getNamePinyinSearchUnit());
 				lastIndex++;
 				if(firstLetter.charAt(0)>nonKanfirstLetter.charAt(0)){
 					shouldBeAdd=true;
