@@ -3,7 +3,7 @@ package com.handsomezhou.contactssearch.application;
 import android.app.Application;
 import android.content.Context;
 
-public class PinyinSearchApplication extends Application {
+public class ContacstSearchApplication extends Application {
 	private static Context mContext;
 	
 	@Override

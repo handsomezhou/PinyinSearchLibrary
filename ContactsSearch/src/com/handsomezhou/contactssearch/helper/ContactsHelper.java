@@ -13,7 +13,7 @@ import android.os.AsyncTask.Status;
 import android.provider.ContactsContract;
 import android.util.Log;
 
-import com.handsomezhou.contactssearch.application.PinyinSearchApplication;
+import com.handsomezhou.contactssearch.application.ContacstSearchApplication;
 import com.handsomezhou.contactssearch.model.Contacts;
 import com.handsomezhou.contactssearch.model.Contacts.SearchByType;
 import com.handsomezhou.contactssearch.view.QuickAlphabeticBar;
@@ -517,7 +517,7 @@ public class ContactsHelper {
 	}
 
 	private void initContactsHelper() {
-		mContext = PinyinSearchApplication.getContextObject();
+		mContext = ContacstSearchApplication.getContextObject();
 		setContactsChanged(true);
 		if (null == mBaseContacts) {
 			mBaseContacts = new ArrayList<Contacts>();
