@@ -55,7 +55,7 @@ Usage
 	import com.pinyinsearch.util.*;
 	import com.pinyinsearch.model.*;
 	
-	The first step:  Data parsing  
+	The first step:  Data parsing  (ps:Must init baseData of PinyinSearchUnit before parse)
 	    * (PinyinUtil.parse(...))
     The second step: Data matching 
 	    * (T9Util.match(...) or QwertyUtil.match(...))

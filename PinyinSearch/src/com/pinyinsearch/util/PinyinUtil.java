@@ -23,6 +23,7 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
 import android.annotation.SuppressLint;
+import android.text.TextUtils;
 
 import com.pinyinsearch.model.PinyinSearchUnit;
 import com.pinyinsearch.model.PinyinUnit;
@@ -39,7 +40,7 @@ public class PinyinUtil {
 	 * @param pinyinSearchUnit
 	 */
 	public static void parse(PinyinSearchUnit pinyinSearchUnit) {
-		if ((null==pinyinSearchUnit)||(null==pinyinSearchUnit.getBaseData())||(null==pinyinSearchUnit.getPinyinUnits())) {
+		if ((null==pinyinSearchUnit)||(TextUtils.isEmpty(pinyinSearchUnit.getBaseData()))||(null==pinyinSearchUnit.getPinyinUnits())) {
 			return;
 		}
 
