@@ -5,7 +5,7 @@ PinyinSearchLibrary
 	
 	PinyinSearch = T9Search + QwertySearch
 	
-**If you're looking for other versions search library, you can find all of them at the following links:**
+**If you're looking for other versions search project, you can find all of them at the following links:**
 
 Java(Android):
 [PinyinSearch](https://github.com/handsomezhou/PinyinSearchLibrary)
