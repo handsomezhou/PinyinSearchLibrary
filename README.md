@@ -2,7 +2,17 @@ PinyinSearchLibrary
 ===================
 	The library of PinyinSearch,a Java Library which provide data parsing methods, 
 	data matching method and so on for T9 search and Qwerty search.
+	
+	PinyinSearch = T9Search + QwertySearch
+	
+**If you're looking for other versions search library, you can find all of them at the following links:**
 
+Java(Android):
+[PinyinSearch](https://github.com/handsomezhou/PinyinSearchLibrary)
+[T9Search](https://github.com/handsomezhou/T9SearchLibrary)
+[QwertySearch](https://github.com/handsomezhou/QwertySearchLibrary)
+
+	
 Features
 ---------------
  * Support T9 search
