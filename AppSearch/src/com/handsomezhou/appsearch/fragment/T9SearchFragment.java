@@ -138,8 +138,8 @@ public class T9SearchFragment extends BaseFragment implements
 	/* end: OnT9TelephoneDialpadView */
 
 	public void refreshView() {
-		
 		refreshT9SearchGv();
+		refreshT9TelephoneDialpadView();
 	}
 
 	public void updateSearch(){
@@ -189,6 +189,13 @@ public class T9SearchFragment extends BaseFragment implements
 		}
 	}
 	
+	private void refreshT9TelephoneDialpadView(){
+		if(null==mT9TelephoneDialpadView){
+			return;
+		}
+		
+		mT9TelephoneDialpadView.refreshView();
+	}
 	
 	private void updateSearch(String search) {
 		Log.i(TAG, "search=["+search+"]");

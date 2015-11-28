@@ -90,13 +90,13 @@ public class PinyinUnit implements Cloneable{
 	public void setStartPosition(int startPosition) {
 		mStartPosition = startPosition;
 	}
-	
+
 	public List<PinyinBaseUnit> getPinyinBaseUnitIndex() {
 		return mPinyinBaseUnitIndex;
 	}
 
-	public void setStringIndex(List<PinyinBaseUnit> stringIndex) {
-		mPinyinBaseUnitIndex = stringIndex;
+	public void setPinyinBaseUnitIndex(List<PinyinBaseUnit> pinyinBaseUnitIndex) {
+		mPinyinBaseUnitIndex = pinyinBaseUnitIndex;
 	}
 
 	@Override

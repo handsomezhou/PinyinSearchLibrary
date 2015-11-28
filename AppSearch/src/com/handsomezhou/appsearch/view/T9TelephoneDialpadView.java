@@ -312,4 +312,12 @@ public class T9TelephoneDialpadView extends LinearLayout implements
 		mT9InputEt.setText("");
 	}
 
+	public void refreshView(){
+		if(TextUtils.isEmpty(mT9InputEt.getText().toString())){
+			ViewUtil.hideView(mDialDeleteBtn);
+		}else{
+			ViewUtil.showView(mDialDeleteBtn);
+		}
+		return;
+	}
 }
