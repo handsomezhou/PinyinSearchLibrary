@@ -30,6 +30,7 @@ public class ContactsOperationView extends FrameLayout implements
 		OnContactsIndexView, OnQuickAlphabeticBar ,OnContactsAdapter{
 	public static final String CONTACTS_INDEX="CONTACTS_INDEX";
 	private static final String TAG = "ContactsOperationView";
+	private static final int VIEW_SHOW_DELAY_TIME_MILLIS = 100;
 	private static final int VIEW_SHOW_TIME_MILLIS = 4000;// ms
 	private static final int HANDLER_MSG_VIEW_DISPLAY = 0x01;
 	private static final int HANDLER_MSG_VIEW_DISAPPEAR = 0x02;
@@ -59,6 +60,8 @@ public class ContactsOperationView extends FrameLayout implements
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case HANDLER_MSG_VIEW_DISPLAY:
+				ViewUtil.showView(mContactsIndexView);
+				mContactsIndexView.updateContactsList();
 				break;
 			case HANDLER_MSG_VIEW_DISAPPEAR:
 				ViewUtil.hideView(mContactsIndexView);
@@ -99,7 +102,7 @@ public class ContactsOperationView extends FrameLayout implements
 	@Override
 	public void onQuickAlphabeticBarDown(char selectCharacters) {
 		clearViewDisappearMsg();
-		ViewUtil.showView(mContactsIndexView);
+		sendViewShowMsg();
 		//Log.i(TAG, "onQuickAlphabeticBarDown");
 	}
 
@@ -298,6 +301,22 @@ public class ContactsOperationView extends FrameLayout implements
 		mQuickAlphabeticBar.setSelectCharTv(mSelectCharTv);
 	}
 
+	private void sendViewShowMsg() {
+		clearViewDisappearMsg();
+		handler.sendEmptyMessageDelayed(HANDLER_MSG_VIEW_DISPLAY,
+				VIEW_SHOW_DELAY_TIME_MILLIS);
+		return;
+	}
+	
+	private void clearViewShowMsg() {
+
+		if (handler.hasMessages(HANDLER_MSG_VIEW_DISPLAY)) {
+			handler.removeMessages(HANDLER_MSG_VIEW_DISPLAY);
+		}
+
+		return;
+	}
+	
 	private void sendViewDisappearMsg() {
 		clearViewDisappearMsg();
 		handler.sendEmptyMessageDelayed(HANDLER_MSG_VIEW_DISAPPEAR,
