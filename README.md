@@ -12,7 +12,10 @@ Java(Android):
 [T9Search](https://github.com/handsomezhou/T9SearchLibrary)
 [QwertySearch](https://github.com/handsomezhou/QwertySearchLibrary)
 
-	
+c plus plus(Qt):
+[PinyinSearch](https://github.com/handsomezhou/pinyinsearch4cpp)
+
+
 Features
 ---------------
  * Support T9 search

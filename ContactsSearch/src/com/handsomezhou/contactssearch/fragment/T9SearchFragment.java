@@ -50,7 +50,7 @@ public class T9SearchFragment extends BaseFragment implements OnT9TelephoneDialp
 	@Override
 	public void onDestroy() {
 		mT9TelephoneDialpadView.clearT9Input();
-		ContactsHelper.getInstance().parseT9InputSearchContacts(null);
+		ContactsHelper.getInstance().t9InputSearch(null);
 		
 		List<Contacts> selectedContactsList=new ArrayList<Contacts>();
 		selectedContactsList.addAll(ContactsHelper.getInstance().getSelectedContacts().values());
@@ -125,9 +125,9 @@ public class T9SearchFragment extends BaseFragment implements OnT9TelephoneDialp
 	public void onDialInputTextChanged(String curCharacter) {
 		
 		if(TextUtils.isEmpty(curCharacter)){
-			ContactsHelper.getInstance().parseT9InputSearchContacts(null);
+			ContactsHelper.getInstance().t9InputSearch(null);
 		}else{
-			ContactsHelper.getInstance().parseT9InputSearchContacts(curCharacter);
+			ContactsHelper.getInstance().t9InputSearch(curCharacter);
 		}
 		mContactsOperationView.updateContactsList(TextUtils.isEmpty(curCharacter));
 	}
@@ -141,7 +141,7 @@ public class T9SearchFragment extends BaseFragment implements OnT9TelephoneDialp
 	/*start:OnContactsLoad*/
 	@Override
 	public void onContactsLoadSuccess() {
-		ContactsHelper.getInstance().parseT9InputSearchContacts(null);
+		ContactsHelper.getInstance().t9InputSearch(null);
 		mContactsOperationView.contactsLoadSuccess();
 		
 		//just background printing contacts information
@@ -161,7 +161,7 @@ public class T9SearchFragment extends BaseFragment implements OnT9TelephoneDialp
 	/*start:OnContactsOperationView*/
 	@Override
 	public void onListItemClick(Contacts contacts,int position){
-		ContactsHelper.getInstance().parseT9InputSearchContacts(null);
+		ContactsHelper.getInstance().t9InputSearch(null);
 		mContactsOperationView.updateContactsList(true);
 	}
 

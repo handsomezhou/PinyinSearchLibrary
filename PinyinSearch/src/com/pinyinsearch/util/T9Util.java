@@ -123,20 +123,20 @@ public class T9Util {
 	 * match PinyinSearchUnit
 	 * 
 	 * @param pinyinSearchUnit
-	 * @param search
+	 * @param keyword
 	 * @return true if match success,false otherwise.
 	 */
 	
-	public static boolean match(PinyinSearchUnit pinyinSearchUnit,String search){
-		if ((null == pinyinSearchUnit) || (null == search)) {
+	public static boolean match(PinyinSearchUnit pinyinSearchUnit,String keyword){
+		if ((null == pinyinSearchUnit) || (null == keyword)) {
 			return false;
 		}
 		
-		if(null==pinyinSearchUnit.getBaseData()||null==pinyinSearchUnit.getMatchKeyWord()){
+		if(null==pinyinSearchUnit.getBaseData()||null==pinyinSearchUnit.getMatchKeyword()){
 			return false;
 		}
 		
-		pinyinSearchUnit.getMatchKeyWord().delete(0, pinyinSearchUnit.getMatchKeyWord().length());
+		pinyinSearchUnit.getMatchKeyword().delete(0, pinyinSearchUnit.getMatchKeyword().length());
 		
 		int pinyinUnitsLength=0;
 		pinyinUnitsLength=pinyinSearchUnit.getPinyinUnits().size();
@@ -146,11 +146,11 @@ public class T9Util {
 			//for(int j=0; j<pyUnit.getPinyinBaseUnitIndex().size(); j++){
 			
 			int j=0;
-			pinyinSearchUnit.getMatchKeyWord().delete(0, pinyinSearchUnit.getMatchKeyWord().length());
+			pinyinSearchUnit.getMatchKeyword().delete(0, pinyinSearchUnit.getMatchKeyword().length());
 			searchBuffer.delete(0, searchBuffer.length());
-			searchBuffer.append(search);
+			searchBuffer.append(keyword);
 			boolean found = findPinyinUnits(pinyinSearchUnit.getPinyinUnits(), i, j, pinyinSearchUnit.getBaseData(),
-					searchBuffer, pinyinSearchUnit.getMatchKeyWord());
+					searchBuffer, pinyinSearchUnit.getMatchKeyword());
 			if (true == found) {
 				return true;
 			}
@@ -161,17 +161,17 @@ public class T9Util {
 	}
 	
 	/**
-	 * @description match search string with pinyinUnits,if success,save the Chinese keywords.
+	 * @description match search string with pinyinUnits,if success,save the match keyword.
 	 * @param pinyinUnits		pinyinUnits head node index
 	 * @param pinyinUnitIndex   pinyinUint Index
 	 * @param t9PinyinUnitIndex t9PinyinUnit Index 
 	 * @param baseData			base data for search.
 	 * @param searchBuffer		search keyword.
-	 * @param chineseKeyWord	save the Chinese keyword.
+	 * @param matchKeyword	save the match keyword.
 	 * @return true if find,false otherwise.
 	 */
-	private static boolean findPinyinUnits(final List<PinyinUnit> pinyinUnits,int pinyinUnitIndex,int t9PinyinUnitIndex,final String baseData, StringBuffer searchBuffer,StringBuffer chineseKeyWord ){
-		if((null==pinyinUnits)||(null==baseData)||(null==searchBuffer)||(null==chineseKeyWord)){
+	private static boolean findPinyinUnits(final List<PinyinUnit> pinyinUnits,int pinyinUnitIndex,int t9PinyinUnitIndex,final String baseData, StringBuffer searchBuffer,StringBuffer matchKeyword ){
+		if((null==pinyinUnits)||(null==baseData)||(null==searchBuffer)||(null==matchKeyword)){
 			return false;
 		}
 		
@@ -197,36 +197,36 @@ public class T9Util {
 			
 			if(search.startsWith(String.valueOf(pinyinBaseUnit.getNumber().charAt(0)))){// match pinyin first character
 				searchBuffer.delete(0,1);//delete the match character
-				chineseKeyWord.append(baseData.charAt(pyUnit.getStartPosition()));
-				boolean found=findPinyinUnits(pinyinUnits, pinyinUnitIndex+1, 0, baseData, searchBuffer, chineseKeyWord);
+				matchKeyword.append(baseData.charAt(pyUnit.getStartPosition()));
+				boolean found=findPinyinUnits(pinyinUnits, pinyinUnitIndex+1, 0, baseData, searchBuffer, matchKeyword);
 				if(true==found){
 					return true; 
 				}else{
 					searchBuffer.insert(0, pinyinBaseUnit.getNumber().charAt(0));
-					chineseKeyWord.deleteCharAt(chineseKeyWord.length()-1);
+					matchKeyword.deleteCharAt(matchKeyword.length()-1);
 				}
 				
 			}
 			
 			if(pinyinBaseUnit.getNumber().startsWith(search)){
 				//The string of "search" is the string of t9PinyinUnit.getNumber() of a subset. means match success.
-				chineseKeyWord.append(baseData.charAt(pyUnit.getStartPosition()));
+				matchKeyword.append(baseData.charAt(pyUnit.getStartPosition()));
 				searchBuffer.delete(0, searchBuffer.length());	
 				return true;
 				
 			}else if(search.startsWith(pinyinBaseUnit.getNumber())){ //match quanpin  success
 				//The string of t9PinyinUnit.getNumber() is the string of "search" of a subset.
 				searchBuffer.delete(0, pinyinBaseUnit.getNumber().length());
-				chineseKeyWord.append(baseData.charAt(pyUnit.getStartPosition()));
-				boolean found=findPinyinUnits(pinyinUnits, pinyinUnitIndex+1, 0, baseData, searchBuffer, chineseKeyWord);
+				matchKeyword.append(baseData.charAt(pyUnit.getStartPosition()));
+				boolean found=findPinyinUnits(pinyinUnits, pinyinUnitIndex+1, 0, baseData, searchBuffer, matchKeyword);
 				if(true==found){
 					return true;
 				}else{
 					searchBuffer.insert(0, pinyinBaseUnit.getNumber());
-					chineseKeyWord.deleteCharAt(chineseKeyWord.length()-1);
+					matchKeyword.deleteCharAt(matchKeyword.length()-1);
 				}
 			}else{ //mismatch
-				boolean found=findPinyinUnits(pinyinUnits, pinyinUnitIndex, t9PinyinUnitIndex+1, baseData, searchBuffer, chineseKeyWord);
+				boolean found=findPinyinUnits(pinyinUnits, pinyinUnitIndex, t9PinyinUnitIndex+1, baseData, searchBuffer, matchKeyword);
 				if(found==true){
 					return true;
 				}
@@ -237,25 +237,25 @@ public class T9Util {
 			if(pinyinBaseUnit.getNumber().startsWith(search)){
 				//The string of "search" is the string of t9PinyinUnit.getNumber() of a subset.
 				int startIndex=0; 
-				chineseKeyWord.append(baseData.substring(startIndex+pyUnit.getStartPosition(),startIndex+pyUnit.getStartPosition()+ search.length()));
+				matchKeyword.append(baseData.substring(startIndex+pyUnit.getStartPosition(),startIndex+pyUnit.getStartPosition()+ search.length()));
 				searchBuffer.delete(0, searchBuffer.length());
 				return true;
 			}else if(search.startsWith(pinyinBaseUnit.getNumber())){ //match all non-pure pinyin 
 				//The string of t9PinyinUnit.getNumber() is the string of "search" of a subset.
 				int startIndex=0; 
 				searchBuffer.delete(0, pinyinBaseUnit.getNumber().length());
-				chineseKeyWord.append(baseData.substring(startIndex+pyUnit.getStartPosition(),startIndex+pyUnit.getStartPosition()+ pinyinBaseUnit.getNumber().length()));
-				boolean found=findPinyinUnits(pinyinUnits, pinyinUnitIndex+1, 0, baseData, searchBuffer, chineseKeyWord);
+				matchKeyword.append(baseData.substring(startIndex+pyUnit.getStartPosition(),startIndex+pyUnit.getStartPosition()+ pinyinBaseUnit.getNumber().length()));
+				boolean found=findPinyinUnits(pinyinUnits, pinyinUnitIndex+1, 0, baseData, searchBuffer, matchKeyword);
 				if(true==found){
 					return true;
 				}else{
 					searchBuffer.insert(0, pinyinBaseUnit.getNumber());
-					chineseKeyWord.delete(chineseKeyWord.length()-pinyinBaseUnit.getNumber().length(), chineseKeyWord.length());
+					matchKeyword.delete(matchKeyword.length()-pinyinBaseUnit.getNumber().length(), matchKeyword.length());
 				}
-			}else if((chineseKeyWord.length()<=0)){
+			}else if((matchKeyword.length()<=0)){
 				if(pinyinBaseUnit.getNumber().contains(search)){
 					int index=pinyinBaseUnit.getNumber().indexOf(search);
-					chineseKeyWord.append(baseData.substring(index+pyUnit.getStartPosition(),index+pyUnit.getStartPosition()+ search.length()));
+					matchKeyword.append(baseData.substring(index+pyUnit.getStartPosition(),index+pyUnit.getStartPosition()+ search.length()));
 					searchBuffer.delete(0, searchBuffer.length());
 					return true;
 				}else{
@@ -267,13 +267,13 @@ public class T9Util {
 						String subStr=pinyinBaseUnit.getNumber().substring(i);
 						if(search.startsWith(subStr)){
 							searchBuffer.delete(0, subStr.length());
-							chineseKeyWord.append(baseData.substring(i+pyUnit.getStartPosition(), i+pyUnit.getStartPosition()+subStr.length()));
-							boolean found=findPinyinUnits(pinyinUnits, pinyinUnitIndex+1, 0, baseData, searchBuffer, chineseKeyWord);
+							matchKeyword.append(baseData.substring(i+pyUnit.getStartPosition(), i+pyUnit.getStartPosition()+subStr.length()));
+							boolean found=findPinyinUnits(pinyinUnits, pinyinUnitIndex+1, 0, baseData, searchBuffer, matchKeyword);
 							if(true==found){
 								return true;
 							}else{
 								searchBuffer.insert(0, pinyinBaseUnit.getNumber().substring(i));
-								chineseKeyWord.delete(chineseKeyWord.length()-subStr.length(), chineseKeyWord.length());
+								matchKeyword.delete(matchKeyword.length()-subStr.length(), matchKeyword.length());
 							}
 							
 						}
@@ -281,14 +281,14 @@ public class T9Util {
 					//end [Non-Chinese characters]+[Chinese characters]
 					
 					//in fact,if pyUnit.isPinyin()==false, pyUnit.getPinyinBaseUnitIndex().size()==1. The function of findPinyinUnits() will return false.
-					boolean found=findPinyinUnits(pinyinUnits, pinyinUnitIndex, t9PinyinUnitIndex+1, baseData, searchBuffer, chineseKeyWord);
+					boolean found=findPinyinUnits(pinyinUnits, pinyinUnitIndex, t9PinyinUnitIndex+1, baseData, searchBuffer, matchKeyword);
 					if(true==found){
 						return true;
 					}
 				}
 			}else { //mismatch
 				//in fact,if pyUnit.isPinyin()==false, pyUnit.getPinyinBaseUnitIndex().size()==1.  The function of findPinyinUnits() will return false.
-				boolean found=findPinyinUnits(pinyinUnits, pinyinUnitIndex, t9PinyinUnitIndex+1, baseData, searchBuffer, chineseKeyWord);
+				boolean found=findPinyinUnits(pinyinUnits, pinyinUnitIndex, t9PinyinUnitIndex+1, baseData, searchBuffer, matchKeyword);
 				if(true==found){
 					return true;
 				}

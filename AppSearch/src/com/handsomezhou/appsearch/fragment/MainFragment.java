@@ -135,8 +135,8 @@ public class MainFragment extends BaseFragment implements OnAppInfoLoad,
 	public void onAppInfoLoadSuccess() {
 		getBaseProgressDialog().hide();
 
-		AppInfoHelper.getInstance().getQwertySearchAppInfo(null);
-		AppInfoHelper.getInstance().getT9SearchAppInfo(null);
+		AppInfoHelper.getInstance().qwertySearch(null);
+		AppInfoHelper.getInstance().t9Search(null);
 
 		refreshView();
 

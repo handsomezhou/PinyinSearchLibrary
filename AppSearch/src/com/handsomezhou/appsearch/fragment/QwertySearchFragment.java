@@ -134,9 +134,9 @@ public class QwertySearchFragment extends BaseFragment implements OnSearchBox{
 		}
 		
 		if (TextUtils.isEmpty(curCharacter)) {
-			AppInfoHelper.getInstance().getQwertySearchAppInfo(null);
+			AppInfoHelper.getInstance().qwertySearch(null);
 		} else {
-			AppInfoHelper.getInstance().getQwertySearchAppInfo(curCharacter);
+			AppInfoHelper.getInstance().qwertySearch(curCharacter);
 		}
 	}
 	

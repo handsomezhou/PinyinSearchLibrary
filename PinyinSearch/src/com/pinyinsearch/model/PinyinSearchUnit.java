@@ -22,7 +22,7 @@ import java.util.List;
 public class PinyinSearchUnit implements Cloneable{
 	private String mBaseData;  //the original string
 	private List<PinyinUnit> mPinyinUnits;
-	private StringBuffer mMatchKeyWord;//the sub string of base data which search by key word
+	private StringBuffer mMatchKeyword;//the sub string of base data which search by key word
 	
 	
 	public PinyinSearchUnit() {
@@ -52,12 +52,12 @@ public class PinyinSearchUnit implements Cloneable{
 		mPinyinUnits = pinyinUnits;
 	}
 	
-	public StringBuffer getMatchKeyWord() {
-		return mMatchKeyWord;
+	public StringBuffer getMatchKeyword() {
+		return mMatchKeyword;
 	}
 
-	public void setMatchKeyWord(StringBuffer matchKeyWord) {
-		mMatchKeyWord = matchKeyWord;
+	public void setMatchKeyword(StringBuffer matchKeyword) {
+		mMatchKeyword = matchKeyword;
 	}
 
 	
@@ -74,6 +74,6 @@ public class PinyinSearchUnit implements Cloneable{
 
 	private void initPinyinSearchUnit(){
 		mPinyinUnits=new ArrayList<PinyinUnit>();
-		mMatchKeyWord=new StringBuffer();
+		mMatchKeyword=new StringBuffer();
 	}
 }

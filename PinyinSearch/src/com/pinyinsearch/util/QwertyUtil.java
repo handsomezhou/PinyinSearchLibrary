@@ -31,26 +31,26 @@ public class QwertyUtil {
 	 * match PinyinSearchUnit
 	 * 
 	 * @param pinyinSearchUnit
-	 * @param search
+	 * @param keyword
 	 * @return true if match success,false otherwise.
 	 */
 	@SuppressLint("DefaultLocale")
-	public static boolean match(PinyinSearchUnit pinyinSearchUnit,String search) {
-		if ((null == pinyinSearchUnit) || (null == search)) {
+	public static boolean match(PinyinSearchUnit pinyinSearchUnit,String keyword) {
+		if ((null == pinyinSearchUnit) || (null == keyword)) {
 			return false;
 		}
 		
-		if(null==pinyinSearchUnit.getBaseData()||null==pinyinSearchUnit.getMatchKeyWord()){
+		if(null==pinyinSearchUnit.getBaseData()||null==pinyinSearchUnit.getMatchKeyword()){
 			return false;
 		}
 
-		pinyinSearchUnit.getMatchKeyWord().delete(0, pinyinSearchUnit.getMatchKeyWord().length());
+		pinyinSearchUnit.getMatchKeyword().delete(0, pinyinSearchUnit.getMatchKeyword().length());
 
 		//search by  original string
-		String searchLowerCase=search.toLowerCase();
+		String searchLowerCase=keyword.toLowerCase();
 		int index=pinyinSearchUnit.getBaseData().toLowerCase().indexOf(searchLowerCase);
 		if(index>-1){
-			pinyinSearchUnit.getMatchKeyWord().append(pinyinSearchUnit.getBaseData().substring(index, index+searchLowerCase.length()));
+			pinyinSearchUnit.getMatchKeyword().append(pinyinSearchUnit.getBaseData().substring(index, index+searchLowerCase.length()));
 			return true;
 		}
 		
@@ -59,10 +59,10 @@ public class QwertyUtil {
 		StringBuffer searchBuffer = new StringBuffer();
 		for (int i = 0; i < pinyinUnitsLength; i++) {
 			int j = 0;
-			pinyinSearchUnit.getMatchKeyWord().delete(0,pinyinSearchUnit.getMatchKeyWord().length());
+			pinyinSearchUnit.getMatchKeyword().delete(0,pinyinSearchUnit.getMatchKeyword().length());
 			searchBuffer.delete(0, searchBuffer.length());
 			searchBuffer.append(searchLowerCase);
-			boolean found = findPinyinUnits(pinyinSearchUnit.getPinyinUnits(), i, j, pinyinSearchUnit.getBaseData(),searchBuffer, pinyinSearchUnit.getMatchKeyWord());
+			boolean found = findPinyinUnits(pinyinSearchUnit.getPinyinUnits(), i, j, pinyinSearchUnit.getBaseData(),searchBuffer, pinyinSearchUnit.getMatchKeyword());
 			if (true == found) {
 				return true;
 			}
@@ -72,19 +72,19 @@ public class QwertyUtil {
 	}
 
 	/**
-	 * @description match search string with pinyinUnits,if success,save the Chinese keywords.
+	 * @description match search string with pinyinUnits,if success,save the match keyword.
 	 * @param pinyinUnits    		pinyinUnits head node index
 	 * @param pinyinUnitIndex		pinyinUint Index
 	 * @param qwertyPinyinUnitIndex	pinyinBaseUnit Index
 	 * @param baseData				base data for search.
 	 * @param searchBuffer			search keyword.
-	 * @param chineseKeyWord		save the Chinese keyword.
+	 * @param matchKeyword		save the match keyword.
 	 * @return true if find,false otherwise.
 	 */
 	private static boolean findPinyinUnits(final List<PinyinUnit> pinyinUnits,
 			int pinyinUnitIndex, int qwertyPinyinUnitIndex, final String baseData,
-			StringBuffer searchBuffer, StringBuffer chineseKeyWord) {
-		if ((null == pinyinUnits)||(null == baseData)||(null == searchBuffer)||(null == chineseKeyWord)) {
+			StringBuffer searchBuffer, StringBuffer matchKeyword) {
+		if ((null == pinyinUnits)||(null == baseData)||(null == searchBuffer)||(null == matchKeyword)) {
 			return false;
 		}
 
@@ -108,36 +108,36 @@ public class QwertyUtil {
 
 			if (search.startsWith(String.valueOf(pinyinBaseUnit.getPinyin().charAt(0)))) {// match pinyin first character
 				searchBuffer.delete(0, 1);// delete the match character
-				chineseKeyWord.append(baseData.charAt(pyUnit.getStartPosition()));
-				boolean found = findPinyinUnits(pinyinUnits,pinyinUnitIndex + 1, 0, baseData, searchBuffer,chineseKeyWord);
+				matchKeyword.append(baseData.charAt(pyUnit.getStartPosition()));
+				boolean found = findPinyinUnits(pinyinUnits,pinyinUnitIndex + 1, 0, baseData, searchBuffer,matchKeyword);
 				if (true == found) {
 					return true;
 				} else {
 					searchBuffer.insert(0, pinyinBaseUnit.getPinyin().charAt(0));
-					chineseKeyWord.deleteCharAt(chineseKeyWord.length() - 1);
+					matchKeyword.deleteCharAt(matchKeyword.length() - 1);
 				}
 
 			}
 
 			if (pinyinBaseUnit.getPinyin().startsWith(search)) {
 				// The string of "search" is the string of pinyinBaseUnit.getPinyin() of a subset. means match success.
-				chineseKeyWord.append(baseData.charAt(pyUnit.getStartPosition()));
+				matchKeyword.append(baseData.charAt(pyUnit.getStartPosition()));
 				searchBuffer.delete(0, searchBuffer.length());
 				return true;
 
 			} else if (search.startsWith(pinyinBaseUnit.getPinyin())) { // match quanpin success
 				// The string of pinyinBaseUnit.getPinyin() is the string of "search" of a subset.
 				searchBuffer.delete(0, pinyinBaseUnit.getPinyin().length());
-				chineseKeyWord.append(baseData.charAt(pyUnit.getStartPosition()));
-				boolean found = findPinyinUnits(pinyinUnits,pinyinUnitIndex+1, 0, baseData, searchBuffer,chineseKeyWord);
+				matchKeyword.append(baseData.charAt(pyUnit.getStartPosition()));
+				boolean found = findPinyinUnits(pinyinUnits,pinyinUnitIndex+1, 0, baseData, searchBuffer,matchKeyword);
 				if (true == found) {
 					return true;
 				} else {
 					searchBuffer.insert(0, pinyinBaseUnit.getPinyin());
-					chineseKeyWord.deleteCharAt(chineseKeyWord.length()-1);
+					matchKeyword.deleteCharAt(matchKeyword.length()-1);
 				}
 			} else { // mismatch
-				boolean found = findPinyinUnits(pinyinUnits, pinyinUnitIndex,qwertyPinyinUnitIndex+1, baseData, searchBuffer,chineseKeyWord);
+				boolean found = findPinyinUnits(pinyinUnits, pinyinUnitIndex,qwertyPinyinUnitIndex+1, baseData, searchBuffer,matchKeyword);
 				if (found == true) {
 					return true;
 				}
@@ -147,25 +147,25 @@ public class QwertyUtil {
 			if (pinyinBaseUnit.getPinyin().startsWith(search)) {
 				// The string of "search" is the string of pinyinBaseUnit.getPinyin() of a subset.
 				int startIndex = 0;
-				chineseKeyWord.append(baseData.substring(startIndex+pyUnit.getStartPosition(), startIndex+pyUnit.getStartPosition() + search.length()));
+				matchKeyword.append(baseData.substring(startIndex+pyUnit.getStartPosition(), startIndex+pyUnit.getStartPosition() + search.length()));
 				searchBuffer.delete(0, searchBuffer.length());
 				return true;
 			} else if (search.startsWith(pinyinBaseUnit.getPinyin())) { // match all non-pure pinyin
 				// The string of pinyinBaseUnit.getPinyin() is the string of "search" of a subset.
 				int startIndex = 0;
 				searchBuffer.delete(0, pinyinBaseUnit.getPinyin().length());
-				chineseKeyWord.append(baseData.substring(startIndex+pyUnit.getStartPosition(),startIndex+pyUnit.getStartPosition()+pinyinBaseUnit.getPinyin().length()));
-				boolean found = findPinyinUnits(pinyinUnits,pinyinUnitIndex+1, 0, baseData, searchBuffer,chineseKeyWord);
+				matchKeyword.append(baseData.substring(startIndex+pyUnit.getStartPosition(),startIndex+pyUnit.getStartPosition()+pinyinBaseUnit.getPinyin().length()));
+				boolean found = findPinyinUnits(pinyinUnits,pinyinUnitIndex+1, 0, baseData, searchBuffer,matchKeyword);
 				if (true == found) {
 					return true;
 				} else {
 					searchBuffer.insert(0, pinyinBaseUnit.getPinyin());
-					chineseKeyWord.delete(chineseKeyWord.length()-pinyinBaseUnit.getPinyin().length(),chineseKeyWord.length());
+					matchKeyword.delete(matchKeyword.length()-pinyinBaseUnit.getPinyin().length(),matchKeyword.length());
 				}
-			} else if ((chineseKeyWord.length() <= 0)) {
+			} else if ((matchKeyword.length() <= 0)) {
 				if (pinyinBaseUnit.getPinyin().contains(search)) {
 					int index = pinyinBaseUnit.getPinyin().indexOf(search);
-					chineseKeyWord.append(baseData.substring(index+pyUnit.getStartPosition(),index+pyUnit.getStartPosition()+search.length()));
+					matchKeyword.append(baseData.substring(index+pyUnit.getStartPosition(),index+pyUnit.getStartPosition()+search.length()));
 					searchBuffer.delete(0, searchBuffer.length());
 					return true;
 				} else {
@@ -177,13 +177,13 @@ public class QwertyUtil {
 						String subStr = pinyinBaseUnit.getPinyin().substring(i);
 						if (search.startsWith(subStr)) {
 							searchBuffer.delete(0, subStr.length());
-							chineseKeyWord.append(baseData.substring(i+pyUnit.getStartPosition(),i+pyUnit.getStartPosition()+subStr.length()));
-							boolean found = findPinyinUnits(pinyinUnits,pinyinUnitIndex+1, 0, baseData,searchBuffer, chineseKeyWord);
+							matchKeyword.append(baseData.substring(i+pyUnit.getStartPosition(),i+pyUnit.getStartPosition()+subStr.length()));
+							boolean found = findPinyinUnits(pinyinUnits,pinyinUnitIndex+1, 0, baseData,searchBuffer, matchKeyword);
 							if (true == found) {
 								return true;
 							} else {
 								searchBuffer.insert(0, pinyinBaseUnit.getPinyin().substring(i));
-								chineseKeyWord.delete(chineseKeyWord.length()-subStr.length(),chineseKeyWord.length());
+								matchKeyword.delete(matchKeyword.length()-subStr.length(),matchKeyword.length());
 							}
 
 						}
@@ -191,14 +191,14 @@ public class QwertyUtil {
 					// end [Non-Chinese characters]+[Chinese characters]
 
 					// in fact,if pyUnit.isPinyin()==false, pyUnit.getQwertyPinyinUnitIndex().size()==1. The function of findPinyinUnits() will return false.
-					boolean found = findPinyinUnits(pinyinUnits,pinyinUnitIndex, qwertyPinyinUnitIndex + 1, baseData,searchBuffer, chineseKeyWord);
+					boolean found = findPinyinUnits(pinyinUnits,pinyinUnitIndex, qwertyPinyinUnitIndex + 1, baseData,searchBuffer, matchKeyword);
 					if (true == found) {
 						return true;
 					}
 				}
 			} else { // mismatch
 				// in fact,if pyUnit.isPinyin()==false, pyUnit.getQwertyPinyinUnitIndex().size()==1. The function of findPinyinUnits() will return false.
-				boolean found = findPinyinUnits(pinyinUnits, pinyinUnitIndex,qwertyPinyinUnitIndex+1, baseData, searchBuffer,chineseKeyWord);
+				boolean found = findPinyinUnits(pinyinUnits, pinyinUnitIndex,qwertyPinyinUnitIndex+1, baseData, searchBuffer,matchKeyword);
 				if (true == found) {
 					return true;
 				}

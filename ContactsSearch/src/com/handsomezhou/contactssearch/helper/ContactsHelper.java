@@ -174,17 +174,17 @@ public class ContactsHelper {
 
 	/**
 	 * @description search base data according to string parameter
-	 * @param search
+	 * @param keyword
 	 *            (valid characters include:'0'~'9','*','#')
 	 * @return void
 	 *
 	 * 
 	 */
-	public void parseT9InputSearchContacts(String search) {
+	public void t9InputSearch(String keyword) {
 		List<Contacts> mSearchByNameContacts=new ArrayList<Contacts>();
 		List<Contacts> mSearchByPhoneNumberContacts=new ArrayList<Contacts>();
 
-		if (null == search) {// add all base data to search
+		if (null == keyword) {// add all base data to search
 			if (null != mSearchContacts) {
 				mSearchContacts.clear();
 			} else {
@@ -215,13 +215,13 @@ public class ContactsHelper {
 		}
 
 		if (mFirstNoSearchResultInput.length() > 0) {
-			if (search.contains(mFirstNoSearchResultInput.toString())) {
+			if (keyword.contains(mFirstNoSearchResultInput.toString())) {
 				Log.i(TAG,
 						"no need  to search,null!=search,mFirstNoSearchResultInput.length()="
 								+ mFirstNoSearchResultInput.length() + "["
 								+ mFirstNoSearchResultInput.toString() + "]"
-								+ ";searchlen=" + search.length() + "["
-								+ search + "]");
+								+ ";searchlen=" + keyword.length() + "["
+								+ keyword + "]");
 				return;
 			} else {
 				Log.i(TAG,
@@ -231,9 +231,9 @@ public class ContactsHelper {
 								+ mFirstNoSearchResultInput.toString()
 								+ "]"
 								+ ";searchlen="
-								+ search.length()
+								+ keyword.length()
 								+ "["
-								+ search + "]");
+								+ keyword + "]");
 				mFirstNoSearchResultInput.delete(0,
 						mFirstNoSearchResultInput.length());
 			}
@@ -256,13 +256,13 @@ public class ContactsHelper {
 		for (int i = 0; i < contactsCount; i++) {
 
 			PinyinSearchUnit namePinyinSearchUnit= mBaseContacts.get(i).getNamePinyinSearchUnit();
-			if (true == T9Util.match(namePinyinSearchUnit,search)) {// search by name;
+			if (true == T9Util.match(namePinyinSearchUnit,keyword)) {// search by name;
 				
 				Contacts currentContacts=null;
 				Contacts firstContacts=null;
 				for(currentContacts=mBaseContacts.get(i),firstContacts=currentContacts; null!=currentContacts; currentContacts=currentContacts.getNextContacts()){
 					currentContacts.setSearchByType(SearchByType.SearchByName);
-					currentContacts.setMatchKeywords(namePinyinSearchUnit.getMatchKeyWord().toString());
+					currentContacts.setMatchKeywords(namePinyinSearchUnit.getMatchKeyword().toString());
 					currentContacts.setMatchStartIndex(firstContacts.getName().indexOf(firstContacts.getMatchKeywords().toString()));
 					currentContacts.setMatchLength(firstContacts.getMatchKeywords().length());
 					mSearchByNameContacts.add(currentContacts);
@@ -272,11 +272,11 @@ public class ContactsHelper {
 			} else {
 				Contacts currentContacts=null;
 				for(currentContacts=mBaseContacts.get(i); null!=currentContacts; currentContacts=currentContacts.getNextContacts()){
-					if(currentContacts.getPhoneNumber().contains(search)){// search by phone number
+					if(currentContacts.getPhoneNumber().contains(keyword)){// search by phone number
 						currentContacts.setSearchByType(SearchByType.SearchByPhoneNumber);
-						currentContacts.setMatchKeywords(search);
-						currentContacts.setMatchStartIndex(currentContacts.getPhoneNumber().indexOf(search));
-						currentContacts.setMatchLength(search.length());
+						currentContacts.setMatchKeywords(keyword);
+						currentContacts.setMatchStartIndex(currentContacts.getPhoneNumber().indexOf(keyword));
+						currentContacts.setMatchLength(keyword.length());
 						mSearchByPhoneNumberContacts.add(currentContacts);
 					}
 				}
@@ -298,13 +298,13 @@ public class ContactsHelper {
 		
 		if (mSearchContacts.size() <= 0) {
 			if (mFirstNoSearchResultInput.length() <= 0) {
-				mFirstNoSearchResultInput.append(search);
+				mFirstNoSearchResultInput.append(keyword);
 				Log.i(TAG,
 						"no search result,null!=search,mFirstNoSearchResultInput.length()="
 								+ mFirstNoSearchResultInput.length() + "["
 								+ mFirstNoSearchResultInput.toString() + "]"
-								+ ";searchlen=" + search.length() + "["
-								+ search + "]");
+								+ ";searchlen=" + keyword.length() + "["
+								+ keyword + "]");
 			} else {
 
 			}
@@ -314,11 +314,11 @@ public class ContactsHelper {
 
 	/**
 	 * @description search base data according to string parameter
-	 * @param search
+	 * @param keyword
 	 * @return void
 	 */
-	public void parseQwertyInputSearchContacts(String search) {
-		if (null == search) {// add all base data to search
+	public void qwertySearch(String keyword) {
+		if (null == keyword) {// add all base data to search
 			if (null != mSearchContacts) {
 				mSearchContacts.clear();
 			} else {
@@ -349,13 +349,13 @@ public class ContactsHelper {
 		}
 
 		if (mFirstNoSearchResultInput.length() > 0) {
-			if (search.contains(mFirstNoSearchResultInput.toString())) {
+			if (keyword.contains(mFirstNoSearchResultInput.toString())) {
 				Log.i(TAG,
 						"no need  to search,null!=search,mFirstNoSearchResultInput.length()="
 								+ mFirstNoSearchResultInput.length() + "["
 								+ mFirstNoSearchResultInput.toString() + "]"
-								+ ";searchlen=" + search.length() + "["
-								+ search + "]");
+								+ ";searchlen=" + keyword.length() + "["
+								+ keyword + "]");
 				return;
 			} else {
 				Log.i(TAG,
@@ -365,9 +365,9 @@ public class ContactsHelper {
 								+ mFirstNoSearchResultInput.toString()
 								+ "]"
 								+ ";searchlen="
-								+ search.length()
+								+ keyword.length()
 								+ "["
-								+ search + "]");
+								+ keyword + "]");
 				mFirstNoSearchResultInput.delete(0,
 						mFirstNoSearchResultInput.length());
 			}
@@ -389,12 +389,12 @@ public class ContactsHelper {
 		for (int i = 0; i < contactsCount; i++) {
 			PinyinSearchUnit namePinyinSearchUnit= mBaseContacts.get(i).getNamePinyinSearchUnit();
 
-			if (true == QwertyUtil.match(namePinyinSearchUnit,search)) {// search by name;
+			if (true == QwertyUtil.match(namePinyinSearchUnit,keyword)) {// search by name;
 				Contacts currentContacts=null;
 				Contacts firstContacts=null;
 				for(currentContacts=mBaseContacts.get(i),firstContacts=currentContacts; null!=currentContacts; currentContacts=currentContacts.getNextContacts()){
 					currentContacts.setSearchByType(SearchByType.SearchByName);
-					currentContacts.setMatchKeywords(namePinyinSearchUnit.getMatchKeyWord().toString());
+					currentContacts.setMatchKeywords(namePinyinSearchUnit.getMatchKeyword().toString());
 					currentContacts.setMatchStartIndex(firstContacts.getName().indexOf(firstContacts.getMatchKeywords().toString()));
 					currentContacts.setMatchLength(firstContacts.getMatchKeywords().length());
 					mSearchContacts.add(currentContacts);
@@ -404,11 +404,11 @@ public class ContactsHelper {
 			} else {
 				Contacts currentContacts=null;
 				for(currentContacts=mBaseContacts.get(i); null!=currentContacts; currentContacts=currentContacts.getNextContacts()){
-					if(currentContacts.getPhoneNumber().contains(search)){// search by phone number
+					if(currentContacts.getPhoneNumber().contains(keyword)){// search by phone number
 						currentContacts.setSearchByType(SearchByType.SearchByPhoneNumber);
-						currentContacts.setMatchKeywords(search);
-						currentContacts.setMatchStartIndex(currentContacts.getPhoneNumber().indexOf(search));
-						currentContacts.setMatchLength(search.length());
+						currentContacts.setMatchKeywords(keyword);
+						currentContacts.setMatchStartIndex(currentContacts.getPhoneNumber().indexOf(keyword));
+						currentContacts.setMatchLength(keyword.length());
 						mSearchContacts.add(currentContacts);
 					}
 				}
@@ -418,13 +418,13 @@ public class ContactsHelper {
 
 		if (mSearchContacts.size() <= 0) {
 			if (mFirstNoSearchResultInput.length() <= 0) {
-				mFirstNoSearchResultInput.append(search);
+				mFirstNoSearchResultInput.append(keyword);
 				Log.i(TAG,
 						"no search result,null!=search,mFirstNoSearchResultInput.length()="
 								+ mFirstNoSearchResultInput.length() + "["
 								+ mFirstNoSearchResultInput.toString() + "]"
-								+ ";searchlen=" + search.length() + "["
-								+ search + "]");
+								+ ";searchlen=" + keyword.length() + "["
+								+ keyword + "]");
 			} else {
 
 			}

@@ -207,9 +207,9 @@ public class T9SearchFragment extends BaseFragment implements
 		}
 		
 		if (TextUtils.isEmpty(curCharacter)) {
-			AppInfoHelper.getInstance().getT9SearchAppInfo(null);
+			AppInfoHelper.getInstance().t9Search(null);
 		} else {
-			AppInfoHelper.getInstance().getT9SearchAppInfo(curCharacter);
+			AppInfoHelper.getInstance().t9Search(curCharacter);
 		}
 	}
 	

@@ -45,7 +45,7 @@ public class QwertySearchFragment extends BaseFragment implements OnContactsLoad
 	@Override
 	public void onDestroy() {
 		mSearchBox.getSearchEt().setText("");
-		ContactsHelper.getInstance().parseQwertyInputSearchContacts(null);
+		ContactsHelper.getInstance().qwertySearch(null);
 		
 		List<Contacts> selectedContactsList=new ArrayList<Contacts>();
 		selectedContactsList.addAll(ContactsHelper.getInstance().getSelectedContacts().values());
@@ -90,7 +90,7 @@ public class QwertySearchFragment extends BaseFragment implements OnContactsLoad
 	/*Start: OnContactsLoad*/
 	@Override
 	public void onContactsLoadSuccess() {
-		ContactsHelper.getInstance().parseQwertyInputSearchContacts(null);
+		ContactsHelper.getInstance().qwertySearch(null);
 		mContactsOperationView.contactsLoadSuccess();
 		
 		ContactsIndexHelper.getInstance().praseContacts(ContactsHelper.getInstance().getBaseContacts());
@@ -115,7 +115,7 @@ public class QwertySearchFragment extends BaseFragment implements OnContactsLoad
 	/*Start: OnContactsOperationView*/
 	@Override
 	public void onListItemClick(Contacts contacts,int position){
-		ContactsHelper.getInstance().parseQwertyInputSearchContacts(null);
+		ContactsHelper.getInstance().qwertySearch(null);
 		mContactsOperationView.updateContactsList(true);
 	}
 
@@ -175,9 +175,9 @@ public class QwertySearchFragment extends BaseFragment implements OnContactsLoad
 		}
 		
 		if(TextUtils.isEmpty(curCharacter)){
-			ContactsHelper.getInstance().parseQwertyInputSearchContacts(null);
+			ContactsHelper.getInstance().qwertySearch(null);
 		}else{
-			ContactsHelper.getInstance().parseQwertyInputSearchContacts(curCharacter);
+			ContactsHelper.getInstance().qwertySearch(curCharacter);
 		}
 		mContactsOperationView.updateContactsList(TextUtils.isEmpty(curCharacter));
 		
