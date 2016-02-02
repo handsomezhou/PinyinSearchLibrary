@@ -145,7 +145,7 @@ public class ContactsHelper {
 	 * @return start load success return true, otherwise return false
 	 */
 	public boolean startLoadContacts() {
-		if (true == isSearching()) {
+		if (true == isLoading()) {
 			return false;
 		}
 
@@ -541,7 +541,7 @@ public class ContactsHelper {
 		}
 	}
 
-	private boolean isSearching() {
+	private boolean isLoading() {
 		return (mLoadTask != null && mLoadTask.getStatus() == Status.RUNNING);
 	}
 

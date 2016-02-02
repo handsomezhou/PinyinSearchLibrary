@@ -145,7 +145,7 @@ public class ContactsOperationView extends FrameLayout implements
 	@Override
 	public void onContactsRefreshView() {
 		// TODO Auto-generated method stub
-		updateContactsList();
+		refreshContactsLv();
 	}
 	/*end:OnContactsAdapter*/
 	
@@ -187,10 +187,10 @@ public class ContactsOperationView extends FrameLayout implements
 			ViewUtil.hideView(mQuickAlphabeticBar);
 		}
 		
-		updateContactsList();
+		refreshContactsLv();
 	}
 	
-	public void updateContactsList() {
+	public void refreshContactsLv() {
 		if (null == mContactsLv) {
 			return;
 		}

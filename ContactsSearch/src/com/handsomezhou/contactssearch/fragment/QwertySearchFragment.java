@@ -34,7 +34,7 @@ public class QwertySearchFragment extends BaseFragment implements OnContactsLoad
 	@Override
 	public void onResume() {
 		if(false==isFirstRefreshView()){
-			mContactsOperationView.updateContactsList();
+			mContactsOperationView.refreshContactsLv();
 		}else{
 			setFirstRefreshView(false);
 		}

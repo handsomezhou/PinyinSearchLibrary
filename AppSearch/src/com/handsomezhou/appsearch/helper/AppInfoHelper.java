@@ -121,7 +121,7 @@ public class AppInfoHelper {
 	}
 	
 	public boolean startLoadAppInfo(){
-		if(true==isAppInfoLoading()){
+		if(true==isLoading()){
 			return false;
 		}
 		
@@ -479,7 +479,7 @@ public class AppInfoHelper {
 		return appInfo;
 		
 	}
-	private boolean isAppInfoLoading(){
+	private boolean isLoading(){
 		return ((null!=mLoadAppInfoTask)&&(mLoadAppInfoTask.getStatus()==Status.RUNNING));
 	}
 	

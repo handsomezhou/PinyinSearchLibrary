@@ -39,7 +39,7 @@ public class T9SearchFragment extends BaseFragment implements OnT9TelephoneDialp
 	@Override
 	public void onResume() {
 		if(false==isFirstRefreshView()){
-			mContactsOperationView.updateContactsList();
+			mContactsOperationView.refreshContactsLv();
 		}else{
 			setFirstRefreshView(false);
 		}

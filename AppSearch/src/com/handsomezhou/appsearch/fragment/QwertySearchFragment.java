@@ -86,7 +86,7 @@ public class QwertySearchFragment extends BaseFragment implements OnSearchBox{
 	/*start: OnSearchBox*/
 	@Override
 	public void onSearchTextChanged(String curCharacter) {
-		updateSearch(curCharacter);
+		search(curCharacter);
 		refreshView();
 		
 	}
@@ -102,7 +102,7 @@ public class QwertySearchFragment extends BaseFragment implements OnSearchBox{
 			return;
 		}
 		
-		updateSearch(mSearchBox.getSearchEtInput());
+		search(mSearchBox.getSearchEtInput());
 	}
 	
 	private void refreshQwertySearchGv() {
@@ -124,13 +124,13 @@ public class QwertySearchFragment extends BaseFragment implements OnSearchBox{
 		}
 	}
 	
-	private void updateSearch(String search) {
-		Log.i(TAG, "search=["+search+"]");
+	private void search(String keyword) {
+		Log.i(TAG, "search=["+keyword+"]");
 		String curCharacter;
-		if (null == search) {
-			curCharacter = search;
+		if (null == keyword) {
+			curCharacter = keyword;
 		} else {
-			curCharacter = search.trim();
+			curCharacter = keyword.trim();
 		}
 		
 		if (TextUtils.isEmpty(curCharacter)) {

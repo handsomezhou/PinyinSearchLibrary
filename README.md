@@ -87,11 +87,11 @@ Usage
 
 Algorithm introduction
 ---------------
-1.[Android Pinyin search contacts analysis and implementation](http://blog.csdn.net/zjqyjg/article/details/41360769)
+1.[Pinyin search contacts analysis and implementation](http://blog.csdn.net/zjqyjg/article/details/41360769)
 
-2.[Android T9 search contacts analysis and implementation](http://blog.csdn.net/zjqyjg/article/details/41182911)
+2.[T9 search contacts analysis and implementation](http://blog.csdn.net/zjqyjg/article/details/41182911)
 
-3.[Android Qwerty search contacts analysis and implementation](http://blog.csdn.net/zjqyjg/article/details/41318907)
+3.[Qwerty search contacts analysis and implementation](http://blog.csdn.net/zjqyjg/article/details/41318907)
 
 License 
 ---------------
