@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">联系人搜索</string>
+    <string name="t9_search">T9 search</string>
+    <string name="qwerty_search">Qwerty search</string>
+    <string name="contacts_detail">联系人详情</string>
+    <string name="t9_keyboard_input_prompt">输入号码或拼音</string>
+    <string name="qwerty_keyboard_input_prompt">输入号码或拼音</string>
+    <string name="no_match_search_result">无相关搜索结果</string>
+    <string name="loading_contacts">正在加载联系人</string>
+    <string name="phone_number_count">(%d个号码)</string>
+    <string name="click_to_unfold">点击可展开</string>
+    <string name="click_to_hide">点击可隐藏</string>
+</resources>
