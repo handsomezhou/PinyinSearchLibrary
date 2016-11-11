@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PinyinSearch</string>
+    <string name="project_description">PinyinSearch:\nProvide data analysis methods, data matching method and so on for T9 pinyin search and Qwerty pinyin search in Java.
+        \n\n https://github.com/handsomezhou/PinyinSearchLibrary</string>
 </resources>
