@@ -75,7 +75,7 @@ Usage
 	
 	For details, please see project ContactsSearch and AppSearch.
 
-### Support Library
+### JAR download
 [pinyinsearch.jar](https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/jar/pinyinsearch.jar?raw=true)
 
 original [pinyin4j-2.5.0.jar](https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/jar/pinyin4j-2.5.0.jar?raw=true) Or light [pinyin4j.jar](https://github.com/handsomezhou/PinyinSearchLibrary/blob/master/external_res/jar/pinyin4j.jar?raw=true)(recommend)
