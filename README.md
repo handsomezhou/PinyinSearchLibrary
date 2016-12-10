@@ -22,7 +22,7 @@ PinyinSearchLibrary is currently used in some awesome Android apps. Here's a lis
 * [X股票助手](http://www.wandoujia.com/apps/com.handsomezhou.oscillationwave)
 * [X桌面助手](http://www.wandoujia.com/apps/com.handsomezhou.xdesktophelper)
 
-If you are using PinyinSearchLibrary in your app and would like to be listed here, please let me know via <p><a href="mailto:quanjunzhou@gmail.com">quanjunzhou@gmail.com</a></p>!
+If you are using PinyinSearchLibrary in your app and would like to be listed here, please let me know via <p><a href="mailto:quanjunzhou@gmail.com">quanjunzhou@gmail.com</a></p>
 
 Features
 ---------------
