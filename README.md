@@ -12,9 +12,17 @@ Java(Android):
 [T9Search](https://github.com/handsomezhou/T9SearchLibrary)
 [QwertySearch](https://github.com/handsomezhou/QwertySearchLibrary)
 
-c plus plus(Qt):
+C++(Qt):
 [PinyinSearch](https://github.com/handsomezhou/pinyinsearch4cpp)
 
+Who uses it
+---------------
+PinyinSearchLibrary is currently used in some awesome Android apps. Here's a list of some of them: 
+* [锤子桌面](http://www.wandoujia.com/apps/com.smartisanos.home)
+* [X股票助手](http://www.wandoujia.com/apps/com.handsomezhou.oscillationwave)
+* [X桌面助手](http://www.wandoujia.com/apps/com.handsomezhou.xdesktophelper)
+
+If you are using PinyinSearchLibrary in your app and would like to be listed here, please let me know via <p><a href="mailto:quanjunzhou@gmail.com">quanjunzhou@gmail.com</a></p>!
 
 Features
 ---------------
