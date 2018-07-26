@@ -22,11 +22,10 @@ import com.handsomezhou.appsearch.util.ViewUtil;
  * @description Custom T9 phone dialpad View
  * @author handsomezhou
  */
-public class T9TelephoneDialpadView extends LinearLayout implements
-		OnClickListener, OnLongClickListener {
-	private static final char DIAL_X_SECOND_MEANING = ',';
-	private static final char DIAL_0_SECOND_MEANING = '+';
-	private static final char DIAL_J_SECOND_MEANING = ';';
+public class T9TelephoneDialpadView extends LinearLayout implements OnClickListener, OnLongClickListener {
+	private static final char DIAL_X_SECOND_MEANING = '+';
+	private static final char DIAL_0_SECOND_MEANING = ' ';
+	private static final char DIAL_J_SECOND_MEANING = '-';
 
 	/**
 	 * Interface definition for a callback to be invoked when a
