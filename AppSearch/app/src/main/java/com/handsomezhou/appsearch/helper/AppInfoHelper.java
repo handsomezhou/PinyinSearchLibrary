@@ -155,8 +155,8 @@ public class AppInfoHelper {
 	@SuppressLint("DefaultLocale")
 	public List<AppInfo> loadAppInfo(Context context){
 		List<AppInfo> appInfos=new ArrayList<AppInfo>();
-		List<AppInfo> kanjiStartAppInfos = new ArrayList<AppInfo>();
-		List<AppInfo> nonKanjiStartAppInfos = new ArrayList<AppInfo>();
+		List<AppInfo> chineseCharacterStartAppInfos = new ArrayList<AppInfo>();
+		List<AppInfo> nonChineseCharacterStartAppInfos = new ArrayList<AppInfo>();
 		do{
 			if(null==context){
 				break;
@@ -182,11 +182,11 @@ public class AppInfoHelper {
 					PinyinUtil.parse(appInfo.getLabelPinyinSearchUnit());
 					String sortKey=PinyinUtil.getSortKey(appInfo.getLabelPinyinSearchUnit()).toUpperCase();
 					appInfo.setSortKey(praseSortKey(sortKey));
-					boolean isKanji=PinyinUtil.isKanji(appInfo.getLabel().charAt(0));
-					if(true==isKanji){
-						kanjiStartAppInfos.add(appInfo);
+					boolean isChineseCharacter=PinyinUtil.isChineseCharacter(appInfo.getLabel().charAt(0));
+					if(true==isChineseCharacter){
+						chineseCharacterStartAppInfos.add(appInfo);
 					}else{
-						nonKanjiStartAppInfos.add(appInfo);
+						nonChineseCharacterStartAppInfos.add(appInfo);
 					}
 					
 				}
@@ -199,18 +199,18 @@ public class AppInfoHelper {
 		
 		long sortStartTime=System.currentTimeMillis();
 		
-		Collections.sort(kanjiStartAppInfos, AppInfo.mAscComparator);
-		Collections.sort(nonKanjiStartAppInfos, AppInfo.mAscComparator);
+		Collections.sort(chineseCharacterStartAppInfos, AppInfo.mAscComparator);
+		Collections.sort(nonChineseCharacterStartAppInfos, AppInfo.mAscComparator);
 		
-		//appInfos.addAll(nonKanjiStartAppInfos);
-		appInfos.addAll(kanjiStartAppInfos);
+		//appInfos.addAll(nonChineseCharacterStartAppInfos);
+		appInfos.addAll(chineseCharacterStartAppInfos);
 	
-		/*Start: merge nonKanjiStartAppInfos and kanjiStartAppInfos*/
+		/*Start: merge nonChineseCharacterStartAppInfos and chineseCharacterStartAppInfos*/
 		int lastIndex=0;
 		boolean shouldBeAdd=false;
-		for(int i=0; i<nonKanjiStartAppInfos.size(); i++){
-			String nonKanfirstLetter=PinyinUtil.getFirstLetter(nonKanjiStartAppInfos.get(i).getLabelPinyinSearchUnit());
-			//Log.i(TAG, "nonKanfirstLetter=["+nonKanfirstLetter+"]["+nonKanjiStartAppInfos.get(i).getLabel()+"]["+Integer.valueOf(nonKanjiStartAppInfos.get(i).getLabel().charAt(0))+"]");
+		for(int i=0; i<nonChineseCharacterStartAppInfos.size(); i++){
+			String nonKanfirstLetter=PinyinUtil.getFirstLetter(nonChineseCharacterStartAppInfos.get(i).getLabelPinyinSearchUnit());
+			//Log.i(TAG, "nonKanfirstLetter=["+nonKanfirstLetter+"]["+nonChineseCharacterStartAppInfos.get(i).getLabel()+"]["+Integer.valueOf(nonChineseCharacterStartAppInfos.get(i).getLabel().charAt(0))+"]");
 			int j=0;
 			for(j=0+lastIndex; j<appInfos.size(); j++){
 				String firstLetter=PinyinUtil.getFirstLetter(appInfos.get(j).getLabelPinyinSearchUnit());
@@ -230,11 +230,11 @@ public class AppInfoHelper {
 			}
 			
 			if(true==shouldBeAdd){
-				appInfos.add(j, nonKanjiStartAppInfos.get(i));
+				appInfos.add(j, nonChineseCharacterStartAppInfos.get(i));
 				shouldBeAdd=false;
 			}
 		}
-		/*End: merge nonKanjiStartAppInfos and kanjiStartAppInfos*/
+		/*End: merge nonChineseCharacterStartAppInfos and chineseCharacterStartAppInfos*/
 	
 		
 /*		for(int i=0; i<appInfos.size(); i++){

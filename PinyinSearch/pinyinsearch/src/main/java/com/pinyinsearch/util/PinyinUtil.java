@@ -209,22 +209,22 @@ public class PinyinUtil {
 	}
 
 	/**
-	 * judge chr is kanji
-	 * 
+	 * judge chr is Chinese Character
+	 *
 	 * @param chr
-	 * @return Is kanji return true,otherwise return false.
+	 * @return Is Chinese Character return true,otherwise return false.
 	 */
-	public static boolean isKanji(char chr){
+	public static boolean isChineseCharacter(char chr){
 		String[] pinyinStr = null;
 		try {
 			pinyinStr = PinyinHelper.toHanyuPinyinStringArray(chr, format);
 		} catch (BadHanyuPinyinOutputFormatCombination e) {
 			e.printStackTrace();
 		}
-		
+
 		return (null==pinyinStr)?(false):(true);
 	}
-	
+
 	private static void addPinyinUnit(List<PinyinUnit> pinyinUnit,PinyinUnit pyUnit, boolean pinyin, String originalString,String[] string, int startPosition) {
 		if ((null == pinyinUnit) || (null == pyUnit)
 				|| (null == originalString) || (null == string)) {

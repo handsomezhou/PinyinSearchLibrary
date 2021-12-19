@@ -58,7 +58,7 @@ API
 	public static String getSortKey(PinyinSearchUnit pinyinSearchUnit);
 	public static String getFirstLetter(PinyinSearchUnit pinyinSearchUnit);
 	public static String getFirstCharacter(PinyinSearchUnit pinyinSearchUnit);
-	public static boolean isKanji(char chr);
+	public static boolean isChineseCharacter(char chr);
 
 ### Function call:
 	PinyinUtil.parse(...);
@@ -67,7 +67,7 @@ API
 	PinyinUtil.getSortKey(...);
 	PinyinUtil.getFirstLetter(...);
 	PinyinUtil.getFirstCharacter(...);
-	PinyinUtil.isKanji(...);
+	PinyinUtil.isChineseCharacter(...);
 	
 Usage
 ---------------	

@@ -547,11 +547,11 @@ public class ContactsHelper {
 
 	@SuppressLint("DefaultLocale")
 	private List<Contacts> loadContacts(Context context) {
-		List<Contacts> kanjiStartContacts = new ArrayList<Contacts>();
-		HashMap<String, Contacts> kanjiStartContactsHashMap=new HashMap<String, Contacts>();
+		List<Contacts> chineseCharacterStartContacts = new ArrayList<Contacts>();
+		HashMap<String, Contacts> chineseCharacterStartContactsHashMap=new HashMap<String, Contacts>();
 		
-		List<Contacts>  nonKanjiStartContacts = new ArrayList<Contacts>();
-		HashMap<String, Contacts> nonKanjiStartContactsHashMap=new HashMap<String,Contacts>();
+		List<Contacts>  nonChineseCharacterStartContacts = new ArrayList<Contacts>();
+		HashMap<String, Contacts> nonChineseCharacterStartContactsHashMap=new HashMap<String,Contacts>();
 		
 		List<Contacts> contacts=new ArrayList<Contacts>();
 		
@@ -574,14 +574,14 @@ public class ContactsHelper {
 				String phoneNumber = cursor.getString(numberColumnIndex);
 			//	Log.i(TAG, "id=["+id+"]name=["+displayName+"]"+"number=["+phoneNumber+"]");
 				
-				boolean kanjiStartContactsExist=kanjiStartContactsHashMap.containsKey(id);
-				boolean nonKanjiStartContactsExist=nonKanjiStartContactsHashMap.containsKey(id);
+				boolean chineseCharacterStartContactsExist=chineseCharacterStartContactsHashMap.containsKey(id);
+				boolean nonChineseCharacterStartContactsExist=nonChineseCharacterStartContactsHashMap.containsKey(id);
 				
-				if(true==kanjiStartContactsExist){
-					cs=kanjiStartContactsHashMap.get(id);
+				if(true==chineseCharacterStartContactsExist){
+					cs=chineseCharacterStartContactsHashMap.get(id);
 					Contacts.addMultipleContact(cs, phoneNumber);
-				}else if(true==nonKanjiStartContactsExist){
-					cs=nonKanjiStartContactsHashMap.get(id);
+				}else if(true==nonChineseCharacterStartContactsExist){
+					cs=nonChineseCharacterStartContactsHashMap.get(id);
 					Contacts.addMultipleContact(cs, phoneNumber);
 				}else{
 					
@@ -590,12 +590,12 @@ public class ContactsHelper {
 					PinyinUtil.parse(cs.getNamePinyinSearchUnit());
 					sortkey = PinyinUtil.getSortKey(cs.getNamePinyinSearchUnit()).toUpperCase();
 					cs.setSortKey(praseSortKey(sortkey));
-					boolean isKanji=PinyinUtil.isKanji(cs.getName().charAt(0));
+					boolean isChineseCharacter=PinyinUtil.isChineseCharacter(cs.getName().charAt(0));
 					
-					if(true==isKanji){
-						kanjiStartContactsHashMap.put(id, cs);
+					if(true==isChineseCharacter){
+						chineseCharacterStartContactsHashMap.put(id, cs);
 					}else{
-						nonKanjiStartContactsHashMap.put(id, cs);
+						nonChineseCharacterStartContactsHashMap.put(id, cs);
 					}
 					
 				}
@@ -609,20 +609,20 @@ public class ContactsHelper {
 			}
 		}
 		
-		kanjiStartContacts.addAll(kanjiStartContactsHashMap.values());
-		Collections.sort(kanjiStartContacts, Contacts.mAscComparator);
+		chineseCharacterStartContacts.addAll(chineseCharacterStartContactsHashMap.values());
+		Collections.sort(chineseCharacterStartContacts, Contacts.mAscComparator);
 		
-		nonKanjiStartContacts.addAll(nonKanjiStartContactsHashMap.values());
-		Collections.sort(nonKanjiStartContacts, Contacts.mAscComparator);
+		nonChineseCharacterStartContacts.addAll(nonChineseCharacterStartContactsHashMap.values());
+		Collections.sort(nonChineseCharacterStartContacts, Contacts.mAscComparator);
 		
-		//contacts.addAll(nonKanjiStartContacts);
-		contacts.addAll(kanjiStartContacts);
+		//contacts.addAll(nonChineseCharacterStartContacts);
+		contacts.addAll(chineseCharacterStartContacts);
 	
-		//merge nonKanjiStartContacts and kanjiStartContacts
+		//merge nonChineseCharacterStartContacts and chineseCharacterStartContacts
 		int lastIndex=0;
 		boolean shouldBeAdd=false;
-		for(int i=0; i<nonKanjiStartContacts.size(); i++){
-			String nonKanfirstLetter=PinyinUtil.getFirstLetter(nonKanjiStartContacts.get(i).getNamePinyinSearchUnit());
+		for(int i=0; i<nonChineseCharacterStartContacts.size(); i++){
+			String nonKanfirstLetter=PinyinUtil.getFirstLetter(nonChineseCharacterStartContacts.get(i).getNamePinyinSearchUnit());
 			//Log.i(TAG, "nonKanfirstLetter=["+nonKanfirstLetter+"]");
 			int j=0;
 			for(j=0+lastIndex; j<contacts.size(); j++){
@@ -643,7 +643,7 @@ public class ContactsHelper {
 			}
 			
 			if(true==shouldBeAdd){
-				contacts.add(j, nonKanjiStartContacts.get(i));
+				contacts.add(j, nonChineseCharacterStartContacts.get(i));
 				shouldBeAdd=false;
 			}
 		}

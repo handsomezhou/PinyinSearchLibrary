@@ -5,7 +5,7 @@ android {
     buildToolsVersion "24.0.2"
     defaultConfig {
         applicationId "com.handsomezhou.contactssearch"
-        minSdkVersion 9
+        minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -26,4 +26,10 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.0.0'
     testCompile 'junit:junit:4.12'
+
+    /**
+     *   一行代码搞定漂亮的Android6.0权限
+     *   https://github.com/yewei02538/HiPermission
+     */
+    compile 'me.weyye.hipermission:library:1.0.7'
 }

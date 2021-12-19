@@ -2,6 +2,8 @@
     <string name="app_name">联系人搜索</string>
     <string name="t9_search">T9 search</string>
     <string name="qwerty_search">Qwerty search</string>
+    <string name="contacts">联系人</string>
+    <string name="can_not_read_contacts_data_tips">无法读取到联系人数据,无法演示联系人搜索!</string>
     <string name="contacts_detail">联系人详情</string>
     <string name="t9_keyboard_input_prompt">输入号码或拼音</string>
     <string name="qwerty_keyboard_input_prompt">输入号码或拼音</string>
