@@ -75,7 +75,7 @@ public class PinyinUtil {
 				nonPinyinString.append(ch);
 			} else {
 				if (false == lastChineseCharacters) {
-					// add continuous non-kanji characters to PinyinUnit
+					// add continuous non-ChineseCharacter characters to PinyinUnit
 					originalString = nonPinyinString.toString();
 					String[] str = { nonPinyinString.toString() };
 					addPinyinUnit(pinyinSearchUnit.getPinyinUnits(), pyUnit, false, originalString,str, startPosition);
@@ -93,7 +93,7 @@ public class PinyinUtil {
 		}
 
 		if (false == lastChineseCharacters) {
-			// add continuous non-kanji characters to PinyinUnit
+			// add continuous non-ChineseCharacter characters to PinyinUnit
 			originalString = nonPinyinString.toString();
 			String[] str = { nonPinyinString.toString() };
 			addPinyinUnit(pinyinSearchUnit.getPinyinUnits(), pyUnit, false, originalString, str,startPosition);
